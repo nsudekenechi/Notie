@@ -4,6 +4,7 @@ import { useStyle } from "../hooks/customStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper";
 import { HomeFeedback } from "../components/HomeFeedback";
+import Typed from "react-typed";
 export const Home = () => {
   const { mode, borderColor, borderColor2, bodyColor } = useStyle();
 
@@ -39,10 +40,16 @@ export const Home = () => {
 
       <section className="py-10 grid  grid-cols-1 md:grid-cols-2">
         <div className="col-span-1">
-          <h1 className="text-6xl font-bold leading-[70px]">
+          <h1 className="h-[220px] text-6xl font-bold leading-[70px]">
             All Your Notes <br /> Organized,
             <br />
-            <span className="text-[#54428E]">Effortlessly.</span>
+            <Typed
+              strings={["Effortlessly.", "Efficiently."]}
+              typeSpeed={100}
+              cursorChar=""
+              className="text-[#54428E]"
+              loop
+            />
           </h1>
           <b className="text-lg">Create, Organize, Share</b>
           <p className="text-sm opacity-40 italic">
@@ -101,7 +108,7 @@ export const Home = () => {
             spaceBetween={30}
             centeredSlides={true}
             autoplay={{
-              delay: 3500,
+              delay: 4000,
               disableOnInteraction: false,
             }}
             // effect={"fade"}
