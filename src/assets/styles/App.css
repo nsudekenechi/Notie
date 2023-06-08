@@ -2,3 +2,21 @@ body {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
+
+.swiper-pagination-bullet {
+  background-color: #54428f;
+}
+.swiper-pagination-bullet-active {
+  background-color: transparent;
+  border: solid 0.2px #54428f;
+  position: relative;
+}
+.swiper-pagination-bullet-active::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background: #54428f;
+  transform: translate(-50%, 50%);
+  border-radius: 50%;
+}

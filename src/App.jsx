@@ -1,3 +1,5 @@
+import "swiper/swiper-bundle.min.css";
+
 import "./assets/styles/App.css";
 import "./assets/styles/index.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
