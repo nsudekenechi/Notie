@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { GoNote } from "react-icons/go";
 import { useStyle } from "../hooks/customStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper";
+import { Autoplay, Pagination, Navigation, EffectFade } from "swiper";
 import { HomeFeedback } from "../components/HomeFeedback";
 export const Home = () => {
   const { mode, borderColor, borderColor2, bodyColor } = useStyle();
@@ -91,6 +91,36 @@ export const Home = () => {
                 name={"Kenechi Nsude"}
                 quote={"Notie is like my secret creative super power"}
                 job={"Painter"}
+              />
+            </SwiperSlide>
+          </Swiper>
+        </div>
+        <div className="col-span-1">
+          <Swiper
+            direction={"vertical"}
+            spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: false,
+            }}
+            // effect={"fade"}
+            loop={true}
+            modules={[Autoplay, Navigation, EffectFade]}
+            className="w-[100%] h-[80vh]"
+          >
+            <SwiperSlide>
+              <img
+                src="./Img/home.png"
+                className="w-[100%] h-[100%] object-contain"
+                alt=""
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img
+                src="./Img/home2.png"
+                className="w-[100%] h-[100%] object-contain"
+                alt=""
               />
             </SwiperSlide>
           </Swiper>
