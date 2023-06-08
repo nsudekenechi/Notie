@@ -4,13 +4,15 @@ import { useStyle } from "../hooks/customStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper";
 import { HomeFeedback } from "../components/HomeFeedback";
+import { BiSun, BiMoon } from "react-icons/bi";
+import { motion } from "framer-motion";
 import Typed from "react-typed";
 export const Home = () => {
-  const { mode, borderColor, borderColor2, bodyColor } = useStyle();
+  const { mode, borderColor, borderColor2, bodyColor, toogleMode } = useStyle();
 
   return (
     <div
-      className={`overflow-hidden h-[100vh] px-5 md:px-[2vw] lg:px-[5vw] py-5 ${bodyColor}`}
+      className={` duration-500 overflow-hidden h-[100vh] px-5 md:px-[2vw] lg:px-[5vw] py-5 ${bodyColor}`}
     >
       <nav className="flex justify-between items-center ">
         <Link to={"/"} className="flex items-center gap-x-2 text-xl font-bold">
@@ -20,13 +22,28 @@ export const Home = () => {
           </span>
         </Link>
         <div className="flex items-center gap-x-10 text-sm">
+          <div
+            className={`cursor-pointer  w-[50px] rounded-full h-[20px] ${
+              mode ? "bg-white/40" : "bg-black/5"
+            }  flex items-center`}
+            onClick={toogleMode}
+          >
+            <motion.div
+              className={`h-[20px] w-[20px] rounded-full ${bodyColor} shadow-lg flex justify-center items-center`}
+              initial={{ x: 0 }}
+              animate={{ x: mode ? 30 : 0 }}
+              transition={{ duration: 1 }}
+            >
+              {mode ? <BiMoon /> : <BiSun />}
+            </motion.div>
+          </div>
           <Link to={"/login"} className="">
             Login
           </Link>
           <Link
             to="/signup"
             className={`hover:scale-95  hover:shadow-lg duration-1000 rounded-md ${
-              mode ? "bg-[#54428E] " : "border border-[#54428E]"
+              mode ? "bg-[#54428E] border-none" : "border border-[#54428E]"
             }  p-3 px-5 flex items-center gap-x-1`}
           >
             <b>Sign Up</b>
