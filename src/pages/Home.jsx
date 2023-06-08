@@ -12,18 +12,25 @@ export const Home = () => {
 
   return (
     <div
-      className={` duration-500 overflow-hidden h-[100vh] px-5 md:px-[2vw] lg:px-[5vw] py-5 ${bodyColor}`}
+      className={` duration-500 md:overflow-hidden md:h-[100vh] ]  ${bodyColor}`}
     >
-      <nav className="flex justify-between items-center ">
-        <Link to={"/"} className="flex items-center gap-x-2 text-xl font-bold">
+      <nav
+        className={`  px-5 md:px-[4vw] lg:px-[5vw]  sticky  top-0 ${
+          mode ? "bg-black/70" : "bg-white/70"
+        } backdrop-blur-sm  py-5 md:py-2  flex justify-between items-center md:bg-transparent`}
+      >
+        <Link
+          to={"/"}
+          className="flex items-center gap-x-2 text-3xl lg:text-xl font-bold"
+        >
           <GoNote className="" />
           <span>
             Notie<span className="text-[#54428E]">.</span>
           </span>
         </Link>
-        <div className="flex items-center gap-x-10 text-sm">
+        <div className="flex items-center gap-x-10 lg:text-sm">
           <div
-            className={`cursor-pointer  w-[50px] rounded-full h-[20px] ${
+            className={`cursor-pointer h-[20px] w-[50px] rounded-full  ${
               mode ? "bg-white/40" : "bg-black/5"
             }  flex items-center`}
             onClick={toogleMode}
@@ -37,14 +44,14 @@ export const Home = () => {
               {mode ? <BiMoon /> : <BiSun />}
             </motion.div>
           </div>
-          <Link to={"/login"} className="">
+          <Link to={"/login"} className="hidden md:flex">
             Login
           </Link>
           <Link
             to="/signup"
-            className={`hover:scale-95  hover:shadow-lg duration-1000 rounded-md ${
+            className={`  hover:scale-95  hover:shadow-lg duration-1000 rounded-md ${
               mode ? "bg-[#54428E] border-none" : "border border-[#54428E]"
-            }  p-3 px-5 flex items-center gap-x-1`}
+            }  p-3 px-5 hidden md:flex items-center gap-x-1`}
           >
             <b>Sign Up</b>
             <span
@@ -55,28 +62,28 @@ export const Home = () => {
         </div>
       </nav>
 
-      <section className="py-10 grid  grid-cols-1 md:grid-cols-2">
+      <section className="px-5 md:px-[4vw] lg:px-[5vw]  py-10 grid gap-y-10 grid-cols-1 md:grid-cols-2  md:gap-x-10">
         <div className="col-span-1">
-          <h1 className="h-[220px] text-6xl font-bold leading-[70px]">
+          <h1 className=" text-6xl font-bold leading-[70px]">
             All Your Notes <br /> Organized,
             <br />
             <Typed
               strings={["Effortlessly.", "Efficiently."]}
               typeSpeed={100}
               cursorChar=""
-              className="text-[#54428E]"
+              className="text-[#54428E] h-[80px] block"
               loop
             />
           </h1>
-          <b className="text-lg">Create, Organize, Share</b>
-          <p className="text-sm opacity-40 italic">
+          <b className=" text-xl lg:text-lg">Create, Organize, Share</b>
+          <p className=" text-lg lg:text-sm opacity-40 italic">
             Inspiration Strikes anywhere. Notie, lets you capture,
             <br /> create, organize and save your ideas.
           </p>
           <Link
-            className={` shadow-lg my-10  ${
+            className={`text-xl lg:text-lg shadow-lg my-10  ${
               mode ? "bg-white text-black" : "bg-black text-white"
-            }  p-5 rounded-full  md:w-[50%]  flex items-center font-bold justify-center gap-x-1`}
+            }  p-5 rounded-full  lg:w-[50%]  flex items-center font-bold justify-center gap-x-1`}
           >
             Get Started
             <span
@@ -136,14 +143,14 @@ export const Home = () => {
             <SwiperSlide>
               <img
                 src="./Img/home.png"
-                className="w-[100%] h-[100%] object-contain"
+                className="w-[100%] h-[100%]  object-cover lg:object-contain"
                 alt=""
               />
             </SwiperSlide>
             <SwiperSlide>
               <img
                 src="./Img/home2.png"
-                className="w-[100%] h-[100%] object-contain"
+                className="w-[100%] h-[100%]  object-cover lg:object-contain"
                 alt=""
               />
             </SwiperSlide>
