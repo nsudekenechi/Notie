@@ -19,4 +19,19 @@ export const useStyle = () => {
         bodyColor: darkmode ? "bg-black text-white" : "bg-white text-black"
     }
 }
+export const useInput = () => {
+    const [focus, setFocus] = useState(true)
+    const onFocus = () => {
+        setFocus(!focus)
+    }
+    const onBlur = () => {
+        setFocus(!focus)
+    }
 
+    return {
+        onFocus,
+        onBlur,
+        translateY: focus ? "50%" : 0,
+        border: focus ? "0.1px solid rgba(0,0,0,.2)" : "0.1px solid #54428E",
+    }
+}
