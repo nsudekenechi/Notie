@@ -29,6 +29,7 @@ export const useInput = () => {
     }
 
     return {
+        focus,
         onFocus,
         onBlur,
         translateY: focus ? "50%" : 0,
