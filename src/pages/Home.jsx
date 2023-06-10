@@ -14,6 +14,7 @@ export const Home = () => {
   return (
     <div
       className={` duration-500 md:overflow-hidden md:h-[100vh] ]  ${bodyColor}`}
+      id="home"
     >
       <nav
         className={`  px-5 md:px-[4vw] lg:px-[5vw]  sticky  top-0 ${
@@ -112,7 +113,7 @@ export const Home = () => {
               },
             }}
             modules={[Autoplay, Pagination, Navigation]}
-            className="w-[100%] "
+            className="w-[100%] h-[18vh]"
           >
             <SwiperSlide>
               <HomeFeedback

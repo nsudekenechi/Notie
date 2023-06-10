@@ -36,3 +36,34 @@ export const useInput = () => {
         border: focus ? "0.1px solid rgba(0,0,0,.2)" : "0.1px solid #54428E",
     }
 }
+export const useAnimateSlide = () => {
+    const [slide, setSlide] = useState(0)
+
+    const sliders = [{
+        img: "home.png",
+        title: "Connect with every Application",
+        subtitle: "Everything You need in an easy customizable dashboard."
+    }, {
+        img: "home2.png",
+        title: "Connect with every Application",
+        subtitle: "Everything You need in an easy customizable dashboard."
+    }];
+    const slideAnimation = {
+        init: {
+            opacity: 0,
+            scale: 0.1,
+            borderRadius: "50%",
+        },
+        animate: {
+            opacity: 1,
+            scale: 0.7,
+            borderRadius: "0%",
+
+        },
+    }
+    const onSlide = (index) => {
+        setSlide(index)
+    }
+
+    return { slide, onSlide, sliders, slideAnimation }
+}
