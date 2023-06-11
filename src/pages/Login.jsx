@@ -7,10 +7,10 @@ import { BsFacebook } from "react-icons/bs";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
 import { Autoplay, Pagination } from "swiper";
-import { useAnimateSlide } from "../hooks/customStyle";
+import { useAnimateSlide, useFormValidation } from "../hooks/customStyle";
 export const Login = () => {
   const { onSlide, slide, sliders, slideAnimation } = useAnimateSlide();
-
+  const { handleSubmit, onSubmit, register, errors } = useFormValidation();
   return (
     <section
       className="md:overflow-hidden md:h-[100vh] pl-5 grid grid-cols-2 "
@@ -31,7 +31,7 @@ export const Login = () => {
             </p>
           </div>
 
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid  grid-cols-1 md:grid-cols-2  gap-x-5 px-10">
               <button className="col-span-1 flex items-center justify-center gap-x-2 p-2 border rounded-full">
                 <FcGoogle /> Google
@@ -45,12 +45,21 @@ export const Login = () => {
             <div className="border-t border-b flex justify-center text-sm text-black/80 items-center py-2 my-5">
               <p className="">or continue with email</p>
             </div>
-            <div className="flex flex-col gap-y-5">
-              <Input name={"Email"} type={"email"} icon={<HiMail />} />
+            <div className="flex flex-col gap-y-2">
+              <Input
+                name={"Email"}
+                type={"email"}
+                icon={<HiMail />}
+                register={register}
+                error={errors.Email?.message}
+              />
+              <span className="text-xs text-red-600">{}</span>
               <Input
                 name={"Password"}
                 type={"Password"}
                 icon={<HiLockClosed />}
+                register={register}
+                error={errors.Password?.message}
               />
               <div className="flex justify-between  text-sm">
                 <label className="flex items-center  gap-x-2">
@@ -59,7 +68,10 @@ export const Login = () => {
                 </label>
                 <p className="">
                   Dont have an account?{" "}
-                  <Link className="text-[#54428E] italic font-bold">
+                  <Link
+                    to={"/signup"}
+                    className="text-[#54428E] italic font-bold"
+                  >
                     Create an account
                   </Link>
                 </p>

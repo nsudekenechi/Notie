@@ -1,15 +1,16 @@
 import { motion } from "framer-motion";
 import { useInput } from "../hooks/customStyle";
 import PropTypes from "prop-types";
-export const Input = ({ type, name, icon }) => {
-  const { focus, onFocus, onBlur, translateY, border } = useInput();
-
+export const Input = ({ type, name, icon, register, error }) => {
+  const { focus, onFocus, onBlur, translateY, border, errorBorder } =
+    useInput();
+  console.log(error);
   return (
     <div className="flex flex-col gap-y-2">
-      <p>{name}</p>
+      <p className="text-sm">{name}</p>
       <motion.div
         initial={{ border }}
-        animate={{ border }}
+        animate={{ border: error ? errorBorder : border }}
         className={`duration-1000 flex flex-col justify-center  h-[60px] px-5 `}
       >
         <motion.div
@@ -25,10 +26,12 @@ export const Input = ({ type, name, icon }) => {
         <input
           type={type}
           className="outline-none focus:text-[#54428E]"
+          {...register(name)}
           onFocus={onFocus}
           onBlur={onBlur}
         />
       </motion.div>
+      <span className="text-xs text-red-600">{error}</span>
     </div>
   );
 };
@@ -36,4 +39,6 @@ Input.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string,
   icon: PropTypes.any,
+  register: PropTypes.func,
+  error: PropTypes.string,
 };

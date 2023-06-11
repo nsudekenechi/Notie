@@ -1,9 +1,9 @@
 import { useState } from "react"
+import { useForm } from "react-hook-form"
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup"
 
-// export const useBorder = (mode) => {
-//     return mode ? "border-white" : "border-black"
-// }
-
+// Custom Hook for switching dark/light mode
 export const useStyle = () => {
     const [darkmode, setDarkMode] = useState(false)
     const toogleMode = () => {
@@ -21,11 +21,11 @@ export const useStyle = () => {
 }
 export const useInput = () => {
     const [focus, setFocus] = useState(true)
-    const onFocus = () => {
-        setFocus(!focus)
+    const onFocus = (e) => {
+        setFocus(e.target.value != "" ? false : false)
     }
-    const onBlur = () => {
-        setFocus(!focus)
+    const onBlur = (e) => {
+        setFocus(e.target.value != "" ? false : true)
     }
 
     return {
@@ -34,6 +34,8 @@ export const useInput = () => {
         onBlur,
         translateY: focus ? "50%" : 0,
         border: focus ? "0.1px solid rgba(0,0,0,.2)" : "0.1px solid #54428E",
+        errorBorder: "0.1px solid red"
+
     }
 }
 export const useAnimateSlide = () => {
@@ -66,4 +68,19 @@ export const useAnimateSlide = () => {
     }
 
     return { slide, onSlide, sliders, slideAnimation }
+}
+
+export const useFormValidation = () => {
+    const schema = yup.object().shape({
+        Email: yup.string().email("Please enter a valid email address").required("Field is required"),
+        Password: yup.string().min(6, "Password must be atleast 6 characters").required("Field is required")
+    })
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
+    const onSubmit = () => {
+        reset();
+    }
+    return { register, handleSubmit, onSubmit, errors }
 }
