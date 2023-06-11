@@ -1,17 +1,15 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
-import { HiOutlineUser, HiMail, HiLockClosed } from "react-icons/hi";
-import { FcGoogle } from "react-icons/fc";
-import { BsFacebook } from "react-icons/bs";
+import { HiOutlineUser, HiMail, HiLockClosed, HiUser } from "react-icons/hi";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
 import { Autoplay, Pagination } from "swiper";
 import { useAnimateSlide, useFormValidation } from "../hooks/customStyle";
-export const Login = () => {
+export const Signup = () => {
   const { onSlide, slide, sliders, slideAnimation } = useAnimateSlide();
-  const { handleSubmit, onSubmit, register, errors } =
-    useFormValidation().login;
+  const { handleSubmit, onSubmit, register } = useFormValidation().login;
   return (
     <section
       className="md:overflow-hidden md:h-[100vh] pl-5 grid grid-cols-2 "
@@ -26,59 +24,45 @@ export const Login = () => {
             <div className="w-8 h-8 rounded-lg border flex justify-center  items-center">
               <HiOutlineUser className="text-sm" />
             </div>
-            <h1 className="text-2xl">Sign In To Your Account</h1>
+            <h1 className="text-2xl">Sign Up To Your Account</h1>
             <p className="text-sm text-black/40 italic">
-              Welcome back! Please enter your details
+              Enter your details to get started with Notie
             </p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid  grid-cols-1 md:grid-cols-2  gap-x-5 px-10">
-              <button className="col-span-1 flex items-center justify-center gap-x-2 p-2 border rounded-full">
-                <FcGoogle /> Google
-              </button>
-
-              <button className="col-span-1 flex items-center justify-center gap-x-2 p-2 border rounded-full">
-                <BsFacebook className="text-blue-500" /> Facebook
-              </button>
-            </div>
-
-            <div className="border-t border-b flex justify-center text-sm text-black/80 items-center py-2 my-5">
-              <p className="">or continue with email</p>
-            </div>
             <div className="flex flex-col gap-y-2">
+              <Input
+                name={"Fullname"}
+                type={"text"}
+                icon={<HiUser />}
+                register={register}
+                error={""}
+              />
               <Input
                 name={"Email"}
                 type={"email"}
                 icon={<HiMail />}
                 register={register}
-                error={errors.Email?.message}
+                error={""}
               />
-              <span className="text-xs text-red-600">{}</span>
+
               <Input
                 name={"Password"}
-                type={"Password"}
+                type={"password"}
                 icon={<HiLockClosed />}
                 register={register}
-                error={errors.Password?.message}
+                error={""}
               />
-              <div className="flex justify-between  text-sm">
-                <label className="flex items-center  gap-x-2">
-                  <input type="checkbox" className="accent-[#54428E]" />
-                  <p>Remember Me</p>
-                </label>
-                <p className="">
-                  Dont have an account?{" "}
-                  <Link
-                    to={"/signup"}
-                    className="text-[#54428E] italic font-bold"
-                  >
-                    Create an account
-                  </Link>
-                </p>
-              </div>
+              <Input
+                name={"Confirm Password"}
+                type={"password"}
+                icon={<HiLockClosed />}
+                register={register}
+              />
+
               <button className="bg-[#54428E] p-3 text-white rounded-md">
-                Sign in
+                Sign Up
               </button>
             </div>
           </form>

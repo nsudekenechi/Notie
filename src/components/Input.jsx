@@ -4,14 +4,13 @@ import PropTypes from "prop-types";
 export const Input = ({ type, name, icon, register, error }) => {
   const { focus, onFocus, onBlur, translateY, border, errorBorder } =
     useInput();
-  console.log(error);
   return (
     <div className="flex flex-col gap-y-2">
       <p className="text-sm">{name}</p>
       <motion.div
         initial={{ border }}
         animate={{ border: error ? errorBorder : border }}
-        className={`duration-1000 flex flex-col justify-center  h-[60px] px-5 `}
+        className={`duration-1000 flex flex-col justify-center  h-[50px] px-5 py-3`}
       >
         <motion.div
           initial={{ translateY }}

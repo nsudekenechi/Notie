@@ -32,7 +32,7 @@ export const useInput = () => {
         focus,
         onFocus,
         onBlur,
-        translateY: focus ? "50%" : 0,
+        translateY: focus ? "60%" : 0,
         border: focus ? "0.1px solid rgba(0,0,0,.2)" : "0.1px solid #54428E",
         errorBorder: "0.1px solid red"
 
@@ -82,5 +82,5 @@ export const useFormValidation = () => {
     const onSubmit = () => {
         reset();
     }
-    return { register, handleSubmit, onSubmit, errors }
+    return { login: { register, handleSubmit, onSubmit, errors } }
 }
