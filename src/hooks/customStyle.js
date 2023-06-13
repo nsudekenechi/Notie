@@ -41,15 +41,7 @@ export const useInput = () => {
 export const useAnimateSlide = () => {
     const [slide, setSlide] = useState(0)
 
-    const sliders = [{
-        img: "home.png",
-        title: "Connect with every Application",
-        subtitle: "Everything You need in an easy customizable dashboard."
-    }, {
-        img: "home2.png",
-        title: "Connect with every Application",
-        subtitle: "Everything You need in an easy customizable dashboard."
-    }];
+
     const slideAnimation = {
         init: {
             opacity: 0,
@@ -67,7 +59,7 @@ export const useAnimateSlide = () => {
         setSlide(index)
     }
 
-    return { slide, onSlide, sliders, slideAnimation }
+    return { slide, onSlide, slideAnimation }
 }
 
 export const useFormValidation = (schema) => {

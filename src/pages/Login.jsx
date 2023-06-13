@@ -4,13 +4,10 @@ import { Logo } from "../components/Logo";
 import { HiOutlineUser, HiMail, HiLockClosed } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { motion } from "framer-motion";
-import { Autoplay, Pagination } from "swiper";
-import { useAnimateSlide, useFormValidation } from "../hooks/customStyle";
+import { useFormValidation } from "../hooks/customStyle";
 import * as yup from "yup";
+import { RightPanelSlider } from "../components/RightPanelSlider";
 export const Login = () => {
-  const { onSlide, slide, sliders, slideAnimation } = useAnimateSlide();
   const schema = yup.object().shape({
     Email: yup
       .string()
@@ -23,6 +20,7 @@ export const Login = () => {
   });
   const { handleSubmit, onSubmit, register, errors } =
     useFormValidation(schema);
+
   return (
     <section
       className="md:overflow-hidden md:h-[100vh] pl-5 grid grid-cols-2 "
@@ -95,43 +93,21 @@ export const Login = () => {
           </form>
         </div>
       </div>
-      <div className="col-span-1  hidden md:flex bg-[#54428E] justify-center items-center text-white py-10">
-        <Swiper
-          modules={[Autoplay, Pagination]}
-          pagination={{}}
-          autoplay={{ delay: 3500 }}
-          loop
-          className=" h-[90vh]"
-          onSlideChange={(e) => onSlide(e.realIndex)}
-        >
-          {sliders.map((item, index) => (
-            <SwiperSlide
-              key={index}
-              className="flex justify-center gap-y-3 flex-col items-center"
-            >
-              <motion.div
-                initial={slideAnimation.init}
-                animate={
-                  slide == index ? slideAnimation.animate : slideAnimation.init
-                }
-                transition={{ duration: 0.6 }}
-                className="h-[400px] w-[100%] overflow-hidden"
-              >
-                <img
-                  src={`./Img/${item.img}`}
-                  className="w-[100%] h-[100%] object-cover"
-                  alt=""
-                />
-              </motion.div>
 
-              <div className="flex  flex-col items-center gap-y-3 justify-center  ">
-                <h1 className="text-2xl">{item.title}</h1>
-                <p className="text-white/80 text-sm">{item.subtitle}</p>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <RightPanelSlider
+        sliders={[
+          {
+            img: "home.png",
+            title: "Connect with every Application",
+            subtitle: "Everything You need in an easy customizable dashboard.",
+          },
+          {
+            img: "home2.png",
+            title: "Connect with every Application",
+            subtitle: "Everything You need in an easy customizable dashboard.",
+          },
+        ]}
+      />
     </section>
   );
 };
