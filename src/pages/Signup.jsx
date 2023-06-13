@@ -2,6 +2,7 @@
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
 import { HiOutlineUser, HiMail, HiLockClosed, HiUser } from "react-icons/hi";
+import * as yup from "yup";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
@@ -9,19 +10,36 @@ import { Autoplay, Pagination } from "swiper";
 import { useAnimateSlide, useFormValidation } from "../hooks/customStyle";
 export const Signup = () => {
   const { onSlide, slide, sliders, slideAnimation } = useAnimateSlide();
-  const { handleSubmit, onSubmit, register } = useFormValidation().login;
+  const schema = yup.object().shape({
+    Email: yup
+      .string()
+      .required("Field is required")
+      .email("Please enter a valid email address"),
+
+    Fullname: yup.string().required("Field is required"),
+    Password: yup
+      .string()
+      .required("Field is required")
+      .min(6, "Password must be atleast 6 characters"),
+    ConfirmPassword: yup
+      .string()
+      .required("Field is required")
+      .oneOf([yup.ref("Password"), null], "Password don't match!"),
+  });
+  const { handleSubmit, onSubmit, register, errors } =
+    useFormValidation(schema);
   return (
     <section
-      className="md:overflow-hidden md:h-[100vh] pl-5 grid grid-cols-2 "
+      className="md:overflow-hidden md:h-[100vh] pl-5 grid  grid-col-1 md:grid-cols-2 "
       id="login"
     >
       <div className="col-span-1  py-5">
         <div>
           <Logo />
         </div>
-        <div className="px-20 py-10">
+        <div className="px-5  md:px-20 py-10">
           <div className="flex flex-col gap-y-2 mb-5">
-            <div className="w-8 h-8 rounded-lg border flex justify-center  items-center">
+            <div className="w-5 h-5 rounded-lg border flex justify-center  items-center">
               <HiOutlineUser className="text-sm" />
             </div>
             <h1 className="text-2xl">Sign Up To Your Account</h1>
@@ -37,14 +55,14 @@ export const Signup = () => {
                 type={"text"}
                 icon={<HiUser />}
                 register={register}
-                error={""}
+                error={errors.Fullname?.message}
               />
               <Input
                 name={"Email"}
                 type={"email"}
                 icon={<HiMail />}
                 register={register}
-                error={""}
+                error={errors.Email?.message}
               />
 
               <Input
@@ -52,13 +70,14 @@ export const Signup = () => {
                 type={"password"}
                 icon={<HiLockClosed />}
                 register={register}
-                error={""}
+                error={errors.Password?.message}
               />
               <Input
                 name={"Confirm Password"}
                 type={"password"}
                 icon={<HiLockClosed />}
                 register={register}
+                error={errors.ConfirmPassword?.message}
               />
 
               <button className="bg-[#54428E] p-3 text-white rounded-md">

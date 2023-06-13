@@ -8,10 +8,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
 import { Autoplay, Pagination } from "swiper";
 import { useAnimateSlide, useFormValidation } from "../hooks/customStyle";
+import * as yup from "yup";
 export const Login = () => {
   const { onSlide, slide, sliders, slideAnimation } = useAnimateSlide();
+  const schema = yup.object().shape({
+    Email: yup
+      .string()
+      .email("Please enter a valid email address")
+      .required("Field is required"),
+    Password: yup
+      .string()
+      .min(6, "Password must be atleast 6 characters")
+      .required("Field is required"),
+  });
   const { handleSubmit, onSubmit, register, errors } =
-    useFormValidation().login;
+    useFormValidation(schema);
   return (
     <section
       className="md:overflow-hidden md:h-[100vh] pl-5 grid grid-cols-2 "

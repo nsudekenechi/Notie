@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import * as yup from "yup"
+
 import { yupResolver } from "@hookform/resolvers/yup"
 
 // Custom Hook for switching dark/light mode
@@ -70,17 +70,16 @@ export const useAnimateSlide = () => {
     return { slide, onSlide, sliders, slideAnimation }
 }
 
-export const useFormValidation = () => {
-    const schema = yup.object().shape({
-        Email: yup.string().email("Please enter a valid email address").required("Field is required"),
-        Password: yup.string().min(6, "Password must be atleast 6 characters").required("Field is required")
-    })
+export const useFormValidation = (schema) => {
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
+
+
     const onSubmit = () => {
         reset();
     }
-    return { login: { register, handleSubmit, onSubmit, errors } }
+    return { register, handleSubmit, onSubmit, errors }
 }

@@ -24,8 +24,8 @@ export const Input = ({ type, name, icon, register, error }) => {
         </motion.div>
         <input
           type={type}
-          className="outline-none focus:text-[#54428E]"
-          {...register(name)}
+          className="outline-none bg-white focus:text-[#54428E]"
+          {...register(name.replace(/ /g, ""))}
           onFocus={onFocus}
           onBlur={onBlur}
         />
