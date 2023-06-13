@@ -4,7 +4,7 @@ export const Logo = () => {
   return (
     <Link
       to={"/"}
-      className="flex items-center gap-x-2 text-3xl lg:text-xl font-bold"
+      className="flex items-center gap-x-2 text-lg lg:text-xl font-bold"
     >
       <GoNote className="" />
       <span>

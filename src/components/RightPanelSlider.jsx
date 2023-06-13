@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export const RightPanelSlider = ({ sliders }) => {
   const { onSlide, slide, slideAnimation } = useAnimateSlide();
   return (
-    <div className="col-span-1  hidden md:flex bg-[#54428E] justify-center items-center text-white py-10">
+    <div className="col-span-1  hidden md:flex bg-[#54428E] justify-center items-center text-white py-10 px-4">
       <Swiper
         modules={[Autoplay, Pagination]}
         pagination={{}}
@@ -35,7 +35,7 @@ export const RightPanelSlider = ({ sliders }) => {
               />
             </motion.div>
 
-            <div className="flex  flex-col items-center gap-y-3 justify-center  ">
+            <div className="flex text-center flex-col items-center gap-y-3 justify-center  ">
               <h1 className="text-2xl">{item.title}</h1>
               <p className="text-white/80 text-sm">{item.subtitle}</p>
             </div>

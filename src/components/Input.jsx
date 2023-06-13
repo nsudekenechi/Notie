@@ -5,17 +5,17 @@ export const Input = ({ type, name, icon, register, error }) => {
   const { focus, onFocus, onBlur, translateY, border, errorBorder } =
     useInput();
   return (
-    <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col gap-y-4 md:gap-y-2">
       <p className="text-sm">{name}</p>
       <motion.div
         initial={{ border }}
         animate={{ border: error ? errorBorder : border }}
-        className={`duration-1000 flex flex-col justify-center  h-[50px] px-5 py-3`}
+        className={`duration-1000 flex flex-col justify-center h-[] md:h-[8vh] lg:h-[9vh] px-5 py-3`}
       >
         <motion.div
           initial={{ translateY }}
           animate={{ translateY }}
-          className={`text-xs flex items-center gap-x-2 ${
+          className={`text-xs md:text-sm flex items-center gap-x-2 ${
             focus ? "text-black" : "text-black/40 italic duration-200"
           }`}
         >

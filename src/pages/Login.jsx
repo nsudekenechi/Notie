@@ -35,10 +35,12 @@ export const Login = () => {
             <div className="w-8 h-8 rounded-lg border flex justify-center  items-center">
               <HiOutlineUser className="text-sm" />
             </div>
-            <h1 className="text-2xl">Sign In To Your Account</h1>
-            <p className="text-sm text-black/40 italic">
-              Welcome back! Please enter your details
-            </p>
+            <div>
+              <h1 className="text-2xl">Sign In To Your Account</h1>
+              <p className="text-sm text-black/40 italic">
+                Welcome back! Please enter your details
+              </p>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
