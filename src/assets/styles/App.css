@@ -23,11 +23,13 @@ body {
 #login .swiper-pagination-bullet {
   background-color: white;
 }
-#login .swiper-pagination-bullets {
-  /* bottom: -10px; */
-  /* position: absolute; */
+.active {
+  background-color: rgb(243 232 255 / 0.8);
+  border-left: 3px solid rgb(147 51 234);
+  border-right: 1px solid rgb(147 51 234);
+
+  color: black !important;
 }
-/* .swiper-pagination-bullet-active {
-  width: 20px;
-  height: 20px;
-} */
+.active span {
+  color: rgb(147 51 234);
+}
