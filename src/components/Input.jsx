@@ -10,7 +10,7 @@ export const Input = ({ type, name, icon, register, error }) => {
       <motion.div
         initial={{ border }}
         animate={{ border: error ? errorBorder : border }}
-        className={`duration-1000 flex flex-col justify-center h-[] md:h-[8vh] lg:h-[9vh] px-5 py-3`}
+        className={`duration-1000 flex flex-col justify-center h-[50px] md:h-[8vh] lg:h-[9vh] px-5 py-3`}
       >
         <motion.div
           initial={{ translateY }}
