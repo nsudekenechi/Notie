@@ -1,17 +1,18 @@
 import { Logo } from "../components/Logo";
 import { CiSearch } from "react-icons/ci";
-import { FaStickyNote, FaFolder } from "react-icons/fa";
-import { TiThMenuOutline } from "react-icons/ti";
+import { FaStickyNote } from "react-icons/fa";
+import { TiThMenuOutline, TiPin } from "react-icons/ti";
 import { RiLogoutCircleRLine, RiDeleteBin2Fill } from "react-icons/ri";
 import { IoIosSettings } from "react-icons/io";
 import { VscArchive, VscHeartFilled } from "react-icons/vsc";
 import { motion } from "framer-motion";
 import { useInput } from "../hooks/customStyle";
 import { DashboardNavLink } from "../components/DashboardNavLink";
+import { Note } from "../components/Note";
 export const Dashboard = () => {
   const { focus, onBlur, onFocus } = useInput();
   return (
-    <div className="bg-purple-100/80 ">
+    <div className=" ">
       <header className="h-[10vh] grid grid-cols-6 content-center py-5 bg-white px-10 ">
         <div className="col-span-1 flex">
           <Logo />
@@ -47,17 +48,8 @@ export const Dashboard = () => {
         </div>
       </header>
       <main className="grid grid-cols-6 h-[90vh]">
-        <nav className="col-span-1 bg-white text-sm flex flex-col gap-y-2">
-          <DashboardNavLink
-            icon={<FaStickyNote />}
-            name={"all notes"}
-            to={""}
-          />
-          <DashboardNavLink
-            icon={<FaFolder />}
-            name={"all folders"}
-            to={"/folder"}
-          />
+        <nav className="col-span-1 bg-white text-sm hidden md:flex flex-col gap-y-2">
+          <DashboardNavLink icon={<FaStickyNote />} name={"add new"} to={""} />
 
           <p className="px-10 mt-5 capitalize text-sm italic text-black/30">
             Library
@@ -94,6 +86,51 @@ export const Dashboard = () => {
             to={"/recycle"}
           />
         </nav>
+
+        <section className="col-span-5 bg-purple-100/80 md:py-10 ">
+          <div className="flex items-center gap-x-1 my-5 md:px-10">
+            <p className="text-black/40 font-bold">Pinned</p>
+            <TiPin className="text-purple-600 relative -top-1" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:px-10">
+            <Note
+              title={"Job Interview "}
+              subtitle={
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis architecto, ut assumenda suscipit exercitationem consectetur labore autem cupiditate ad beatae vitae omnis inventore ratione accusamus, similique iste odio doloribus! Recusandae?"
+              }
+              date={"09-Jan-2023"}
+              color={["bg-red-500/20", "bg-red-500"]}
+            />
+
+            <Note
+              title={"Job Interview "}
+              subtitle={
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis architecto, ut assumenda suscipit exercitationem consectetur labore autem cupiditate ad beatae vitae omnis inventore ratione accusamus, similique iste odio doloribus! Recusandae?"
+              }
+              date={"09-Jan-2023"}
+              color={["bg-green-500/20", "bg-green-500"]}
+            />
+
+            <Note
+              title={"Job Interview "}
+              subtitle={
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis architecto, ut assumenda suscipit exercitationem consectetur labore autem cupiditate ad beatae vitae omnis inventore ratione accusamus, similique iste odio doloribus! Recusandae?"
+              }
+              date={"09-Jan-2023"}
+              color={["bg-yellow-500/20", "bg-yellow-500"]}
+            />
+
+            <Note
+              title={"Job Interview "}
+              subtitle={
+                "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis architecto, ut assumenda suscipit exercitationem consectetur labore autem cupiditate ad beatae vitae omnis inventore ratione accusamus, similique iste odio doloribus! Recusandae?"
+              }
+              date={"09-Jan-2023"}
+              color={["bg-pink-500/20", "bg-pink-500"]}
+            />
+          </div>
+        </section>
       </main>
     </div>
   );

@@ -26,8 +26,7 @@ body {
 .active {
   background-color: rgb(243 232 255 / 0.8);
   border-left: 3px solid rgb(147 51 234);
-  border-right: 1px solid rgb(147 51 234);
-
+  border-right: 0px;
   color: black !important;
 }
 .active span {
