@@ -14,10 +14,8 @@ export const Dashboard = () => {
   const { onBlur, onFocus } = useInput();
   const { notes, handleClick } = useNote(notesData);
   const selected = notes.some((item) => item.isClicked);
-  console.log(notes);
   const readConStyle = {
     translateX: selected ? 0 : "100vw",
-    borderRadius: selected ? "0px" : "40px",
   };
   return (
     <div className=" ">
@@ -110,14 +108,16 @@ export const Dashboard = () => {
             {notes.map((item, index) => (
               <>
                 {index == 2 && selected ? (
-                  <motion.div
-                    initial={{ translateX: "100vw" }}
-                    animate={readConStyle}
-                    transition={{ type: "spring", bounce: 0.4, duration: 2 }}
-                    className="col-span-2"
-                  >
-                    <div className="fixed   w-[100%] bg-white  ">a</div>
-                  </motion.div>
+                  <div className="col-span-2">
+                    <motion.div
+                      initial={{ translateX: "100vw" }}
+                      animate={readConStyle}
+                      transition={{ type: "spring", bounce: 0.4 }}
+                      className="fixed  h-[450px] w-[100%] bg-white  "
+                    >
+                      a
+                    </motion.div>
+                  </div>
                 ) : (
                   ""
                 )}

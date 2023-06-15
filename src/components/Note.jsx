@@ -7,9 +7,9 @@ import { motion } from "framer-motion";
 export const Note = ({ data, handleClick }) => {
   const count = 20;
   const { show, toggleShow } = useOption();
-  const bg = `bg-${data.color}-500/20`;
-  const circle = `bg-${data.color}-500`;
-  const outline = `outline-${data.color}-500`;
+  const bg = `bg-red-500/20`;
+  const circle = `bg-red-500`;
+  const outline = `outline-red-500`;
 
   return (
     <div

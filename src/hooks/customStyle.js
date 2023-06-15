@@ -74,7 +74,7 @@ export const useOption = () => {
 export const useNote = (data) => {
     // Spreading the items coming from the data, so we can add our own custom properties
     const [notes, setNotes] = useState(
-        [...data].map((item) => ({ ...item, isClicked: false, bg: `bg-${item.color}-500` }))
+        [...data].map((item) => ({ ...item, isClicked: false }))
     );
     const handleClick = (id, prop) => {
         const newNotes = [...notes].map((item) => {
