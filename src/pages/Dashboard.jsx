@@ -10,13 +10,12 @@ import { useInput, useNote } from "../hooks/customStyle";
 import { DashboardNavLink } from "../components/DashboardNavLink";
 import { Note } from "../components/Note";
 import { notesData } from "../hooks/data";
+import { ReadNote } from "../components/ReadNote";
 export const Dashboard = () => {
   const { onBlur, onFocus } = useInput();
   const { notes, handleClick } = useNote(notesData);
-  const selected = notes.some((item) => item.isClicked);
-  const readConStyle = {
-    translateX: selected ? 0 : "100vw",
-  };
+  const selected = notes.find((item) => item.isClicked);
+
   return (
     <div className=" ">
       <header className="h-[10vh] sticky shadow-sm z-10 top-0 grid grid-cols-6 content-center py-5 bg-white px-10 ">
@@ -109,14 +108,7 @@ export const Dashboard = () => {
               <>
                 {index == 2 && selected ? (
                   <div className="col-span-2">
-                    <motion.div
-                      initial={{ translateX: "100vw" }}
-                      animate={readConStyle}
-                      transition={{ type: "spring", bounce: 0.4 }}
-                      className="fixed  h-[450px] w-[100%] bg-white  "
-                    >
-                      a
-                    </motion.div>
+                    <ReadNote selected={selected} />
                   </div>
                 ) : (
                   ""
