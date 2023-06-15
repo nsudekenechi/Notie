@@ -1,7 +1,5 @@
 import { useState } from "react"
-import { useForm } from "react-hook-form"
 
-import { yupResolver } from "@hookform/resolvers/yup"
 
 // Custom Hook for switching dark/light mode
 export const useStyle = () => {
@@ -62,16 +60,35 @@ export const useAnimateSlide = () => {
     return { slide, onSlide, slideAnimation }
 }
 
-export const useFormValidation = (schema) => {
-
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
-    });
 
 
+export const useOption = () => {
+    const [show, setShow] = useState(false);
 
-    const onSubmit = () => {
-        reset();
+    const toggleShow = () => {
+        setShow(!show)
     }
-    return { register, handleSubmit, onSubmit, errors }
+    return { show, toggleShow }
+}
+
+export const useNote = (data) => {
+    // Spreading the items coming from the data, so we can add our own custom properties
+    const [notes, setNotes] = useState(
+        [...data].map((item) => ({ ...item, isClicked: false }))
+    );
+    const handleClick = (id, prop) => {
+        const newNotes = [...notes].map((item) => {
+
+            if (item.id === id) {
+                item[prop] = !item[prop];
+            } else {
+                item[prop] = false
+            }
+
+            return item;
+        });
+        setNotes(newNotes);
+    };
+
+    return { notes, handleClick }
 }

@@ -4,7 +4,7 @@ import { Logo } from "../components/Logo";
 import { HiOutlineUser, HiMail, HiLockClosed } from "react-icons/hi";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
-import { useFormValidation } from "../hooks/customStyle";
+import { useFormValidation } from "../hooks/FormValidation";
 import * as yup from "yup";
 import { RightPanelSlider } from "../components/RightPanelSlider";
 export const Login = () => {

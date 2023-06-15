@@ -5,7 +5,7 @@ import { HiOutlineUser, HiMail, HiLockClosed, HiUser } from "react-icons/hi";
 import * as yup from "yup";
 import { RightPanelSlider } from "../components/RightPanelSlider";
 
-import { useFormValidation } from "../hooks/customStyle";
+import { useFormValidation } from "../hooks/FormValidation";
 export const Signup = () => {
   const schema = yup.object().shape({
     Email: yup
