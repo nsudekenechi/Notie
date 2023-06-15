@@ -14,9 +14,10 @@ export const Dashboard = () => {
   const { onBlur, onFocus } = useInput();
   const { notes, handleClick } = useNote(notesData);
   const selected = notes.some((item) => item.isClicked);
+  console.log(notes);
   const readConStyle = {
     translateX: selected ? 0 : "100vw",
-    borderRadius: selected ? "40px" : "0px",
+    borderRadius: selected ? "0px" : "40px",
   };
   return (
     <div className=" ">
@@ -54,46 +55,51 @@ export const Dashboard = () => {
           </div>
         </div>
       </header>
-      <main className="grid grid-cols-6 h-[90vh]">
-        <nav className="col-span-1 bg-white text-sm hidden md:flex flex-col gap-y-2">
-          <DashboardNavLink icon={<FaStickyNote />} name={"add new"} to={""} />
+      <main className="grid grid-cols-6 h-[100vh]">
+        <div className=" col-span-1">
+          <nav className="fixed w-[18%] h-[100%] bg-white text-sm hidden md:flex flex-col gap-y-2">
+            <DashboardNavLink
+              icon={<FaStickyNote />}
+              name={"add new"}
+              to={""}
+            />
 
-          <p className="px-10 mt-5 capitalize text-sm italic text-black/30">
-            Library
-          </p>
-          <DashboardNavLink
-            icon={<VscArchive />}
-            name={"archived"}
-            to={"/archived"}
-          />
-          <DashboardNavLink
-            icon={<VscHeartFilled />}
-            name={"Favorites"}
-            to={"/favorites"}
-          />
-          <p className="px-10 mt-5 capitalize text-sm italic text-black/30">
-            General
-          </p>
-          <DashboardNavLink
-            icon={<IoIosSettings />}
-            name={"settings"}
-            to={"/settings"}
-          />
-          <DashboardNavLink
-            icon={<RiLogoutCircleRLine />}
-            name={"logout"}
-            to={"/logout"}
-          />
-          <p className="px-10 mt-5 capitalize text-sm italic text-black/30">
-            Trash
-          </p>
-          <DashboardNavLink
-            icon={<RiDeleteBin2Fill />}
-            name={"recycle bin"}
-            to={"/recycle"}
-          />
-        </nav>
-
+            <p className="px-10 mt-5 capitalize text-sm italic text-black/30">
+              Library
+            </p>
+            <DashboardNavLink
+              icon={<VscArchive />}
+              name={"archived"}
+              to={"/archived"}
+            />
+            <DashboardNavLink
+              icon={<VscHeartFilled />}
+              name={"Favorites"}
+              to={"/favorites"}
+            />
+            <p className="px-10 mt-5 capitalize text-sm italic text-black/30">
+              General
+            </p>
+            <DashboardNavLink
+              icon={<IoIosSettings />}
+              name={"settings"}
+              to={"/settings"}
+            />
+            <DashboardNavLink
+              icon={<RiLogoutCircleRLine />}
+              name={"logout"}
+              to={"/logout"}
+            />
+            <p className="px-10 mt-5 capitalize text-sm italic text-black/30">
+              Trash
+            </p>
+            <DashboardNavLink
+              icon={<RiDeleteBin2Fill />}
+              name={"recycle bin"}
+              to={"/recycle"}
+            />
+          </nav>
+        </div>
         <section className="col-span-5 bg-purple-100/80 md:py-10 ">
           <div className="flex items-center gap-x-1 my-5 md:px-10">
             <p className="text-black/40 font-bold">Pinned</p>
@@ -107,14 +113,15 @@ export const Dashboard = () => {
                   <motion.div
                     initial={{ translateX: "100vw" }}
                     animate={readConStyle}
-                    className="col-span-0 bg-white"
+                    transition={{ type: "spring", bounce: 0.4, duration: 2 }}
+                    className="col-span-2"
                   >
-                    a
+                    <div className="fixed   w-[100%] bg-white  ">a</div>
                   </motion.div>
                 ) : (
                   ""
                 )}
-                <Note key={index} data={item} handleClick={handleClick} />
+                <Note data={item} handleClick={handleClick} />
               </>
             ))}
           </div>

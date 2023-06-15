@@ -7,14 +7,14 @@ import { motion } from "framer-motion";
 export const Note = ({ data, handleClick }) => {
   const count = 20;
   const { show, toggleShow } = useOption();
-  const bg = "bg-" + data.color + "/20";
-  const circle = "bg-" + data.color;
-  const outline = "outline-" + data.color;
+  const bg = `bg-${data.color}-500/20`;
+  const circle = `bg-${data.color}-500`;
+  const outline = `outline-${data.color}-500`;
 
   return (
     <div
-      className={` col-span-1 text-white  p-5 rounded-br-[50px] rounded-2xl ${bg} ${
-        data.isClicked ? `outline outline-1 ${outline}` : ""
+      className={` col-span-1 text-white  p-5 rounded-br-[50px] rounded-2xl   ${bg} ${
+        data.isClicked ? `outline outline-1  ${outline}` : ""
       }`}
       onClick={() => handleClick(data.id, "isClicked")}
     >
