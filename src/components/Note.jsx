@@ -2,11 +2,11 @@ import { BiPencil } from "react-icons/bi";
 import { FaRegStickyNote, FaCalendar } from "react-icons/fa";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import PropTypes from "prop-types";
-import { useOption } from "../hooks/customStyle";
+import { useShow } from "../hooks/customStyle";
 import { motion } from "framer-motion";
 export const Note = ({ data, handleClick }) => {
   const count = 20;
-  const { show, toggleShow } = useOption();
+  const { show, toggleShow } = useShow();
   const bg = `bg-red-500/20`;
   const circle = `bg-red-500`;
   const outline = `outline-red-500`;

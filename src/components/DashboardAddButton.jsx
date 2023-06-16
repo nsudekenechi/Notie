@@ -1,20 +1,21 @@
 import { TiPlus } from "react-icons/ti";
-import { motion } from "framer-motion";
 
+import { useShow } from "../hooks/customStyle";
+import { AddButtonLink } from "./DashboardAddButtonLink";
 export const AddButton = () => {
+  const { show, toggleShow } = useShow();
   return (
     <div className="top-[70%] fixed   flex flex-col gap-y-2 justify-between items-center right-5">
-      <div className="flex flex-col gap-y-1">
-        <div className=" p-2 px-5 bg-purple-600/20 text-sm rounded-xl text-white scale-90">
-          <p>Create Notes</p>
-        </div>
-        <div className="p-2 px-5 bg-purple-600/20 text-sm rounded-xl text-white scale-90">
-          <p>Create Folders</p>
-        </div>
+      <div className="flex flex-col items-center gap-y-1 ">
+        <AddButtonLink show={show} text={"Create Notes"} />
+        <AddButtonLink show={show} text={"Create Folders"} />
       </div>
-      <motion.div className="w-[70px] h-[70px]  shadow-xl z-10 rounded-full  flex justify-center items-center text-white text-lg bg-purple-600">
+      <div
+        onClick={toggleShow}
+        className="w-[70px] h-[70px] hover:rotate-[180deg]  duration-1000 shadow-sm  z-10 rounded-full  flex justify-center items-center text-white text-lg bg-purple-600 cursor-pointer"
+      >
         <TiPlus />
-      </motion.div>
+      </div>
     </div>
   );
 };

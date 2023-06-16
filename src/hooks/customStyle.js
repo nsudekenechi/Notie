@@ -62,7 +62,7 @@ export const useAnimateSlide = () => {
 
 
 
-export const useOption = () => {
+export const useShow = () => {
     const [show, setShow] = useState(false);
 
     const toggleShow = () => {
