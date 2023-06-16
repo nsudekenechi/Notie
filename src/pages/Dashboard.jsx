@@ -11,6 +11,8 @@ import { DashboardNavLink } from "../components/DashboardNavLink";
 import { Note } from "../components/Note";
 import { notesData } from "../hooks/data";
 import { ReadNote } from "../components/ReadNote";
+import { AddButton } from "../components/DashboardAddButton";
+
 export const Dashboard = () => {
   const { onBlur, onFocus } = useInput();
   const { notes, handleClick } = useNote(notesData);
@@ -103,7 +105,7 @@ export const Dashboard = () => {
             <TiPin className="text-purple-600 relative -top-1" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:px-10 py-10 overflow-x-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:px-10 py-10 ">
             {notes.map((item, index) => (
               <>
                 {index == 2 && selected ? (
@@ -117,6 +119,8 @@ export const Dashboard = () => {
               </>
             ))}
           </div>
+
+          <AddButton />
         </section>
       </main>
     </div>

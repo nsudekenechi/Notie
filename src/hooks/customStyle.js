@@ -80,7 +80,7 @@ export const useNote = (data) => {
         const newNotes = [...notes].map((item) => {
 
             if (item.id === id) {
-                item[prop] = !item[prop];
+                item[prop] = true;
             } else {
                 item[prop] = false
             }
