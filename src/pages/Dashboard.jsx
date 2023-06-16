@@ -19,7 +19,7 @@ export const Dashboard = () => {
   const selected = notes.find((item) => item.isClicked);
 
   return (
-    <div className=" ">
+    <div className="">
       <header className="h-[10vh] sticky shadow-sm z-10 top-0 grid grid-cols-6 content-center py-5 bg-white px-10 ">
         <div className="col-span-1 flex">
           <Logo />

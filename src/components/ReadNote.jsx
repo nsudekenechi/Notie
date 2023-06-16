@@ -14,7 +14,7 @@ export const ReadNote = ({ selected }) => {
       }}
       animate={readConStyle}
       transition={{ type: "spring", bounce: 0.56, duration: 2 }}
-      className="fixed  h-[550px] top-[20%] w-[100%] bg-white flex flex-wrap p-20 pr-32 shadow-2xl  shadow-[rgba(0,0,0,.1)] overflow-y-scroll"
+      className="fixed  h-[550px] top-[20%] w-[100%] bg-white flex flex-wrap p-20 pr-32 shadow-2xl  shadow-[rgba(0,0,0,.1)] overflow-y-scroll -z-0"
     >
       <div
         className={`fixed right-[60%]   top-[85%] w-8 h-8 shadow-lg rounded-full flex justify-center items-center  bg-red-500 text-white`}
