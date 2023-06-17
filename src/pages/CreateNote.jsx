@@ -1,10 +1,11 @@
 import { BiCheck, BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
 import { useSpeech } from "../hooks/speechToText";
 import { useShow } from "../hooks/customStyle";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 export const CreateNote = () => {
   const { transcript, start, stop } = useSpeech();
   const { show, toggleShow } = useShow();
+  // Playing Speech
   useEffect(() => {
     if (show) {
       start({ continuous: true });
@@ -12,7 +13,15 @@ export const CreateNote = () => {
       stop();
     }
   }, [show]);
+  const [inputs, setInputs] = useState({
+    subtitle: "",
+    title: "",
+  });
 
+  const onChange = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
+  console.log(inputs);
   return (
     <div className="md:pl-10">
       <h1 className="mb-10 pl-1 md:pl-3 lg:pl-5 font-bold text-lg md:text-xl lg:text-2xl">
@@ -22,6 +31,7 @@ export const CreateNote = () => {
         <div className="pr-10">
           <div className="py-6 px-2  md:px-5 lg:px-10 bg-white flex rounded-full">
             <input
+              name="title"
               type="text"
               className="bg-transparent outline-none w-[100%]"
               placeholder="Enter Title"
@@ -31,9 +41,11 @@ export const CreateNote = () => {
 
         <div className="py-6 px-2 md:px-5 lg:px-10 bg-white flex rounded-tl-2xl rounded-bl-2xl">
           <textarea
+            name="subtitle"
             className="bg-transparent outline-none w-[100%] h-[300px] resize-none"
             placeholder="Write Something..."
-            value={transcript}
+            value={inputs.subtitle}
+            onChange={onChange}
           ></textarea>
         </div>
         <div className="top-[80%] fixed   flex flex-col gap-y-1 justify-between items-center right-5">
