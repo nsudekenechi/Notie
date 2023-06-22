@@ -71,24 +71,24 @@ export const useShow = () => {
     return { show, toggleShow }
 }
 
-export const useNote = (data) => {
-    // Spreading the items coming from the data, so we can add our own custom properties
-    const [notes, setNotes] = useState(
-        [...data].map((item) => ({ ...item, isClicked: false }))
-    );
-    const handleClick = (id, prop) => {
-        const newNotes = [...notes].map((item) => {
+// export const useNote = (data) => {
+//     // Spreading the items coming from the data, so we can add our own custom properties
+//     const [notes, setNotes] = useState(
+//         [...data].map((item) => ({ ...item, isClicked: false }))
+//     );
+    // const handleClick = (id, prop) => {
+    //     const newNotes = [...notes].map((item) => {
 
-            if (item.id === id) {
-                item[prop] = true;
-            } else {
-                item[prop] = false
-            }
+    //         if (item.id === id) {
+    //             item[prop] = true;
+    //         } else {
+    //             item[prop] = false
+    //         }
 
-            return item;
-        });
-        setNotes(newNotes);
-    };
+    //         return item;
+    //     });
+    //     setNotes(newNotes);
+    // };
 
-    return { notes, handleClick }
-}
+//     return { notes, handleClick }
+// }

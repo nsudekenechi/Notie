@@ -25,3 +25,22 @@ export const notesData = [
         date: "09-Jan-2021"
     },
 ];
+
+export const Colors = [
+    {
+        color: "purple",
+        selected: true,
+    },
+    {
+        color: "orange",
+        selected: false,
+    },
+    {
+        color: "blue",
+        selected: false,
+    },
+    {
+        color: "pink",
+        selected: false,
+    },
+]

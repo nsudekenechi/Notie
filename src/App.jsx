@@ -7,17 +7,24 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { Dashboard } from "./pages/Dashboard";
+import { useState } from "react";
+import { notesContext } from "./hooks/context";
+
 function App() {
+  const [notes, setNotes] = useState([]);
+  console.log(notes);
   return (
     <>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard/:page" element={<Dashboard />} />
-        </Routes>
-      </Router>
+      <notesContext.Provider value={{ notes, setNotes }}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/dashboard/:page" element={<Dashboard />} />
+          </Routes>
+        </Router>
+      </notesContext.Provider>
     </>
   );
 }

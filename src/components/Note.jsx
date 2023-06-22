@@ -31,12 +31,12 @@ export const Note = ({ data, handleClick }) => {
           <HiOutlineDotsVertical className="text-sm" />
         </motion.div>
       </div>
-      <h1 className="text-xl font-bold ">{data.title}</h1>
+      <h1 className="text-xl font-bold ">{data.inputs.title}</h1>
       <p className="text-sm my-3">
         {/* Specifying Number of words to spit out i.e 20 words */}
-        {data.subtitle.split(" ").length < count
-          ? data.subtitle
-          : data.subtitle
+        {data.inputs.subtitle.split(" ").length < count
+          ? data.inputs.subtitle
+          : data.inputs.subtitle
               .split(" ")
               .map((item, index) => (index < count ? item : null))
               .join(" ") + "..."}

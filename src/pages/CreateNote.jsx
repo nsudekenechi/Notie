@@ -7,13 +7,14 @@ import {
 } from "react-icons/bi";
 import { useShow } from "../hooks/customStyle";
 import {
-  useCreateNote,
+  useNote,
   useSpeech,
   useInputs,
   useColors,
   handleArrowAnimation,
 } from "../hooks/notes";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 export const CreateNote = () => {
   const { show: isListening, toggleShow: toggleListening } = useShow();
 
@@ -31,8 +32,9 @@ export const CreateNote = () => {
 
   const { colors, selectColor } = useColors();
 
-  const undoAnimate = handleArrowAnimation(focusedInput);
+  const { handleCreateNote } = useNote();
 
+  const undoAnimate = handleArrowAnimation(focusedInput);
   const redoAnimate = handleArrowAnimation(redo.length);
   return (
     <div className="md:pl-10">
@@ -114,9 +116,19 @@ export const CreateNote = () => {
           >
             {!isListening ? <BiMicrophone /> : <BiMicrophoneOff />}
           </div>
-          <div className="w-[50px] h-[50px]   duration-1000 shadow-xl  z-10 rounded-full  flex justify-center items-center text-white text-2xl bg-purple-600 cursor-pointer">
-            <BiCheck />
-          </div>
+          <Link
+            to={"/dashboard/addnew"}
+            onClick={() =>
+              handleCreateNote({
+                inputs,
+                selectedColor: colors.find((item) => item.selected),
+              })
+            }
+          >
+            <div className="w-[50px] h-[50px]   duration-1000 shadow-xl  z-10 rounded-full  flex justify-center items-center text-white text-2xl bg-purple-600 cursor-pointer">
+              <BiCheck />
+            </div>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import "regenerator-runtime/runtime";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-
+import { notesContext } from "./context";
+import { Colors } from "./data"
 export const useSpeech = (isListening) => {
     const { transcript, resetTranscript } = useSpeechRecognition()
 
@@ -66,24 +67,7 @@ export const useInputs = (Inputs, transcript, resetTranscript) => {
     return { handleRedo, handleUndo, inputChanged, handleFocus, inputs, focusedInput, redo }
 }
 export const useColors = () => {
-    const [colors, setColors] = useState([
-        {
-            color: "purple",
-            selected: true,
-        },
-        {
-            color: "orange",
-            selected: false,
-        },
-        {
-            color: "blue",
-            selected: false,
-        },
-        {
-            color: "pink",
-            selected: false,
-        },
-    ]);
+    const [colors, setColors] = useState(Colors);
     const selectColor = (id) => {
         const newColors = [...colors].map((item, index) => {
             if (id == index) {
@@ -101,20 +85,38 @@ export const useColors = () => {
 
     }
 }
-export const useCreateNote = (note) => {
-
-    const [notes, setNotes] = []
-
-
-
-
-
-
-
-
-}
 export const handleArrowAnimation = (type) => ({
     tap: type ? { scale: 1.1, y: -3 } : {},
     initial: { opacity: 0.2 },
     animate: { opacity: type ? 1 : 0.2 },
 });
+export const useNote = () => {
+    const { setNotes, notes } = useContext(notesContext)
+    const handleClickedNote = (id, prop) => {
+        const newNotes = [...notes].map((item) => {
+            if (item.id === id) {
+                item[prop] = true;
+            } else {
+                item[prop] = false
+            }
+            return item;
+        });
+        setNotes(newNotes);
+    };
+    // Creating a note
+    const handleCreateNote = (note) => {
+        const date = new Date()
+        const newNote = {
+            ...note,
+            id: Math.floor(Math.random() * 1000),
+            isClicked: false,
+            // date:
+        }
+        setNotes(prev => [...prev, newNote])
+    }
+
+
+    return { handleCreateNote, handleClickedNote }
+
+
+}
