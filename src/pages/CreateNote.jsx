@@ -6,18 +6,34 @@ import {
   BiUndo,
 } from "react-icons/bi";
 import { useShow } from "../hooks/customStyle";
-import { useCreateNote, useSpeech, useInputs } from "../hooks/notes";
+import {
+  useCreateNote,
+  useSpeech,
+  useInputs,
+  useColors,
+  handleArrowAnimation,
+} from "../hooks/notes";
 import { motion } from "framer-motion";
 export const CreateNote = () => {
   const { show: isListening, toggleShow: toggleListening } = useShow();
-  const { resetTranscript, transcript } = useSpeech(isListening);
-  const { inputChanged, handleFocus, inputs, handleUndo } = useInputs(
-    { subtitle: "", title: "" },
-    transcript,
-    resetTranscript
-  );
-  const { colors, selectColor } = useCreateNote();
 
+  const { resetTranscript, transcript } = useSpeech(isListening);
+
+  const {
+    inputChanged,
+    handleFocus,
+    inputs,
+    handleUndo,
+    handleRedo,
+    focusedInput,
+    redo,
+  } = useInputs({ subtitle: "", title: "" }, transcript, resetTranscript);
+
+  const { colors, selectColor } = useColors();
+
+  const undoAnimate = handleArrowAnimation(focusedInput);
+
+  const redoAnimate = handleArrowAnimation(redo.length);
   return (
     <div className="md:pl-10">
       <div className="px-1 md:px-3 lg:px-5 mb-10 flex flex-col gap-y-2">
@@ -26,8 +42,24 @@ export const CreateNote = () => {
             Create Note
           </h1>
           <div className="flex gap-x-5 items-center">
-            <BiUndo size={25} onClick={handleUndo} />
-            <BiRedo size={25} />
+            <motion.div
+              whileTap={undoAnimate.tap}
+              initial={undoAnimate.initial}
+              animate={undoAnimate.animate}
+              onClick={() => focusedInput && handleUndo()}
+              className="cursor-pointer"
+            >
+              <BiUndo size={25} />
+            </motion.div>
+            <motion.div
+              whileTap={redoAnimate.tap}
+              initial={redoAnimate.initial}
+              animate={redoAnimate.animate}
+              onClick={() => redo && handleRedo()}
+              className="cursor-pointer"
+            >
+              <BiRedo size={25} />
+            </motion.div>
           </div>
         </div>
 
