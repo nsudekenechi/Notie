@@ -5,13 +5,16 @@ import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognitio
 export const useSpeech = (isListening, Inputs) => {
     const { transcript, resetTranscript } = useSpeechRecognition()
     const [inputs, setInputs] = useState(Inputs);
+    const [undoRedo, setUndoRedo] = useState(Inputs)
     const [focusedInput, setFocusedInput] = useState("");
 
 
     // Function that handles when value of input changes
     const inputChanged = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value });
-        console.log(e);
+        if (e.nativeEvent.data != null) {
+            setUndoRedo({ ...inputs, [focusedInput]: e.target.value })
+        }//Saving Data for undo and redo
     };
     // Function that handles when Input is Focused, so we can know the input to display the speechToText transcript
     const handleFocus = (e) => {
@@ -32,6 +35,7 @@ export const useSpeech = (isListening, Inputs) => {
         inputChanged,
         handleFocus,
         inputs,
+        undoRedo
     }
 
 }

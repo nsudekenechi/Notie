@@ -5,17 +5,21 @@ import {
   BiRedo,
   BiUndo,
 } from "react-icons/bi";
-import { useSpeech } from "../hooks/speechToText";
 import { useShow } from "../hooks/customStyle";
-import { useCreateNote } from "../hooks/notes";
+import { useCreateNote, useSpeech, useInputs } from "../hooks/notes";
 import { motion } from "framer-motion";
 export const CreateNote = () => {
   const { show: isListening, toggleShow: toggleListening } = useShow();
-  const { inputs, handleFocus, inputChanged } = useSpeech(isListening, {
-    subtitle: "",
-    title: "",
-  });
+  const { resetTranscript, transcript } = useSpeech(isListening);
+  const { inputChanged, handleFocus, inputs, handleUndo } = useInputs(
+    { subtitle: "", title: "" },
+    transcript,
+    resetTranscript
+  );
   const { colors, selectColor } = useCreateNote();
+  // const tem = inputs.title.split(" ");
+  // tem.pop();
+  // console.log(tem);
   return (
     <div className="md:pl-10">
       <div className="px-1 md:px-3 lg:px-5 mb-10 flex flex-col gap-y-2">
@@ -24,7 +28,7 @@ export const CreateNote = () => {
             Create Note
           </h1>
           <div className="flex gap-x-5 items-center">
-            <BiUndo size={25} />
+            <BiUndo size={25} onClick={handleUndo} />
             <BiRedo size={25} />
           </div>
         </div>
