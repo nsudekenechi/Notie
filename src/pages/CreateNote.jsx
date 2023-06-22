@@ -17,9 +17,7 @@ export const CreateNote = () => {
     resetTranscript
   );
   const { colors, selectColor } = useCreateNote();
-  // const tem = inputs.title.split(" ");
-  // tem.pop();
-  // console.log(tem);
+
   return (
     <div className="md:pl-10">
       <div className="px-1 md:px-3 lg:px-5 mb-10 flex flex-col gap-y-2">
