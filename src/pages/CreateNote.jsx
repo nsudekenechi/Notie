@@ -1,33 +1,53 @@
-import { BiCheck, BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
+import {
+  BiCheck,
+  BiMicrophone,
+  BiMicrophoneOff,
+  BiRedo,
+  BiUndo,
+} from "react-icons/bi";
 import { useSpeech } from "../hooks/speechToText";
 import { useShow } from "../hooks/customStyle";
 import { useCreateNote } from "../hooks/notes";
+import { motion } from "framer-motion";
 export const CreateNote = () => {
   const { show: isListening, toggleShow: toggleListening } = useShow();
   const { inputs, handleFocus, inputChanged } = useSpeech(isListening, {
     subtitle: "",
     title: "",
   });
-  const { colors } = useCreateNote();
+  const { colors, selectColor } = useCreateNote();
   return (
     <div className="md:pl-10">
-      <h1 className="mb-10 pl-1 md:pl-3 lg:pl-5 font-bold text-lg md:text-xl lg:text-2xl">
-        Create Note
-      </h1>
-      <div className="flex items-center gap-x-5  pl-1 md:pl-3 lg:pl-5 my-5">
-        {colors.map((item, index) => (
-          <div
-            key={index}
-            className={`w-6 h-6 ${item.color} rounded-full relative`}
-          >
-            {item.selected && (
-              <div className="absolute w-[100%] h-[100%] bg-black/30 flex items-center justify-center">
-                <BiCheck size={30} color="white" />
-              </div>
-            )}
+      <div className="px-1 md:px-3 lg:px-5 mb-10 flex flex-col gap-y-2">
+        <div className="flex justify-between items-center">
+          <h1 className="   font-bold text-lg md:text-xl lg:text-2xl">
+            Create Note
+          </h1>
+          <div className="flex gap-x-5 items-center">
+            <BiUndo size={25} />
+            <BiRedo size={25} />
           </div>
-        ))}
+        </div>
+
+        <div className="flex items-center gap-x-5 ">
+          {colors.map((item, index) => (
+            <motion.div
+              key={index}
+              onClick={() => selectColor(index)}
+              className={`w-6 h-6  rounded-full relative cursor-pointer`}
+              style={{ backgroundColor: item.color }}
+              whileTap={{ scale: 0.6, opacity: 0.3 }}
+            >
+              {item.selected && (
+                <div className="absolute w-[100%] h-[100%] bg-black/30 flex items-center justify-center rounded-full text-white">
+                  <BiCheck size={15} />
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </div>
+
       <div className="flex flex-col gap-y-5  ">
         <div className="pr-10">
           <div className="py-6 px-2  md:px-5 lg:px-10 bg-white flex rounded-full">

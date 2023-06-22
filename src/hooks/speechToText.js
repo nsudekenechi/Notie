@@ -11,6 +11,7 @@ export const useSpeech = (isListening, Inputs) => {
     // Function that handles when value of input changes
     const inputChanged = (e) => {
         setInputs({ ...inputs, [e.target.name]: e.target.value });
+        console.log(e);
     };
     // Function that handles when Input is Focused, so we can know the input to display the speechToText transcript
     const handleFocus = (e) => {
