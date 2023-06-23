@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { notesContext } from "./context";
 import { Colors } from "./data"
+import { DateTime } from "luxon";
 export const useSpeech = (isListening) => {
     const { transcript, resetTranscript } = useSpeechRecognition()
 
@@ -91,11 +92,14 @@ export const handleArrowAnimation = (type) => ({
     animate: { opacity: type ? 1 : 0.2 },
 });
 export const useNote = () => {
+
     const { setNotes, notes } = useContext(notesContext)
-    const handleClickedNote = (id, prop) => {
+    const handleClickedNote = (id, prop, flip) => {
         const newNotes = [...notes].map((item) => {
             if (item.id === id) {
-                item[prop] = true;
+
+                item[prop] = flip ? !item[prop] : true;
+
             } else {
                 item[prop] = false
             }
@@ -103,15 +107,22 @@ export const useNote = () => {
         });
         setNotes(newNotes);
     };
+
+
     // Creating a note
     const handleCreateNote = (note) => {
-        const date = new Date()
         const newNote = {
             ...note,
             id: Math.floor(Math.random() * 1000),
             isClicked: false,
-            // date:
+            isOption: false,
+            isArchived: false,
+            isFavorite: false,
+            date: DateTime.now().toLocaleString({ day: "numeric", month: "short", year: "numeric" })
         }
+
+
+
         setNotes(prev => [...prev, newNote])
     }
 

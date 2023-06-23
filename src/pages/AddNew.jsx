@@ -2,7 +2,7 @@ import { TiPin } from "react-icons/ti";
 // import { useNote } from "../hooks/customStyle";
 import { Note } from "../components/Note";
 // import { notesData } from "../hooks/data";
-import { ReadNote } from "../components/ReadNote";
+// import { ReadNote } from "../components/ReadNote";
 import { AddButton } from "../components/DashboardAddButton";
 import { useContext } from "react";
 import { notesContext } from "../hooks/context";
@@ -13,8 +13,6 @@ export const AddNew = () => {
   // const selected = notes.find((item) => item.isClicked);
   const { notes } = useContext(notesContext);
   const { handleClickedNote } = useNote();
-  const date = new Date();
-  console.log(date.getDay());
   return (
     <>
       <div className="flex items-center gap-x-1 my-5 md:px-10">

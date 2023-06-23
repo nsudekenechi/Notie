@@ -121,7 +121,7 @@ export const CreateNote = () => {
             onClick={() =>
               handleCreateNote({
                 inputs,
-                selectedColor: colors.find((item) => item.selected),
+                color: colors.find((item) => item.selected).color,
               })
             }
           >

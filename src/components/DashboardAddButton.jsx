@@ -23,9 +23,10 @@ export const AddButton = () => {
       </div>
       <motion.div
         onClick={toggleShow}
-        initial={{ scale: 1 }}
-        animate={{ scale: scroll ? 0 : 1 }}
+        initial={{ scale: 0.8 }}
+        animate={{ scale: scroll ? 0 : 0.8 }}
         whileHover={{ rotate: 180 }}
+        style={{ scale: 0.8 }}
         className="w-[70px] h-[70px]   duration-1000 shadow-sm  z-10 rounded-full  flex justify-center items-center text-white text-lg bg-purple-600 cursor-pointer"
       >
         <TiPlus />
