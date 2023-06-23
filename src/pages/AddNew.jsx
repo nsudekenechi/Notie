@@ -6,13 +6,9 @@ import { Note } from "../components/Note";
 import { AddButton } from "../components/DashboardAddButton";
 import { useContext } from "react";
 import { notesContext } from "../hooks/context";
-import { useNote } from "../hooks/notes";
 export const AddNew = () => {
-  // const { notes, handleClick } = useNote(notesData);
-
-  // const selected = notes.find((item) => item.isClicked);
   const { notes } = useContext(notesContext);
-  const { handleClickedNote } = useNote();
+
   return (
     <>
       <div className="flex items-center gap-x-1 my-5 md:px-10">
@@ -22,7 +18,7 @@ export const AddNew = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:px-10 py-10 ">
         {notes.map((item) => (
-          <Note data={item} key={item.id} handleClick={handleClickedNote} />
+          <Note data={item} key={item.id} />
         ))}
         {/* {notes.map((item, index) => (
           <>

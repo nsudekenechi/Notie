@@ -12,6 +12,7 @@ import { notesContext } from "./hooks/context";
 
 function App() {
   const [notes, setNotes] = useState([]);
+
   return (
     <>
       <notesContext.Provider value={{ notes, setNotes }}>

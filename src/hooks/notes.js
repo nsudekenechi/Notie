@@ -126,8 +126,20 @@ export const useNote = () => {
         setNotes(prev => [...prev, newNote])
     }
 
+    // Deleting a note
+    const handleDeleteNote = (id) => {
+        setNotes(prev => [...prev].filter(item => item.id != id))
+    }
 
-    return { handleCreateNote, handleClickedNote }
+    // Archiving a note
+    const handleArchiveNote = (id) => {
+    }
+    // Favoriting a note
+    const handleFavoriteNote = (id) => {
+
+    }
+
+    return { handleCreateNote, handleClickedNote, handleDeleteNote, handleArchiveNote, handleFavoriteNote }
 
 
 }

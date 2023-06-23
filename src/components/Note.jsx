@@ -4,19 +4,19 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import { NoteOptions } from "./Note/NoteOptions";
-export const Note = ({ data, handleClick }) => {
+import { useNote } from "../hooks/notes";
+export const Note = ({ data }) => {
+  const { handleClickedNote } = useNote();
   const count = 20;
   return (
     <motion.div
       className={` col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
-      whileTap={{
-        scale: 0.2,
-        transition: { duration: 3 },
-      }}
       onClick={() => {
-        handleClick(data.id, "isClicked", false);
+        handleClickedNote(data.id, "isClicked", false);
       }}
       style={{ outline: data.isClicked ? `1px solid ${data.color}` : "" }}
+      initial={{ scale: 1 }}
+      animate={{ scale: data.isArchived ? 0 : 1 }}
     >
       {/* Overlay of Background with reduced opacity*/}
       <div
@@ -27,12 +27,14 @@ export const Note = ({ data, handleClick }) => {
         }}
       ></div>
 
-      <NoteOptions data={{ color: data.color, option: data.isOption }} />
+      <NoteOptions
+        data={{ color: data.color, option: data.isOption, id: data.id }}
+      />
       <div className="flex justify-between items-center mb-3">
         <FaRegStickyNote className="text-3xl " />
         <motion.div
           onClick={() => {
-            handleClick(data.id, "isOption", true);
+            handleClickedNote(data.id, "isOption", true);
           }}
           className={
             "rounded-full w-8 h-8 flex justify-center cursor-pointer items-center relative"
