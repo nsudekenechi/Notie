@@ -1,5 +1,5 @@
 import { BiPencil } from "react-icons/bi";
-import { FaRegStickyNote, FaCalendar } from "react-icons/fa";
+import { FaRegStickyNote, FaCalendar, FaHeart } from "react-icons/fa";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
@@ -9,14 +9,12 @@ export const Note = ({ data }) => {
   const { handleClickedNote } = useNote();
   const count = 20;
   return (
-    <motion.div
+    <div
       className={` col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
       onClick={() => {
         handleClickedNote(data.id, "isClicked", false);
       }}
       style={{ outline: data.isClicked ? `1px solid ${data.color}` : "" }}
-      initial={{ scale: 1 }}
-      animate={{ scale: data.isArchived ? 0 : 1 }}
     >
       {/* Overlay of Background with reduced opacity*/}
       <div
@@ -31,7 +29,11 @@ export const Note = ({ data }) => {
         data={{ color: data.color, option: data.isOption, id: data.id }}
       />
       <div className="flex justify-between items-center mb-3">
-        <FaRegStickyNote className="text-3xl " />
+        {data.isFavorite ? (
+          <FaHeart style={{ color: data.color }} />
+        ) : (
+          <FaRegStickyNote className="text-3xl " />
+        )}
         <motion.div
           onClick={() => {
             handleClickedNote(data.id, "isOption", true);
@@ -72,7 +74,7 @@ export const Note = ({ data }) => {
           <BiPencil />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 Note.propTypes = {

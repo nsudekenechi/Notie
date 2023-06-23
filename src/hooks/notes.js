@@ -133,9 +133,26 @@ export const useNote = () => {
 
     // Archiving a note
     const handleArchiveNote = (id) => {
+        setNotes(prev => {
+            return prev.map(item => {
+                if (item.id == id) {
+                    item.isArchived = true;
+                    item.isOption = false;//Closing Option
+                }
+                return item
+            })
+        })
     }
     // Favoriting a note
     const handleFavoriteNote = (id) => {
+        const newNotes = [...notes].map(item => {
+            if (item.id == id) {
+                item.isFavorite = !item.isFavorite;
+                item.isOption = false;
+            }
+            return item;
+        })
+        setNotes(newNotes)
 
     }
 
