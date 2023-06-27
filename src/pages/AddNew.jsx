@@ -8,13 +8,17 @@ import { useContext } from "react";
 import { notesContext } from "../hooks/context";
 export const AddNew = () => {
   const { notes } = useContext(notesContext);
-
+  const isPinned = [...notes].some((item) => item.isPinned);
   return (
     <>
-      {/* <div className="flex items-center gap-x-1 my-5 md:px-10">
-        <p className="text-black/40 font-bold">Pinned</p>
-        <TiPin className="text-purple-600 relative -top-1" />
-      </div> */}
+      {isPinned && (
+        <div>
+          <div className="flex items-center gap-x-1 my-5 md:px-10">
+            <p className="text-black/40 font-bold">Pinned</p>
+            <TiPin className="text-purple-600 relative -top-1" />
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:px-10 py-10 ">
         {notes.map(

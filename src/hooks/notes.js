@@ -93,18 +93,25 @@ export const handleArrowAnimation = (type) => ({
 });
 export const useNote = () => {
 
-    const { setNotes, notes } = useContext(notesContext)
-    const handleClickedNote = (id, prop, flip) => {
-        const newNotes = [...notes].map((item) => {
+    const { setNotes, notes } = useContext(notesContext);
+
+    // Function that flips props from true to false, also takes params to closeoption if note option is open
+    const Flip = (id, prop, flip, closeOption) => {
+        const newItems = [...notes].map((item) => {
             if (item.id === id) {
-
                 item[prop] = flip ? !item[prop] : true;
-
+                closeOption ? item.isOption = false : "";//Closing Option Box
             } else {
                 item[prop] = false
             }
             return item;
         });
+        return newItems;
+    }
+
+
+    const handleFlip = (id, prop, flip, closeOption) => {
+        const newNotes = Flip(id, prop, flip, closeOption)
         setNotes(newNotes);
     };
 
@@ -116,8 +123,9 @@ export const useNote = () => {
             id: Math.floor(Math.random() * 1000),
             isClicked: false,
             isOption: false,
-            isArchived: false,
+            isArchive: false,
             isFavorite: false,
+            isPinned: false,
             date: DateTime.now().toLocaleString({ day: "numeric", month: "short", year: "numeric" })
         }
 
@@ -131,32 +139,8 @@ export const useNote = () => {
         setNotes(prev => [...prev].filter(item => item.id != id))
     }
 
-    // Archiving a note
-    const handleArchiveNote = (id) => {
-        setNotes(prev => {
-            return prev.map(item => {
-                if (item.id == id) {
-                    item.isArchived = true;
-                    item.isOption = false;//Closing Option
-                }
-                return item
-            })
-        })
-    }
-    // Favoriting a note
-    const handleFavoriteNote = (id) => {
-        const newNotes = [...notes].map(item => {
-            if (item.id == id) {
-                item.isFavorite = !item.isFavorite;
-                item.isOption = false;
-            }
-            return item;
-        })
-        setNotes(newNotes)
 
-    }
-
-    return { handleCreateNote, handleClickedNote, handleDeleteNote, handleArchiveNote, handleFavoriteNote }
+    return { handleCreateNote, handleFlip, handleDeleteNote }
 
 
 }

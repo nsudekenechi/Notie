@@ -1,10 +1,17 @@
-import { BiTrashAlt, BiHeart, BiLock } from "react-icons/bi";
+import { BiTrashAlt, BiHeart, BiLock, BiPin } from "react-icons/bi";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { useNote } from "../../hooks/notes";
 export const NoteOptions = ({ data }) => {
-  const { handleDeleteNote, handleArchiveNote, handleFavoriteNote } = useNote();
-  const option = (text, Icon, index, action) => (
+  const { handleDeleteNote, handleFlip } = useNote();
+  //List of options
+  const options = [
+    { text: "Favorite", icon: BiHeart, prop: "isFavorite" },
+    { text: "Archive", icon: BiLock, prop: "isArchive" },
+    { text: "Delete", icon: BiTrashAlt, prop: "isDelete" },
+    { text: "Pin", icon: BiPin, prop: "isPinned" },
+  ];
+  const option = (text, Icon, index, prop) => (
     <motion.div
       key={index}
       className="px-3 cursor-pointer py-2  rounded-2xl   flex items-center gap-x-2"
@@ -21,18 +28,15 @@ export const NoteOptions = ({ data }) => {
       }}
       onClick={(e) => {
         e.stopPropagation();
-        action(data.id);
+        text != "Delete"
+          ? handleFlip(data.id, prop, true, true)
+          : handleDeleteNote(data.id);
       }}
     >
       <p>{text}</p>
       <Icon />
     </motion.div>
   );
-  const options = [
-    { text: "Favorite", icon: BiHeart, action: handleFavoriteNote },
-    { text: "Archive", icon: BiLock, action: handleArchiveNote },
-    { text: "Delete", icon: BiTrashAlt, action: handleDeleteNote },
-  ];
   return (
     <motion.div
       initial={{ scale: 0 }}
@@ -40,7 +44,7 @@ export const NoteOptions = ({ data }) => {
       className="text-black z-10 text-xs absolute w-[50%] top-12 right-5 bg-white shadow-xl px-2  py-3 rounded-xl flex flex-col gap-y-2"
     >
       {options.map((item, index) =>
-        option(item.text, item.icon, index, item.action)
+        option(item.text, item.icon, index, item.prop)
       )}
     </motion.div>
   );

@@ -6,13 +6,13 @@ import { motion } from "framer-motion";
 import { NoteOptions } from "./Note/NoteOptions";
 import { useNote } from "../hooks/notes";
 export const Note = ({ data }) => {
-  const { handleClickedNote } = useNote();
+  const { handleFlip } = useNote();
   const count = 20;
   return (
     <div
       className={` col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
       onClick={() => {
-        handleClickedNote(data.id, "isClicked", false);
+        handleFlip(data.id, "isClicked", false);
       }}
       style={{ outline: data.isClicked ? `1px solid ${data.color}` : "" }}
     >
@@ -36,7 +36,7 @@ export const Note = ({ data }) => {
         )}
         <motion.div
           onClick={() => {
-            handleClickedNote(data.id, "isOption", true);
+            handleFlip(data.id, "isOption", true);
           }}
           className={
             "rounded-full w-8 h-8 flex justify-center cursor-pointer items-center relative"
