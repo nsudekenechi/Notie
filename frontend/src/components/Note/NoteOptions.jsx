@@ -14,7 +14,7 @@ export const NoteOptions = ({ data }) => {
   const option = (text, Icon, index, prop) => (
     <motion.div
       key={index}
-      className="px-3 cursor-pointer py-2  rounded-2xl   flex items-center gap-x-2"
+      className="px-3 cursor-pointer py-2  rounded-2xl   flex items-center gap-x-1"
       style={{ color: "black", backgroundColor: "white" }}
       initial={{ opacity: 0 }}
       animate={{
@@ -24,7 +24,7 @@ export const NoteOptions = ({ data }) => {
       whileHover={{
         backgroundColor: data.color,
         color: "white",
-        paddingLeft: "25px",
+        paddingLeft: "20px",
       }}
       onClick={(e) => {
         e.stopPropagation();
@@ -41,7 +41,7 @@ export const NoteOptions = ({ data }) => {
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: data.isOption ? 1 : 0 }}
-      className="text-black z-10 text-xs absolute w-[50%] top-12 right-5 bg-white shadow-xl px-2  py-3 rounded-xl flex flex-col gap-y-2"
+      className="text-black z-10 text-xs absolute w-[55%] top-12 right-5 bg-white shadow-xl px-2  py-3 rounded-xl flex flex-col gap-y-2"
     >
       {options.map((item, index) =>
         option(item.text, item.icon, index, item.prop)

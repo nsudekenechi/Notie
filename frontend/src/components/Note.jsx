@@ -9,6 +9,7 @@ import { TiPin } from "react-icons/ti";
 export const Note = ({ data }) => {
   const { handleFlip } = useNote();
   const count = 20;
+  console.log(data.isArchive);
   return (
     <motion.div
       className={` col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}

@@ -112,6 +112,7 @@ export const useNote = () => {
 
     const handleFlip = (id, prop, flip, closeOption) => {
         const newNotes = Flip(id, prop, flip, closeOption)
+        console.log(newNotes)
         setNotes(newNotes);
     };
 

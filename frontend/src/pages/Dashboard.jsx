@@ -12,7 +12,7 @@ export const Dashboard = () => {
       <DashboardHeader />
       <main className="grid grid-cols-6 h-[100vh]">
         <DashboardSidebar />
-        <section className="col-span-5 bg-purple-100/80 md:py-10 ">
+        <section className="col-span-5 bg-purple-100/90 md:py-10 ">
           {location.pathname == "/dashboard/createnote" ? (
             <CreateNote />
           ) : (

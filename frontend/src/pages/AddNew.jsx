@@ -20,7 +20,7 @@ export const AddNew = () => {
   const { handleUnclick } = useNote();
   return (
     <>
-      <div className="md:px-10 " onClick={handleUnclick}>
+      <div className="md:px-10 min-h-screen " onClick={handleUnclick}>
         {isPinned && (
           <div className="pb-10 border-b">
             <div className="flex items-center  justify-between">
@@ -65,7 +65,7 @@ export const AddNew = () => {
           <AnimatePresence>
             {notes.map(
               (item) =>
-                !item.isArchived &&
+                !item.isArchive &&
                 !item.isPinned && <Note data={item} key={item.id} />
             )}
           </AnimatePresence>
