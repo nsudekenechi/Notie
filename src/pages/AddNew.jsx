@@ -1,21 +1,26 @@
 import { TiPin } from "react-icons/ti";
+import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
+
 // import { useNote } from "../hooks/customStyle";
 import { Note } from "../components/Note";
 // import { notesData } from "../hooks/data";
 // import { ReadNote } from "../components/ReadNote";
 import { AddButton } from "../components/DashboardAddButton";
 import { useContext } from "react";
+import { useNote } from "../hooks/notes";
+
 import { notesContext } from "../hooks/context";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
 import "swiper/swiper-bundle.css";
-import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
+import { AnimatePresence } from "framer-motion";
 export const AddNew = () => {
   const { notes } = useContext(notesContext);
   const isPinned = [...notes].some((item) => item.isPinned);
+  const { handleUnclick } = useNote();
   return (
     <>
-      <div className="md:px-10">
+      <div className="md:px-10 " onClick={handleUnclick}>
         {isPinned && (
           <div className="pb-10 border-b">
             <div className="flex items-center  justify-between">
@@ -57,11 +62,13 @@ export const AddNew = () => {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5  py-10 ">
-          {notes.map(
-            (item) =>
-              !item.isArchived &&
-              !item.isPinned && <Note data={item} key={item.id} />
-          )}
+          <AnimatePresence>
+            {notes.map(
+              (item) =>
+                !item.isArchived &&
+                !item.isPinned && <Note data={item} key={item.id} />
+            )}
+          </AnimatePresence>
         </div>
       </div>
 

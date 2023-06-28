@@ -9,7 +9,7 @@ export const NoteOptions = ({ data }) => {
     { text: "Favorite", icon: BiHeart, prop: "isFavorite" },
     { text: "Archive", icon: BiLock, prop: "isArchive" },
     { text: "Delete", icon: BiTrashAlt, prop: "isDelete" },
-    { text: "Pin", icon: BiPin, prop: "isPinned" },
+    { text: !data.isPinned ? "Pin" : "Unpin", icon: BiPin, prop: "isPinned" },
   ];
   const option = (text, Icon, index, prop) => (
     <motion.div
@@ -18,7 +18,7 @@ export const NoteOptions = ({ data }) => {
       style={{ color: "black", backgroundColor: "white" }}
       initial={{ opacity: 0 }}
       animate={{
-        opacity: data.option ? 1 : 0,
+        opacity: data.isOption ? 1 : 0,
         transition: { delay: index * 0.2 },
       }}
       whileHover={{
@@ -40,7 +40,7 @@ export const NoteOptions = ({ data }) => {
   return (
     <motion.div
       initial={{ scale: 0 }}
-      animate={{ scale: data.option ? 1 : 0 }}
+      animate={{ scale: data.isOption ? 1 : 0 }}
       className="text-black z-10 text-xs absolute w-[50%] top-12 right-5 bg-white shadow-xl px-2  py-3 rounded-xl flex flex-col gap-y-2"
     >
       {options.map((item, index) =>

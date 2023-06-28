@@ -68,7 +68,10 @@ export const useShow = () => {
     const toggleShow = () => {
         setShow(!show)
     }
-    return { show, toggleShow }
+    const hideShow = () => {
+        setShow(false)
+    }
+    return { show, toggleShow, hideShow }
 }
 
 // export const useNote = (data) => {

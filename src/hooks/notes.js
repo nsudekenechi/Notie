@@ -115,6 +115,15 @@ export const useNote = () => {
         setNotes(newNotes);
     };
 
+    const handleUnclick = () => {
+        setNotes(prev => {
+            return prev.map(item => {
+                item.isClicked = false
+                item.isOption = false
+                return item;
+            })
+        })
+    }
 
     // Creating a note
     const handleCreateNote = (note) => {
@@ -140,7 +149,7 @@ export const useNote = () => {
     }
 
 
-    return { handleCreateNote, handleFlip, handleDeleteNote }
+    return { handleCreateNote, handleFlip, handleDeleteNote, handleUnclick }
 
 
 }
