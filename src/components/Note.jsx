@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { motion } from "framer-motion";
 import { NoteOptions } from "./Note/NoteOptions";
 import { useNote } from "../hooks/notes";
+import { TiPin } from "react-icons/ti";
 export const Note = ({ data }) => {
   const { handleFlip } = useNote();
   const count = 20;
@@ -29,11 +30,15 @@ export const Note = ({ data }) => {
         data={{ color: data.color, option: data.isOption, id: data.id }}
       />
       <div className="flex justify-between items-center mb-3">
-        {data.isFavorite ? (
-          <FaHeart style={{ color: data.color }} />
-        ) : (
-          <FaRegStickyNote className="text-3xl " />
-        )}
+        <div className="text-3xl ">
+          {data.isPinned ? (
+            <TiPin />
+          ) : data.isFavorite ? (
+            <FaHeart style={{ color: data.color }} />
+          ) : (
+            <FaRegStickyNote />
+          )}
+        </div>
         <motion.div
           onClick={() => {
             handleFlip(data.id, "isOption", true);
@@ -53,7 +58,7 @@ export const Note = ({ data }) => {
       </div>
 
       <h1 className="text-xl font-bold ">{data.inputs.title}</h1>
-      <p className="text-sm my-3  h-[100px]">
+      <p className="text-sm my-5  h-[100px]">
         {/* Specifying Number of words to spit out i.e 20 words */}
         {data.inputs.subtitle.split(" ").length < count
           ? data.inputs.subtitle

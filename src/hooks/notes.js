@@ -102,7 +102,7 @@ export const useNote = () => {
                 item[prop] = flip ? !item[prop] : true;
                 closeOption ? item.isOption = false : "";//Closing Option Box
             } else {
-                item[prop] = false
+                if (prop != "isPinned") item[prop] = false;
             }
             return item;
         });

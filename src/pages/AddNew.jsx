@@ -6,36 +6,63 @@ import { Note } from "../components/Note";
 import { AddButton } from "../components/DashboardAddButton";
 import { useContext } from "react";
 import { notesContext } from "../hooks/context";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/swiper-bundle.css";
+import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 export const AddNew = () => {
   const { notes } = useContext(notesContext);
   const isPinned = [...notes].some((item) => item.isPinned);
   return (
     <>
-      {isPinned && (
-        <div>
-          <div className="flex items-center gap-x-1 my-5 md:px-10">
-            <p className="text-black/40 font-bold">Pinned</p>
-            <TiPin className="text-purple-600 relative -top-1" />
-          </div>
-        </div>
-      )}
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:px-10 py-10 ">
-        {notes.map(
-          (item) => !item.isArchived && <Note data={item} key={item.id} />
-        )}
-        {/* {notes.map((item, index) => (
-          <>
-            {index == 2 && selected ? (
-              <div className="col-span-2">
-                <ReadNote selected={selected} />
+      <div className="md:px-10">
+        {isPinned && (
+          <div className="pb-10 border-b">
+            <div className="flex items-center  justify-between">
+              <div className="flex items-center gap-x-1 my-5 ">
+                <p className="text-black/40 font-bold">Pinned</p>
+                <TiPin className="text-purple-600 relative -top-1" />
               </div>
-            ) : (
-              ""
-            )}
-            <Note data={item} handleClick={handleClick} />
-          </>
-        ))} */}
+
+              <div className="flex gap-x-2 items-center">
+                <HiChevronLeft id="left" className="cursor-pointer" />
+                <HiChevronRight id="right" className="cursor-pointer" />
+              </div>
+            </div>
+            <Swiper
+              className="w-[100%] "
+              modules={[Navigation]}
+              slidesPerView={3}
+              spaceBetween={10}
+              navigation={{ prevEl: "#left", nextEl: "#right" }}
+            >
+              {notes.map(
+                (item) =>
+                  !item.isArchived &&
+                  item.isPinned && (
+                    <SwiperSlide key={item.id} className="p-1">
+                      <Note data={item} key={item.id} />
+                    </SwiperSlide>
+                  )
+              )}
+            </Swiper>
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
+              {notes.map(
+                (item) =>
+                  !item.isArchived &&
+                  item.isPinned && <Note data={item} key={item.id} />
+              )}
+            </div> */}
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5  py-10 ">
+          {notes.map(
+            (item) =>
+              !item.isArchived &&
+              !item.isPinned && <Note data={item} key={item.id} />
+          )}
+        </div>
       </div>
 
       <AddButton />
