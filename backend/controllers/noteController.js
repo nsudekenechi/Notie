@@ -31,7 +31,7 @@ const createNote = async (req, res) => {
 }
 
 //@desc Updating Note
-// @route Update api/Notes
+// @route Update api/notes
 const updateNote = async (req, res) => {
     try {
         const id = req.params.id
@@ -42,4 +42,17 @@ const updateNote = async (req, res) => {
     }
 
 }
-module.exports = { getNotes, createNote, updateNote }
+
+// @desc Deleting Note
+// @route Delete api/notes
+const deleteNote = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await model.findByIdAndDelete(id);
+        res.status(200).json({ message: "Deleted..." })
+    } catch (err) {
+        res.status(400).json(err.message)
+
+    }
+}
+module.exports = { getNotes, createNote, updateNote, deleteNote }
