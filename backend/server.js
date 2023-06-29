@@ -14,5 +14,4 @@ app.use(express.urlencoded({ extended: false }));
 // Routes Paths
 app.use("/api/notes", require("./routers/noteRouters"))
 
-
 app.listen(port)
