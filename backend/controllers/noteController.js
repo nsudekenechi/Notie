@@ -1,6 +1,6 @@
 const model = require("../models/noteModels")
 
-// Getting All Notes
+//@desc Getting All Notes
 //@route GET api/notes 
 const getNotes = async (req, res) => {
     try {
@@ -11,7 +11,7 @@ const getNotes = async (req, res) => {
     }
 }
 
-// Creating Notes
+//@desc Creating Notes
 // @route POST api/notes 
 const createNote = async (req, res) => {
     try {
@@ -30,6 +30,16 @@ const createNote = async (req, res) => {
     }
 }
 
-// Updating Note
+//@desc Updating Note
+// @route Update api/Notes
+const updateNote = async (req, res) => {
+    try {
+        const id = req.params.id
+        const newNote = await model.findByIdAndUpdate(id, { ...req.body }, { new: true });
+        res.status(200).json(newNote);
+    } catch (err) {
+        res.status(400).json(err.message)
+    }
 
-module.exports = { getNotes, createNote }
+}
+module.exports = { getNotes, createNote, updateNote }
