@@ -7,7 +7,7 @@ const DB = require("./db/db")
 //Connecting to DB
 DB();
 
-// Parsing Body Data to json
+// Accepting body data from routes
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

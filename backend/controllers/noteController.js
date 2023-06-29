@@ -13,11 +13,23 @@ const getNotes = async (req, res) => {
 
 // Creating Notes
 // @route POST api/notes 
-const createNote = async () => {
+const createNote = async (req, res) => {
     try {
-
+        const { title, subtitle, date } = req.body
+        const createdNotes = await model.create({
+            title,
+            subtitle,
+            date,
+            archived: false,
+            favorite: false,
+            pinned: false
+        });
+        res.status(201).json(createdNotes)
     } catch (err) {
-        res.status()
+        res.status(400).json({ message: err.message })
     }
 }
-module.exports = { getNotes }
+
+// Updating Note
+
+module.exports = { getNotes, createNote }
