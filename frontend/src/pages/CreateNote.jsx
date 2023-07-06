@@ -15,6 +15,8 @@ import {
 } from "../hooks/notes";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { DateTime } from "luxon";
+
 export const CreateNote = () => {
   const { show: isListening, toggleShow: toggleListening } = useShow();
 
@@ -36,6 +38,19 @@ export const CreateNote = () => {
 
   const undoAnimate = handleArrowAnimation(focusedInput);
   const redoAnimate = handleArrowAnimation(redo.length);
+  const newNote = {
+    // id: Math.floor(Math.random() * 1000),
+    ...inputs,
+    isArchive: false,
+    isFavorite: false,
+    isPinned: false,
+    date: DateTime.now().toLocaleString({
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }),
+    color: colors.find((item) => item.selected).color,
+  };
   return (
     <div className="md:pl-10">
       <div className="px-1 md:px-3 lg:px-5 mb-10 flex flex-col gap-y-2">
@@ -118,12 +133,7 @@ export const CreateNote = () => {
           </div>
           <Link
             to={"/dashboard/addnew"}
-            onClick={() =>
-              handleCreateNote({
-                inputs,
-                color: colors.find((item) => item.selected).color,
-              })
-            }
+            onClick={() => handleCreateNote(newNote)}
           >
             <div className="w-[50px] h-[50px]   duration-1000 shadow-xl  z-10 rounded-full  flex justify-center items-center text-white text-2xl bg-purple-600 cursor-pointer">
               <BiCheck />

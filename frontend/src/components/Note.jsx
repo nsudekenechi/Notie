@@ -9,7 +9,6 @@ import { TiPin } from "react-icons/ti";
 export const Note = ({ data }) => {
   const { handleFlip } = useNote();
   const count = 20;
-  console.log(data.isArchive);
   return (
     <motion.div
       className={` col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
@@ -62,12 +61,12 @@ export const Note = ({ data }) => {
             <HiOutlineDotsVertical className="text-sm" />
           </motion.div>
         </div>
-        <h1 className="text-xl font-bold ">{data.inputs.title}</h1>
+        <h1 className="text-xl font-bold ">{data.title}</h1>
         <p className="text-sm my-5  h-[100px]">
           {/* Specifying Number of words to spit out i.e 20 words */}
-          {data.inputs.subtitle.split(" ").length < count
-            ? data.inputs.subtitle
-            : data.inputs.subtitle
+          {data.subtitle.split(" ").length < count
+            ? data.subtitle
+            : data.subtitle
                 .split(" ")
                 .map((item, index) => (index < count ? item : null))
                 .join(" ") + "..."}

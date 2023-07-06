@@ -46,8 +46,8 @@ export const AddNew = () => {
                 (item) =>
                   !item.isArchived &&
                   item.isPinned && (
-                    <SwiperSlide key={item.id} className="p-1">
-                      <Note data={item} key={item.id} />
+                    <SwiperSlide key={item._id} className="p-1">
+                      <Note data={item} key={item._id} />
                     </SwiperSlide>
                   )
               )}
@@ -67,7 +67,7 @@ export const AddNew = () => {
             {notes.map(
               (item) =>
                 !item.isArchive &&
-                !item.isPinned && <Note data={item} key={item.id} />
+                !item.isPinned && <Note data={item} key={item._id} />
             )}
           </AnimatePresence>
         </div>

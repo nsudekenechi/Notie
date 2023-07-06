@@ -3,8 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { notesContext } from "./context";
 import { Colors } from "./data"
-import { DateTime } from "luxon";
-import { getFromDB } from "../Api/api";
+import { createInDB, getFromDB } from "../Api/api";
 export const useSpeech = (isListening) => {
     const { transcript, resetTranscript } = useSpeechRecognition()
 
@@ -136,20 +135,17 @@ export const useNote = () => {
 
     // Creating a note
     const handleCreateNote = (note) => {
-        const newNote = {
-            ...note,
-            id: Math.floor(Math.random() * 1000),
-            isClicked: false,
-            isOption: false,
-            isArchive: false,
-            isFavorite: false,
-            isPinned: false,
-            date: DateTime.now().toLocaleString({ day: "numeric", month: "short", year: "numeric" })
-        }
+        // console.log(note);
+        createInDB(url, note).then(res => {
+            setNotes(prev => [...prev, {
+                ...res,
+                isClicked: false,
+                isOption: false,
+            }]);
+        })
 
 
 
-        setNotes(prev => [...prev, newNote])
     }
 
     // Deleting a note

@@ -4,9 +4,10 @@ const noteSchema = mongoose.Schema({
     title: String,
     subtitle: String,
     date: String,
-    archived: Boolean,
-    favorite: Boolean,
-    pinned: Boolean
+    isArchive: Boolean,
+    isFavorite: Boolean,
+    isPinned: Boolean,
+    color: String,
 })
 
 module.exports = mongoose.model("note", noteSchema);

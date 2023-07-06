@@ -15,15 +15,8 @@ const getNotes = async (req, res) => {
 // @route POST api/notes 
 const createNote = async (req, res) => {
     try {
-        const { title, subtitle, date } = req.body
-        const createdNotes = await model.create({
-            title,
-            subtitle,
-            date,
-            archived: false,
-            favorite: false,
-            pinned: false
-        });
+        // const { title, subtitle, date } = req.body
+        const createdNotes = await model.create({ ...req.body });
         res.status(201).json(createdNotes)
     } catch (err) {
         res.status(400).json({ message: err.message })
