@@ -98,14 +98,18 @@ export const useNote = () => {
 
     const getData = () => {
         getFromDB(url).then(res => {
-            setNotes(res);
+            let notes = [...res].map(item => ({
+                ...item, isClicked: false,
+                isOption: false,
+            }))
+            setNotes(notes);
         })
     }
 
     // Function that flips props from true to false, also takes params to closeoption if note option is open
     const Flip = (id, prop, flip, closeOption) => {
         const newItems = [...notes].map((item) => {
-            if (item.id === id) {
+            if (item._id === id) {
                 item[prop] = flip ? !item[prop] : true;
                 closeOption ? item.isOption = false : "";//Closing Option Box
             } else {

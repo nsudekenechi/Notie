@@ -39,7 +39,6 @@ export const CreateNote = () => {
   const undoAnimate = handleArrowAnimation(focusedInput);
   const redoAnimate = handleArrowAnimation(redo.length);
   const newNote = {
-    // id: Math.floor(Math.random() * 1000),
     ...inputs,
     isArchive: false,
     isFavorite: false,

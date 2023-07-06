@@ -4,11 +4,15 @@ import { useLocation } from "react-router-dom";
 import { AddNew } from "./AddNew";
 import { CreateNote } from "./CreateNote";
 import { useNote } from "../hooks/notes";
+import { useEffect } from "react";
 
 export const Dashboard = () => {
   const location = useLocation();
   const { getData } = useNote();
-  getData();
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div>
       <DashboardHeader />

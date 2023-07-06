@@ -14,7 +14,7 @@ export const Note = ({ data }) => {
       className={` col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
       onClick={(e) => {
         e.stopPropagation();
-        handleFlip(data.id, "isClicked", false);
+        handleFlip(data._id, "isClicked", false);
       }}
       style={{ outline: data.isClicked ? `1px solid ${data.color}` : "" }}
       initial={{ opacity: 0 }}
@@ -46,7 +46,7 @@ export const Note = ({ data }) => {
           <motion.div
             onClick={(e) => {
               e.stopPropagation();
-              handleFlip(data.id, "isOption", true);
+              handleFlip(data._id, "isOption", true);
             }}
             className={
               "rounded-full w-8 h-8 flex justify-center cursor-pointer items-center relative"
