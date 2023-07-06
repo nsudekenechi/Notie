@@ -3,10 +3,12 @@ import { DashboardSidebar } from "../components/DashboardSidebar";
 import { useLocation } from "react-router-dom";
 import { AddNew } from "./AddNew";
 import { CreateNote } from "./CreateNote";
+import { useNote } from "../hooks/notes";
 
 export const Dashboard = () => {
   const location = useLocation();
-
+  const { getData } = useNote();
+  getData();
   return (
     <div>
       <DashboardHeader />

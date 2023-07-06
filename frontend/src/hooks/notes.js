@@ -4,6 +4,7 @@ import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognitio
 import { notesContext } from "./context";
 import { Colors } from "./data"
 import { DateTime } from "luxon";
+import { getFromDB } from "../Api/api";
 export const useSpeech = (isListening) => {
     const { transcript, resetTranscript } = useSpeechRecognition()
 
@@ -94,6 +95,13 @@ export const handleArrowAnimation = (type) => ({
 export const useNote = () => {
 
     const { setNotes, notes } = useContext(notesContext);
+    const url = "http://localhost:5000/api/notes/";
+
+    const getData = () => {
+        getFromDB(url).then(res => {
+            setNotes(res);
+        })
+    }
 
     // Function that flips props from true to false, also takes params to closeoption if note option is open
     const Flip = (id, prop, flip, closeOption) => {
@@ -150,7 +158,7 @@ export const useNote = () => {
     }
 
 
-    return { handleCreateNote, handleFlip, handleDeleteNote, handleUnclick }
+    return { getData, handleCreateNote, handleFlip, handleDeleteNote, handleUnclick }
 
 
 }

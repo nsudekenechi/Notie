@@ -8,7 +8,6 @@ import { Note } from "../components/Note";
 import { AddButton } from "../components/DashboardAddButton";
 import { useContext } from "react";
 import { useNote } from "../hooks/notes";
-import axios from "axios";
 
 import { notesContext } from "../hooks/context";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,10 +18,7 @@ export const AddNew = () => {
   const { notes } = useContext(notesContext);
   const isPinned = [...notes].some((item) => item.isPinned);
   const { handleUnclick } = useNote();
-  const url = "http://localhost:5000/api/notes/";
-  axios.get(url).then((res) => {
-    console.log(res.data);
-  });
+
   return (
     <>
       <div className="md:px-10 min-h-screen " onClick={handleUnclick}>
