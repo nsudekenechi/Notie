@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { notesContext } from "./context";
 import { Colors } from "./data"
-import { createInDB, getFromDB } from "../Api/api";
+import { createInDB, getFromDB, updateDB, deleteFromDB } from "../Api/api";
 export const useSpeech = (isListening) => {
     const { transcript, resetTranscript } = useSpeechRecognition()
 
@@ -112,9 +112,11 @@ export const useNote = () => {
             if (item._id === id) {
                 item[prop] = flip ? !item[prop] : true;
                 closeOption ? item.isOption = false : "";//Closing Option Box
+
             } else {
                 if (prop != "isPinned") item[prop] = false;
             }
+
             return item;
         });
         return newItems;
@@ -123,7 +125,17 @@ export const useNote = () => {
 
     const handleFlip = (id, prop, flip, closeOption) => {
         const newNotes = Flip(id, prop, flip, closeOption)
-        console.log(newNotes)
+
+        // Updating DB only when item is not clicked / option is not clicked
+        if (prop != "isClicked" && prop != "isOption") {
+
+            let newItem = [...newNotes].filter(item => item._id == id).find(item => item._id == id);
+            //Removing isClicked and Option before updating/pushing item to DB
+            delete newItem.isClicked;
+            delete newItem.isOption;
+            // Update In DB
+            updateDB(url + id, newItem);
+        }
         setNotes(newNotes);
     };
 
@@ -139,22 +151,18 @@ export const useNote = () => {
 
     // Creating a note
     const handleCreateNote = (note) => {
-        // console.log(note);
-        createInDB(url, note).then(res => {
-            setNotes(prev => [...prev, {
-                ...res,
-                isClicked: false,
-                isOption: false,
-            }]);
-        })
-
-
-
+        // Creating note inside of DB
+        createInDB(url, note).then(res => setNotes(prev => [...prev, {
+            ...res,
+            isClicked: false,
+            isOption: false,
+        }]))
     }
 
     // Deleting a note
     const handleDeleteNote = (id) => {
-        setNotes(prev => [...prev].filter(item => item.id != id))
+        deleteFromDB(url + id).then(res => setNotes(prev => [...prev].filter(item => item._id != id)));
+
     }
 
 
