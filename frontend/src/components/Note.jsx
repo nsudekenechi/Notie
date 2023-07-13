@@ -1,4 +1,3 @@
-import { BiPencil } from "react-icons/bi";
 import { FaRegStickyNote, FaCalendar, FaHeart } from "react-icons/fa";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import PropTypes from "prop-types";
@@ -6,14 +5,18 @@ import { motion } from "framer-motion";
 import { NoteOptions } from "./Note/NoteOptions";
 import { useNote } from "../hooks/notes";
 import { TiPin } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
+
 export const Note = ({ data }) => {
+  const navigate = useNavigate();
   const { handleFlip } = useNote();
   const count = 20;
   return (
     <motion.div
       className={` col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
-      onClick={(e) => {
-        e.stopPropagation();
+      onClick={() => {
+        navigate("/dashboard/note");
+        // e.stopPropagation();
         handleFlip(data._id, "isClicked", false);
       }}
       style={{ outline: data.isClicked ? `1px solid ${data.color}` : "" }}
@@ -39,9 +42,7 @@ export const Note = ({ data }) => {
               <TiPin />
             ) : data.isFavorite ? (
               <FaHeart style={{ color: data.color }} />
-            ) : (
-              <FaRegStickyNote />
-            )}
+            ) : null}
           </div>
           <motion.div
             onClick={(e) => {
@@ -61,7 +62,14 @@ export const Note = ({ data }) => {
             <HiOutlineDotsVertical className="text-sm" />
           </motion.div>
         </div>
-        <h1 className="text-xl font-bold ">{data.title}</h1>
+        <h1 className="text-xl font-bold ">
+          {data.title.split(" ").length < 6
+            ? data.title
+            : data.title
+                .split(" ")
+                .map((item, index) => (index < 6 ? item : null))
+                .join(" ") + "..."}
+        </h1>
         <p className="text-sm my-5  h-[100px]">
           {/* Specifying Number of words to spit out i.e 20 words */}
           {data.subtitle.split(" ").length < count
@@ -80,7 +88,7 @@ export const Note = ({ data }) => {
             className={`w-8 h-8 shadow-lg rounded-full flex justify-center items-center `}
             style={{ backgroundColor: data.color }}
           >
-            <BiPencil />
+            <FaRegStickyNote />
           </div>
         </div>
       </div>

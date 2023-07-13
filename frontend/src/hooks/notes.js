@@ -99,7 +99,8 @@ export const useNote = () => {
     const getData = () => {
         getFromDB(url).then(res => {
             let notes = [...res].map(item => ({
-                ...item, isClicked: false,
+                ...item,
+                isClicked: false,
                 isOption: false,
             }))
             setNotes(notes);
@@ -161,7 +162,7 @@ export const useNote = () => {
 
     // Deleting a note
     const handleDeleteNote = (id) => {
-        deleteFromDB(url + id).then(res => setNotes(prev => [...prev].filter(item => item._id != id)));
+        deleteFromDB(`${url}${id}`).then(() => setNotes(prev => [...prev].filter(item => item._id != id)));
 
     }
 

@@ -13,7 +13,7 @@ export const Home = () => {
 
   return (
     <div
-      className={` duration-500 md:overflow-hidden md:h-[100vh] ]  ${bodyColor}`}
+      className={` duration-500 md:overflow-hidden md:h-[100vh]   ${bodyColor}`}
       id="home"
     >
       <nav
