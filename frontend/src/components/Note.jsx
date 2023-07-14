@@ -13,9 +13,9 @@ export const Note = ({ data }) => {
   const count = 20;
   return (
     <motion.div
-      className={` col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
+      className={`cursor-pointer col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
       onClick={() => {
-        navigate("/dashboard/note");
+        navigate(`/dashboard/${data._id}`);
         // e.stopPropagation();
         handleFlip(data._id, "isClicked", false);
       }}

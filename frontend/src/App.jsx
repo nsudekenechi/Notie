@@ -11,6 +11,7 @@ import { useState } from "react";
 import { notesContext } from "./hooks/context";
 import { CreateNote } from "./pages/CreateNote";
 import { AddNew } from "./pages/AddNew";
+import { ReadNote } from "./components/ReadNote";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -26,6 +27,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />}>
               <Route path="createnote" element={<CreateNote />} />
               <Route path="addnew" element={<AddNew />} />
+              <Route path=":id" element={<ReadNote />} />
             </Route>
           </Routes>
         </Router>

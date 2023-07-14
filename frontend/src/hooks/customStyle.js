@@ -74,24 +74,17 @@ export const useShow = () => {
     return { show, toggleShow, hideShow }
 }
 
-// export const useNote = (data) => {
-//     // Spreading the items coming from the data, so we can add our own custom properties
-//     const [notes, setNotes] = useState(
-//         [...data].map((item) => ({ ...item, isClicked: false }))
-//     );
-    // const handleClick = (id, prop) => {
-    //     const newNotes = [...notes].map((item) => {
+export const useAnimateElementOnScroll = () => {
+    const [scroll, setScroll] = useState(false);
+    let isScrolling;
 
-    //         if (item.id === id) {
-    //             item[prop] = true;
-    //         } else {
-    //             item[prop] = false
-    //         }
+    window.addEventListener("scroll", () => {
+        clearTimeout(isScrolling);
+        setScroll(true);
+        isScrolling = setTimeout(() => {
+            setScroll(false);
+        }, 200);
+    });
 
-    //         return item;
-    //     });
-    //     setNotes(newNotes);
-    // };
-
-//     return { notes, handleClick }
-// }
+    return scroll
+}

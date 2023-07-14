@@ -1,20 +1,11 @@
 import { TiPlus } from "react-icons/ti";
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { useShow } from "../hooks/customStyle";
+import { useAnimateElementOnScroll, useShow } from "../hooks/customStyle";
 import { AddButtonLink } from "./DashboardAddButtonLink";
 export const AddButton = () => {
   const { show, toggleShow } = useShow();
-  const [scroll, setScroll] = useState(false);
-  let isScrolling;
+  const scroll = useAnimateElementOnScroll();
 
-  window.addEventListener("scroll", () => {
-    clearTimeout(isScrolling);
-    setScroll(true);
-    isScrolling = setTimeout(() => {
-      setScroll(false);
-    }, 200);
-  });
   return (
     <div className="top-[70%] fixed   flex flex-col gap-y-2 justify-between items-center right-5">
       <div className="flex flex-col items-center gap-y-1 ">
