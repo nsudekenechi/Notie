@@ -28,6 +28,7 @@ function App() {
               <Route path="createnote" element={<CreateNote />} />
               <Route path="addnew" element={<AddNew />} />
               <Route path=":id" element={<ReadNote />} />
+              <Route path=":id/edit" element={<CreateNote />} />
             </Route>
           </Routes>
         </Router>

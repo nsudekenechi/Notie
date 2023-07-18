@@ -96,16 +96,7 @@ export const useNote = () => {
     const { setNotes, notes } = useContext(notesContext);
     const url = "http://localhost:5000/api/notes/";
 
-    const getData = () => {
-        getFromDB(url).then(res => {
-            let notes = [...res].map(item => ({
-                ...item,
-                isClicked: false,
-                isOption: false,
-            }))
-            setNotes(notes);
-        })
-    }
+
 
     // Function that flips props from true to false, also takes params to closeoption if note option is open
     const Flip = (id, prop, flip, closeOption) => {
@@ -132,10 +123,10 @@ export const useNote = () => {
 
             let newItem = [...newNotes].filter(item => item._id == id).find(item => item._id == id);
             //Removing isClicked and Option before updating/pushing item to DB
-            delete newItem.isClicked;
-            delete newItem.isOption;
+            // delete newItem.isClicked;
+            // delete newItem.isOption;
             // Update In DB
-            updateDB(url + id, newItem);
+            updateDB(`${url}${id}`, newItem);
         }
         setNotes(newNotes);
     };
@@ -150,6 +141,17 @@ export const useNote = () => {
         })
     }
 
+    // Getting Notes
+    const getData = () => {
+        getFromDB(url).then(res => {
+            let notes = [...res].map(item => ({
+                ...item,
+                isClicked: false,
+                isOption: false,
+            }))
+            setNotes(notes);
+        })
+    }
     // Creating a note
     const handleCreateNote = (note) => {
         // Creating note inside of DB
@@ -166,8 +168,22 @@ export const useNote = () => {
 
     }
 
+    // Updating a note
+    const handleUpdateNote = (note, id) => {
+        updateDB(`${url}${id}`, note);
+        setNotes(prev => {
+            return [...prev].map(item => {
+                if (item._id == id) {
+                    item.title = note.title;
+                    item.subtitle = note.subtitle;
+                    item.color = note.color;
+                }
+                return item;
+            })
+        })
 
-    return { getData, handleCreateNote, handleFlip, handleDeleteNote, handleUnclick }
+    }
+    return { getData, handleUpdateNote, handleCreateNote, handleFlip, handleDeleteNote, handleUnclick }
 
 
 }

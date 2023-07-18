@@ -14,14 +14,17 @@ import {
   handleArrowAnimation,
 } from "../hooks/notes";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { DateTime } from "luxon";
-
+import { notesContext } from "../hooks/context";
+import { useContext, useEffect } from "react";
 export const CreateNote = () => {
+  const params = useParams();
+  const editNote = useContext(notesContext).notes.find(
+    (item) => item._id == params.id
+  );
   const { show: isListening, toggleShow: toggleListening } = useShow();
-
   const { resetTranscript, transcript } = useSpeech(isListening);
-
   const {
     inputChanged,
     handleFocus,
@@ -30,11 +33,18 @@ export const CreateNote = () => {
     handleRedo,
     focusedInput,
     redo,
-  } = useInputs({ subtitle: "", title: "" }, transcript, resetTranscript);
+  } = useInputs(
+    {
+      title: editNote ? editNote.title : "",
+      subtitle: editNote ? editNote.subtitle : "",
+    },
+    transcript,
+    resetTranscript
+  );
 
   const { colors, selectColor } = useColors();
 
-  const { handleCreateNote } = useNote();
+  const { handleCreateNote, handleUpdateNote } = useNote();
 
   const undoAnimate = handleArrowAnimation(focusedInput);
   const redoAnimate = handleArrowAnimation(redo.length);
@@ -52,12 +62,18 @@ export const CreateNote = () => {
     }),
     color: colors.find((item) => item.selected).color,
   };
+
+  useEffect(() => {
+    // Getting Index of Edit NOte's color
+    let index = colors.findIndex((item) => item.color == editNote.color);
+    selectColor(index);
+  }, []);
   return (
     <div className="md:pl-10">
       <div className="px-1 md:px-3 lg:px-5 mb-10 flex flex-col gap-y-2">
         <div className="flex justify-between items-center">
           <h1 className="   font-bold text-lg md:text-xl lg:text-2xl">
-            Create Note
+            {editNote ? "Edit" : "Create"} Note
           </h1>
           <div className="flex gap-x-5 items-center">
             <motion.div
@@ -134,7 +150,17 @@ export const CreateNote = () => {
           </div>
           <Link
             to={"/dashboard/addnew"}
-            onClick={() => handleCreateNote(newNote)}
+            onClick={() =>
+              !editNote
+                ? handleCreateNote(newNote)
+                : handleUpdateNote(
+                    {
+                      ...inputs,
+                      color: colors.find((item) => item.selected).color,
+                    },
+                    params.id
+                  )
+            }
           >
             <div className="w-[50px] h-[50px]   duration-1000 shadow-xl  z-10 rounded-full  flex justify-center items-center text-white text-2xl bg-purple-600 cursor-pointer">
               <BiCheck />

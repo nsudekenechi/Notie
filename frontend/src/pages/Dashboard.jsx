@@ -12,7 +12,6 @@ export const Dashboard = () => {
     getData();
   }, []);
   const params = useParams();
-
   const note = useContext(notesContext).notes.find(
     (item) => item._id == params.id
   );

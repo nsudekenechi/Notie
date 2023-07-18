@@ -15,7 +15,6 @@ const getNotes = async (req, res) => {
 // @route POST api/notes 
 const createNote = async (req, res) => {
     try {
-        // const { title, subtitle, date } = req.body
         const createdNotes = await model.create({ ...req.body });
         res.status(201).json(createdNotes)
     } catch (err) {
