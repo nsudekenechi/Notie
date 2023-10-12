@@ -13,11 +13,13 @@ export const useFormValidation = (schema,inputs) => {
     const onSubmit = (e) => {
         e.preventDefault()
         
-        const createUser=createInDB('/api/user',{...inputs})
+        const createUser=createInDB('user/',{...inputs})
         createUser.then(e=>{
+            console.log(e.respose.data);
+        }).catch(e=>{
             console.log(e)
         })
-    
+       
         
     }
     return { register, handleSubmit, onSubmit, errors }

@@ -9,26 +9,26 @@ import { useFormValidation } from "../hooks/FormValidation";
 import { useState } from "react";
 export const Signup = () => {
   const schema = yup.object().shape({
-    Email: yup
+    email: yup
       .string()
       .required("Field is required")
       .email("Please enter a valid email address"),
 
-    Fullname: yup.string().required("Field is required"),
-    Password: yup
+    fullname: yup.string().required("Field is required"),
+    password: yup
       .string()
       .required("Field is required")
-      .min(6, "Password must be atleast 6 characters"),
-    ConfirmPassword: yup
+      .min(6, "password must be atleast 6 characters"),
+    Confirmpassword: yup
       .string()
       .required("Field is required")
-      .oneOf([yup.ref("Password"), null], "Password don't match!"),
+      .oneOf([yup.ref("password"), null], "password don't match!"),
   });
 
   const [inputs, setInputs] = useState({
-    Fullname: "",
-    Email: "",
-    Password: "",
+    fullname: "",
+    email: "",
+    password: "",
   })
 
   const { handleSubmit, onSubmit, register, errors } =
@@ -64,29 +64,29 @@ export const Signup = () => {
           <form onSubmit={onSubmit}>
             <div className="flex flex-col gap-y-5 md:gap-y-5 lg:gap-y-2">
               <Input
-                name={"Fullname"}
+                name={"fullname"}
                 type={"text"}
                 icon={<HiUser />}
                 register={register}
-                error={errors.Fullname?.message}
+                error={errors.fullname?.message}
                 onChange={onChange}
               />
               <Input
-                name={"Email"}
+                name={"email"}
                 type={"email"}
                 icon={<HiMail />}
                 register={register}
-                error={errors.Email?.message}
+                error={errors.email?.message}
                 onChange={onChange}
 
               />
 
               <Input
-                name={"Password"}
+                name={"password"}
                 type={"password"}
                 icon={<HiLockClosed />}
                 register={register}
-                error={errors.Password?.message}
+                error={errors.password?.message}
                 onChange={onChange}
 
               />

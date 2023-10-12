@@ -6,7 +6,7 @@ export const Input = ({ type, name, icon, register, error,onChange }) => {
     useInput();
   return (
     <div className="flex flex-col gap-y-4 md:gap-y-2">
-      <p className="text-sm">{name}</p>
+      <p className="text-sm capitalize">{name}</p>
       <motion.div
         initial={{ border }}
         animate={{ border: error ? errorBorder : border }}
@@ -20,7 +20,7 @@ export const Input = ({ type, name, icon, register, error,onChange }) => {
           }`}
         >
           {icon}
-          Enter {name}
+          Enter <span className="capitalize">{name}</span>
         </motion.div>
         <input
           type={type}
