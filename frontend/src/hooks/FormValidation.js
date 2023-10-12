@@ -1,16 +1,24 @@
 import { useForm } from "react-hook-form"
 
-import { yupResolver } from "@hookform/resolvers/yup"
-export const useFormValidation = (schema) => {
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createInDB } from "../api/api"; 
+export const useFormValidation = (schema,inputs) => {
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
 
 
-    const onSubmit = () => {
-        reset();
+    const onSubmit = (e) => {
+        e.preventDefault()
+        
+        const createUser=createInDB('/api/user',{...inputs})
+        createUser.then(e=>{
+            console.log(e)
+        })
+    
+        
     }
     return { register, handleSubmit, onSubmit, errors }
 }

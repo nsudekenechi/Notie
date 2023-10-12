@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInput } from "../hooks/customStyle";
 import PropTypes from "prop-types";
-export const Input = ({ type, name, icon, register, error }) => {
+export const Input = ({ type, name, icon, register, error,onChange }) => {
   const { focus, onFocus, onBlur, translateY, border, errorBorder } =
     useInput();
   return (
@@ -28,6 +28,7 @@ export const Input = ({ type, name, icon, register, error }) => {
           {...register(name.replace(/ /g, ""))}
           onFocus={onFocus}
           onBlur={onBlur}
+          onChange={onChange}
         />
       </motion.div>
       <span className="text-xs text-red-600">{error}</span>
@@ -40,4 +41,5 @@ Input.propTypes = {
   icon: PropTypes.any,
   register: PropTypes.func,
   error: PropTypes.string,
+  onChange:PropTypes.func
 };

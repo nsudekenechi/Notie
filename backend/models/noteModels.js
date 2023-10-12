@@ -8,6 +8,7 @@ const noteSchema = mongoose.Schema({
     isFavorite: Boolean,
     isPinned: Boolean,
     color: String,
+    user: String
 })
 
 module.exports = mongoose.model("note", noteSchema);

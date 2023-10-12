@@ -155,22 +155,29 @@ export const useNote = () => {
     // Creating a note
     const handleCreateNote = (note) => {
         // Creating note inside of DB
-        createInDB(url, note).then(res => setNotes(prev => [...prev, {
-            ...res,
+        createInDB(url, note)
+        // Creating note inside of state
+        setNotes(prev => [...prev, {
+            ...note,
             isClicked: false,
             isOption: false,
-        }]))
+        }])
     }
 
     // Deleting a note
     const handleDeleteNote = (id) => {
-        deleteFromDB(`${url}${id}`).then(() => setNotes(prev => [...prev].filter(item => item._id != id)));
+        // Deleting From DB
+        deleteFromDB(`${url}${id}`);
+        // Deleting From State
+        setNotes(prev => [...prev].filter(item => item._id != id))
 
     }
 
     // Updating a note
     const handleUpdateNote = (note, id) => {
+        // Updating in DB
         updateDB(`${url}${id}`, note);
+        // Updating in State
         setNotes(prev => {
             return [...prev].map(item => {
                 if (item._id == id) {

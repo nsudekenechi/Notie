@@ -4,7 +4,7 @@ const model = require("../models/noteModels")
 //@route GET api/notes 
 const getNotes = async (req, res) => {
     try {
-        const notes = await model.find();
+        const notes = await model.find({user: req.body.user});
         res.status(200).json(notes)
     } catch (err) {
         res.status(400).json({ message: err.message })
@@ -15,6 +15,7 @@ const getNotes = async (req, res) => {
 // @route POST api/notes 
 const createNote = async (req, res) => {
     try {
+        
         const createdNotes = await model.create({ ...req.body });
         res.status(201).json(createdNotes)
     } catch (err) {

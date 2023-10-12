@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { RightPanelSlider } from "../components/RightPanelSlider";
 
 import { useFormValidation } from "../hooks/FormValidation";
+import { useState } from "react";
 export const Signup = () => {
   const schema = yup.object().shape({
     Email: yup
@@ -23,8 +24,21 @@ export const Signup = () => {
       .required("Field is required")
       .oneOf([yup.ref("Password"), null], "Password don't match!"),
   });
+
+  const [inputs, setInputs] = useState({
+    Fullname: "",
+    Email: "",
+    Password: "",
+  })
+
   const { handleSubmit, onSubmit, register, errors } =
-    useFormValidation(schema);
+    useFormValidation(schema, inputs);
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({ ...inputs, [name]: value });
+  }
+
   return (
     <section
       className="md:overflow-hidden md:h-[100vh]  px-5 md:px-0 md:pl-5 grid  grid-col-1 md:grid-cols-2 "
@@ -47,7 +61,7 @@ export const Signup = () => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={onSubmit}>
             <div className="flex flex-col gap-y-5 md:gap-y-5 lg:gap-y-2">
               <Input
                 name={"Fullname"}
@@ -55,6 +69,7 @@ export const Signup = () => {
                 icon={<HiUser />}
                 register={register}
                 error={errors.Fullname?.message}
+                onChange={onChange}
               />
               <Input
                 name={"Email"}
@@ -62,6 +77,8 @@ export const Signup = () => {
                 icon={<HiMail />}
                 register={register}
                 error={errors.Email?.message}
+                onChange={onChange}
+
               />
 
               <Input
@@ -70,14 +87,10 @@ export const Signup = () => {
                 icon={<HiLockClosed />}
                 register={register}
                 error={errors.Password?.message}
+                onChange={onChange}
+
               />
-              <Input
-                name={"Confirm Password"}
-                type={"password"}
-                icon={<HiLockClosed />}
-                register={register}
-                error={errors.ConfirmPassword?.message}
-              />
+          
 
               <button className="bg-[#54428E] p-3 text-white rounded-md">
                 Sign Up
