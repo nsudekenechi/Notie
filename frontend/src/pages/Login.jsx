@@ -2,13 +2,16 @@ import { Link } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
 import { HiOutlineUser, HiMail, HiLockClosed } from "react-icons/hi";
-import { FcGoogle } from "react-icons/fc";
-import { BsFacebook } from "react-icons/bs";
+// import { FcGoogle } from "react-icons/fc";
+// import { BsFacebook } from "react-icons/bs";
 import { useFormValidation } from "../hooks/FormValidation";
 import * as yup from "yup";
 import { RightPanelSlider } from "../components/RightPanelSlider";
 import { useState } from "react";
+
+
 export const Login = () => {
+
   const [inputs, setInputs] = useState({
     fullname: "",
     password: ""
@@ -22,13 +25,16 @@ export const Login = () => {
       .min(6, "Password must be atleast 6 characters")
       .required("Field is required"),
   });
-  const { handleSubmit, onSubmit, register, errors } =
-    useFormValidation(schema, inputs,"user/login");
+  const { onSubmit, register, errors } =
+    useFormValidation(schema, inputs, "user/login");
 
   const onInputChange = (e) => {
     const { value, name } = e.target;
     setInputs({ ...inputs, [name]: value });
   }
+
+
+
   return (
     <section
       className="md:overflow-hidden md:h-[100vh] md:pl-5 grid grid-cols-1 px-5 md:px-0 md:grid-cols-2 "
@@ -72,7 +78,7 @@ export const Login = () => {
                 icon={<HiMail />}
                 register={register}
                 error={errors.Email?.message}
-                change={{onInputChange,inputs}}
+                change={{ onInputChange, inputs }}
               />
               <Input
                 name={"password"}
@@ -80,7 +86,7 @@ export const Login = () => {
                 icon={<HiLockClosed />}
                 register={register}
                 error={errors.Password?.message}
-                change={{onInputChange,inputs}}
+                change={{ onInputChange, inputs }}
               />
               <div className="text-xs md:text-sm  grid grid-cols-1 lg:grid-cols-2 gap-y-2">
                 <label className="flex items-center col-span-1  gap-x-2">
@@ -93,7 +99,7 @@ export const Login = () => {
                     to={"/signup"}
                     className="text-[#54428E] italic font-bold"
                   >
-                    Create 
+                    Create
                   </Link>
                 </p>
               </div>

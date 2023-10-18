@@ -94,7 +94,6 @@ export const handleArrowAnimation = (type) => ({
 export const useNote = () => {
 
     const { setNotes, notes } = useContext(notesContext);
-    const url = "http://localhost:5000/api/notes/";
 
 
 
@@ -143,25 +142,18 @@ export const useNote = () => {
 
     // Getting Notes
     const getData = () => {
-        getFromDB(url).then(res => {
-            let notes = [...res].map(item => ({
-                ...item,
-                isClicked: false,
-                isOption: false,
-            }))
-            setNotes(notes);
-        })
+       getFromDB("/").then(e=>{})
     }
     // Creating a note
     const handleCreateNote = (note) => {
-        // Creating note inside of DB
-        createInDB(url, note)
-        // Creating note inside of state
-        setNotes(prev => [...prev, {
-            ...note,
-            isClicked: false,
-            isOption: false,
-        }])
+        // // Creating note inside of DB
+        // createInDB(url, note)
+        // // Creating note inside of state
+        // setNotes(prev => [...prev, {
+        //     ...note,
+        //     isClicked: false,
+        //     isOption: false,
+        // }])
     }
 
     // Deleting a note
