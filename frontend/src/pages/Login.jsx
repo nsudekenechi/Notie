@@ -7,11 +7,15 @@ import { BsFacebook } from "react-icons/bs";
 import { useFormValidation } from "../hooks/FormValidation";
 import * as yup from "yup";
 import { RightPanelSlider } from "../components/RightPanelSlider";
+import { useState } from "react";
 export const Login = () => {
+  const [inputs, setInputs] = useState({
+    fullname: "",
+    password: ""
+  })
   const schema = yup.object().shape({
     Email: yup
       .string()
-      .email("Please enter a valid email address")
       .required("Field is required"),
     Password: yup
       .string()
@@ -19,8 +23,12 @@ export const Login = () => {
       .required("Field is required"),
   });
   const { handleSubmit, onSubmit, register, errors } =
-    useFormValidation(schema);
+    useFormValidation(schema, inputs,"user/login");
 
+  const onInputChange = (e) => {
+    const { value, name } = e.target;
+    setInputs({ ...inputs, [name]: value });
+  }
   return (
     <section
       className="md:overflow-hidden md:h-[100vh] md:pl-5 grid grid-cols-1 px-5 md:px-0 md:grid-cols-2 "
@@ -43,8 +51,8 @@ export const Login = () => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid  grid-cols-1 md:grid-cols-2  gap-y-5 md:gap-y-0  md:gap-x-5 lg:px-10">
+          <form onSubmit={onSubmit}>
+            {/* <div className="grid  grid-cols-1 md:grid-cols-2  gap-y-5 md:gap-y-0  md:gap-x-5 lg:px-10">
               <button className="col-span-1 flex items-center justify-center gap-x-2 lg:p-2 p-3 border rounded-full">
                 <FcGoogle /> Google
               </button>
@@ -56,21 +64,23 @@ export const Login = () => {
 
             <div className="border-t border-b flex justify-center text-sm text-black/80 items-center py-2 my-5">
               <p className="">or continue with email</p>
-            </div>
+            </div> */}
             <div className="flex flex-col gap-y-2">
               <Input
-                name={"Email"}
-                type={"email"}
+                name={"fullname"}
+                type={"text"}
                 icon={<HiMail />}
                 register={register}
                 error={errors.Email?.message}
+                change={{onInputChange,inputs}}
               />
               <Input
-                name={"Password"}
-                type={"Password"}
+                name={"password"}
+                type={"password"}
                 icon={<HiLockClosed />}
                 register={register}
                 error={errors.Password?.message}
+                change={{onInputChange,inputs}}
               />
               <div className="text-xs md:text-sm  grid grid-cols-1 lg:grid-cols-2 gap-y-2">
                 <label className="flex items-center col-span-1  gap-x-2">
@@ -78,12 +88,12 @@ export const Login = () => {
                   <p>Remember Me</p>
                 </label>
                 <p className="col-span-1">
-                  Dont have an account?{" "}
+                  Dont have an account?
                   <Link
                     to={"/signup"}
                     className="text-[#54428E] italic font-bold"
                   >
-                    Create an account
+                    Create 
                   </Link>
                 </p>
               </div>

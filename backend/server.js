@@ -4,6 +4,7 @@ const app = express()
 const port = process.env.PORT || 5000;
 const DB = require("./db/db")
 const cors = require("cors")
+const auth = require("./middlewares/auth");
 app.use(cors({
     origin: "*"
 }))
@@ -15,6 +16,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes Paths
-app.use("/api/notes", require("./routers/noteRouters"))
+app.use("/api/notes",auth,require("./routers/noteRouters"))
 app.use("/api/user", require("./routers/userRouters"))
 app.listen(port)

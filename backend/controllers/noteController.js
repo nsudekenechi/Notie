@@ -4,7 +4,7 @@ const model = require("../models/noteModels")
 //@route GET api/notes 
 const getNotes = async (req, res) => {
     try {
-        const notes = await model.find({user: req.body.user});
+        const notes = await model.find({user: req.user});
         res.status(200).json(notes)
     } catch (err) {
         res.status(400).json({ message: err.message })
@@ -15,8 +15,7 @@ const getNotes = async (req, res) => {
 // @route POST api/notes 
 const createNote = async (req, res) => {
     try {
-        
-        const createdNotes = await model.create({ ...req.body });
+        const createdNotes = await model.create({...req.body,user:req.user });
         res.status(201).json(createdNotes)
     } catch (err) {
         res.status(400).json({ message: err.message })
@@ -27,8 +26,10 @@ const createNote = async (req, res) => {
 // @route Update api/notes
 const updateNote = async (req, res) => {
     try {
-        const id = req.params.id
-        const newNote = await model.findByIdAndUpdate(id, { ...req.body }, { new: true });
+        if(!req.body._id){
+            throw new Error("Couldn't find note");
+        }
+        const newNote = await model.findByIdAndUpdate(req.body._id, { ...req.body }, { new: true });
         res.status(200).json(newNote);
     } catch (err) {
         res.status(400).json(err.message)
@@ -40,8 +41,10 @@ const updateNote = async (req, res) => {
 // @route Delete api/notes
 const deleteNote = async (req, res) => {
     try {
-        const id = req.params.id;
-        await model.findByIdAndDelete(id);
+        if(!req.body._id){
+            throw new Error("Couldn't find note");
+        }
+        await model.findByIdAndDelete(req.body._id);
         res.status(200).json({ message: "Deleted..." })
     } catch (err) {
         res.status(400).json(err.message)

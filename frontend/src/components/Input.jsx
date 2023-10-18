@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInput } from "../hooks/customStyle";
 import PropTypes from "prop-types";
-export const Input = ({ type, name, icon, register, error,onChange }) => {
+export const Input = ({ type, name, icon, register, error,change }) => {
   const { focus, onFocus, onBlur, translateY, border, errorBorder } =
     useInput();
   return (
@@ -10,7 +10,7 @@ export const Input = ({ type, name, icon, register, error,onChange }) => {
       <motion.div
         initial={{ border }}
         animate={{ border: error ? errorBorder : border }}
-        className={`duration-1000 flex flex-col justify-center h-[50px] md:h-[8vh] lg:h-[9vh] px-5 py-3`}
+        className={`duration-1000 flex flex-col justify-center h-[50px] md:h-[60px] lg:h-[70px] px-5 py-3`}
       >
         <motion.div
           initial={{ translateY }}
@@ -25,10 +25,12 @@ export const Input = ({ type, name, icon, register, error,onChange }) => {
         <input
           type={type}
           className="outline-none bg-white focus:text-[#54428E]"
-          {...register(name.replace(/ /g, ""))}
+          name={name}
+          // {...register(name.replace(/ /g, ""))}
           onFocus={onFocus}
           onBlur={onBlur}
-          onChange={onChange}
+          onChange={change.onInputChange}
+          value={change.inputs[name]}
         />
       </motion.div>
       <span className="text-xs text-red-600">{error}</span>
@@ -41,5 +43,5 @@ Input.propTypes = {
   icon: PropTypes.any,
   register: PropTypes.func,
   error: PropTypes.string,
-  onChange:PropTypes.func
+  change:PropTypes.object
 };
