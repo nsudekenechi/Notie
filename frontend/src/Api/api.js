@@ -1,7 +1,7 @@
 import axios from "axios";
-const globalPath="http://localhost:5000/api/";
+const globalPath = "http://localhost:5000/api/";
 
-export const getFromDB = (url) => axios.get(globalPath + url).then((res) => res.data);
+export const getFromDB = (url, header) => axios.get(globalPath + url, header).then((res) => res.data);
 export const createInDB = (url, data) => axios.post(globalPath + url, data).then((res) => res.data);
 
 export const updateDB = (url, data) => axios.patch(globalPath + url, data).then((res) => res.data);

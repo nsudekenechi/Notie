@@ -16,11 +16,11 @@ export const useFormValidation = (schema, inputs, url) => {
         // Making request to Login
         createInDB(url, { ...inputs }).then(e => {
             // Storing to session
-            sessionStorage.setItem("user", JSON.stringify(e.token));
+            sessionStorage.setItem("user", JSON.stringify(e));
             setUser(e);
             navigate("/dashboard/addnew");
         }).catch(err => {
-            console.log(err.response.data)
+            console.log(err.response.data);
         })
 
     }

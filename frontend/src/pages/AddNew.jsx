@@ -15,13 +15,13 @@ import { Navigation } from "swiper";
 import "swiper/swiper-bundle.css";
 import { AnimatePresence } from "framer-motion";
 export const AddNew = () => {
-  const { notes } = useContext(notesContext);
-  const isPinned = [...notes].some((item) => item.isPinned);
-  const { handleUnclick } = useNote();
+  // const { notes } = useContext(notesContext);
+  // const isPinned = [...notes].some((item) => item.isPinned);
+  // const { handleUnclick } = useNote();
 
   return (
     <>
-      <div className="md:px-10 min-h-screen " onClick={handleUnclick}>
+      {/* <div className="md:px-10 min-h-screen " onClick={handleUnclick}>
         {isPinned && (
           <div className="pb-10 border-b">
             <div className="flex items-center  justify-between">
@@ -52,13 +52,7 @@ export const AddNew = () => {
                   )
               )}
             </Swiper>
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 ">
-              {notes.map(
-                (item) =>
-                  !item.isArchived &&
-                  item.isPinned && <Note data={item} key={item.id} />
-              )}
-            </div> */}
+           
           </div>
         )}
 
@@ -71,7 +65,7 @@ export const AddNew = () => {
             )}
           </AnimatePresence>
         </div>
-      </div>
+      </div> */}
 
       <AddButton />
     </>

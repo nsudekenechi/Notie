@@ -93,8 +93,13 @@ export const handleArrowAnimation = (type) => ({
 });
 export const useNote = () => {
 
-    const { setNotes, notes } = useContext(notesContext);
-
+    const { setNotes, notes, user } = useContext(notesContext);
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${user.token}`,
+            "content-type": "application/json"
+        }
+    }
 
 
     // Function that flips props from true to false, also takes params to closeoption if note option is open
@@ -142,7 +147,11 @@ export const useNote = () => {
 
     // Getting Notes
     const getData = () => {
-       getFromDB("/").then(e=>{})
+        getFromDB("notes", config).then(notes => {
+            setNotes(notes)
+        }).catch(err => {
+            console.log(err.response.data.error)
+        })
     }
     // Creating a note
     const handleCreateNote = (note) => {
