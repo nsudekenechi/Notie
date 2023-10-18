@@ -14,8 +14,8 @@ import { AddNew } from "./pages/AddNew";
 import { ReadNote } from "./components/ReadNote";
 
 function App() {
-  const [notes, setNotes] = useState([]);
-  const [user, setUser] = useState({});
+  const [notes, setNotes] = useState(null);
+  const [user, setUser] = useState(null);
   return (
     <>
       <notesContext.Provider value={{ notes, setNotes, user, setUser }}>
