@@ -22,13 +22,13 @@ export const Dashboard = () => {
       <main className="grid grid-cols-6 ">
         <DashboardSidebar />
         <section className="col-span-5 md:py-10 min-h-screen relative">
-          <div
+          {/* <div
             className="absolute h-[100%] w-[100%]  top-0 left-0 -z-10"
-            // style={{
-            //   background: !note ? "rgb(243 232 255 / 0.9)" : note.color,
-            //   opacity: !note ? 1 : 0.06,
-            // }}
-          ></div>
+            style={{
+              background: !note ? "rgb(243 232 255 / 0.9)" : note.color,
+              opacity: !note ? 1 : 0.06,
+            }}
+          ></div> */}
           <Outlet />
         </section>
       </main>
