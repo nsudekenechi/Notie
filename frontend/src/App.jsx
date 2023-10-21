@@ -15,13 +15,7 @@ import { ReadNote } from "./components/ReadNote";
 
 function App() {
   const [notes, setNotes] = useState(null);
-  const [user, setUser] = useState(null);
-  
-  useEffect(()=>{
-    if(sessionStorage.getItem("user")){
-      setUser(JSON.parse(sessionStorage.getItem("user")));
-    }
-  },[])
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user") )|| null);
   return (
     <>
       <notesContext.Provider value={{ notes, setNotes, user, setUser }}>

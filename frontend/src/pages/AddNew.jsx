@@ -6,7 +6,7 @@ import { Note } from "../components/Note";
 // import { notesData } from "../hooks/data";
 // import { ReadNote } from "../components/ReadNote";
 import { AddButton } from "../components/DashboardAddButton";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNote } from "../hooks/notes";
 
 import { notesContext } from "../hooks/context";
@@ -15,14 +15,19 @@ import { Navigation } from "swiper";
 import "swiper/swiper-bundle.css";
 import { AnimatePresence } from "framer-motion";
 export const AddNew = () => {
-  const { notes } = useContext(notesContext);
-  
-  const isPinned = [...notes].some((item) => item.isPinned);
-  const { handleUnclick } = useNote();
+//   const {getData}=useNote();
+//   const { notes } = useContext(notesContext);
+//   useEffect(()=>{
+//     getData()
+// },[])
+//   console.log('hello')
+//   console.log(notes)
+  // const isPinned = [...notes].some((item) => item.isPinned);
+  // const { handleUnclick } = useNote();
 
   return (
     <>
-      <div className="md:px-10 min-h-screen " onClick={handleUnclick}>
+      {/* <div className="md:px-10 min-h-screen " onClick={handleUnclick}>
         {isPinned && (
           <div className="pb-10 border-b">
             <div className="flex items-center  justify-between">
@@ -66,7 +71,7 @@ export const AddNew = () => {
             )}
           </AnimatePresence>
         </div>
-      </div>
+      </div> */}
 
       <AddButton />
     </>
