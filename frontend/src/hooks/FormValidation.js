@@ -14,7 +14,7 @@ export const useFormValidation = (schema, inputs, url) => {
     const onSubmit = (e) => {
         e.preventDefault()
         // Making request to Login
-        createInDB(url, { ...inputs }).then(e => {
+        createInDB(url, { ...inputs },{}).then(e => {
             // Storing to session
             sessionStorage.setItem("user", JSON.stringify(e));
             setUser(e);

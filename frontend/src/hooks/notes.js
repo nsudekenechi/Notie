@@ -156,7 +156,11 @@ export const useNote = () => {
     // Creating a note
     const handleCreateNote = (note) => {
         // // Creating note inside of DB
-        // createInDB(url, note)
+        createInDB("note", note,config).then(data=>{
+            console.log(data)
+        }).catch(err=>{
+            console.log(err);
+        })
         // // Creating note inside of state
         // setNotes(prev => [...prev, {
         //     ...note,
