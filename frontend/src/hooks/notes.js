@@ -4,6 +4,7 @@ import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognitio
 import { notesContext } from "./context";
 import { Colors } from "./data"
 import { createInDB, getFromDB, updateDB, deleteFromDB } from "../api/api";
+import { useNavigate } from "react-router-dom";
 export const useSpeech = (isListening) => {
     const { transcript, resetTranscript } = useSpeechRecognition()
 
@@ -94,6 +95,7 @@ export const handleArrowAnimation = (type) => ({
 export const useNote = () => {
 
     const { setNotes, notes, user } = useContext(notesContext);
+    const navigate = useNavigate()
     const config = {
         headers: {
             "Authorization": `Bearer ${user.token}`,
@@ -149,6 +151,7 @@ export const useNote = () => {
     const getData = () => {
         getFromDB("notes", config).then(notes => {
             setNotes(notes)
+
         }).catch(err => {
             console.log(err.response.data.error)
         })
@@ -156,8 +159,9 @@ export const useNote = () => {
     // Creating a note
     const handleCreateNote = (note) => {
         // // Creating note inside of DB
-        createInDB("note", note,config).then(data=>{
-            console.log(data)
+        createInDB("notes", note,config).then(note=>{
+            // setNotes(notes=>([...notes,note]))
+            navigate("/dashboard/addnew");
         }).catch(err=>{
             console.log(err);
         })
