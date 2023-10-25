@@ -12,6 +12,7 @@ export const useSpeech = (isListening) => {
     useEffect(() => {
         if (isListening) {
             SpeechRecognition.startListening({ continuous: true })
+            
         } else {
             SpeechRecognition.stopListening()
         }
@@ -95,6 +96,7 @@ export const handleArrowAnimation = (type) => ({
 export const useNote = () => {
 
     const { setNotes, notes, user } = useContext(notesContext);
+    const [err,setError]= useState("");
     const navigate = useNavigate()
     const config = {
         headers: {
@@ -163,7 +165,8 @@ export const useNote = () => {
             // setNotes(notes=>([...notes,note]))
             navigate("/dashboard/addnew");
         }).catch(err=>{
-            console.log(err);
+            console.log(err.response.data.message)
+            setError(err.response.data.message)
         })
         // // Creating note inside of state
         // setNotes(prev => [...prev, {
@@ -199,7 +202,7 @@ export const useNote = () => {
         })
 
     }
-    return { getData, handleUpdateNote, handleCreateNote, handleFlip, handleDeleteNote, handleUnclick }
+    return { getData, handleUpdateNote, handleCreateNote, handleFlip, handleDeleteNote, handleUnclick,err }
 
 
 }

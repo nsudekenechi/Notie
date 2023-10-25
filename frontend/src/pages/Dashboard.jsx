@@ -21,7 +21,7 @@ export const Dashboard = () => {
       <DashboardHeader />
       <main className="grid grid-cols-6 ">
         <DashboardSidebar />
-        <section className="col-span-5 md:py-10 min-h-screen relative">
+        <section className="col-span-5 md:py-10  relative">
           {/* <div
             className="absolute h-[100%] w-[100%]  top-0 left-0 -z-10"
             style={{
