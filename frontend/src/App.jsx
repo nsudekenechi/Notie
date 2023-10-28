@@ -14,7 +14,7 @@ import { AddNew } from "./pages/AddNew";
 import { ReadNote } from "./components/ReadNote";
 
 function App() {
-  const [notes, setNotes] = useState(null);
+  const [notes, setNotes] = useState([]);
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user") )|| null);
   
   return (
@@ -28,7 +28,7 @@ function App() {
             <Route path="dashboard" element={!user ? <Navigate to={"/login"} /> : <Dashboard />} >
               <Route path="createnote" element={<CreateNote />} />
               <Route path="addnew" element={<AddNew />} />
-              <Route path=":id" element={<ReadNote />} />
+              <Route path="viewnote/:id" element={<ReadNote />} />
               <Route path=":id/edit" element={<CreateNote />} />
             </Route>
           </Routes>

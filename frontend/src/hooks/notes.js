@@ -163,8 +163,9 @@ export const useNote = () => {
     const handleCreateNote = (note) => {
         // // Creating note inside of DB
         createInDB("notes", note, config).then(note => {
-            // setNotes(notes=>([...notes,note]))
+            // setNotes(prev => [...prev, note])
             navigate("/dashboard/addnew");
+            console.log(note)
         }).catch(err => {
             console.log(err.response.data.message)
             setError(err.response.data.message)

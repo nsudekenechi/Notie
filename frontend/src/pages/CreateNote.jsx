@@ -20,6 +20,7 @@ export const CreateNote = () => {
     title: "",
     subtitle: "",
     color: color.circle[0],
+    
   })
   const [focused, setFocused] = useState("");
   const { handleCreateNote, err } = useNote()
