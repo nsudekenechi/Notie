@@ -4,7 +4,7 @@ import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
 // import { useNote } from "../hooks/customStyle";
 import { Note } from "../components/Note";
 // import { notesData } from "../hooks/data";
-// import { ReadNote } from "../components/ReadNote";
+// import { ViewNote.jsx } from "../components/ViewNote.jsx";
 import { AddButton } from "../components/DashboardAddButton";
 import { useContext, useEffect } from "react";
 import { useNote } from "../hooks/notes";
@@ -18,9 +18,9 @@ export const AddNew = () => {
   const { getData } = useNote();
   const { notes } = useContext(notesContext);
 
-  useEffect(() => {
-    getData()
-  }, [])
+  // useEffect(() => {
+  //   getData()
+  // }, [])
 
   // console.log(notes)
   // const isPinned = [...notes].some((item) => item.isPinned);
@@ -28,8 +28,8 @@ export const AddNew = () => {
 
   return (
     <>
-      <div className="md:px-10 min-h-screen " >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5  py-10 ">
+      <div className="md:px-10 min-h-screen py-10 " >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5  ">
           <AnimatePresence>
             {notes.map(
               (item) =>

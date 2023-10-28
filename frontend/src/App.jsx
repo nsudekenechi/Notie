@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import { notesContext } from "./hooks/context";
 import { CreateNote } from "./pages/CreateNote";
 import { AddNew } from "./pages/AddNew";
-import { ReadNote } from "./components/ReadNote";
-
+import { ViewNote } from "./components/ViewNote";
+import { EditNote } from "./components/EditNote";
 function App() {
   const [notes, setNotes] = useState([]);
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user") )|| null);
@@ -28,8 +28,8 @@ function App() {
             <Route path="dashboard" element={!user ? <Navigate to={"/login"} /> : <Dashboard />} >
               <Route path="createnote" element={<CreateNote />} />
               <Route path="addnew" element={<AddNew />} />
-              <Route path="viewnote/:id" element={<ReadNote />} />
-              <Route path=":id/edit" element={<CreateNote />} />
+              <Route path="viewnote/:id" element={<ViewNote />} />
+              <Route path="editnote/:id" element={<CreateNote />} />
             </Route>
           </Routes>
         </Router>

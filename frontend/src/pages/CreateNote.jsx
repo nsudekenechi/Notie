@@ -1,11 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaCheck, FaMicrophone, FaMicrophoneSlash } from "react-icons/fa"
 import { useNote, useSpeech } from "../hooks/notes";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useLocation, useParams } from "react-router-dom";
+import { notesContext } from "../hooks/context";
 export const CreateNote = () => {
+  const location = useLocation()
+  const param = useParams()
+  const isEdit = location.pathname.includes("editnote");
+  // Finding Note if we're on editing mode
+  const { notes } = useContext(notesContext)
+  const [note, setNote] = useState(null)
   // Creating Colors
   const color = {
     circle: ["blue", "green", "orange"],
@@ -16,11 +23,12 @@ export const CreateNote = () => {
   const title = useRef(null);
   const subtitle = useRef(null);
   const [recording, setRecording] = useState(false);
+  console.log(note)
   const [inputs, setInputs] = useState({
-    title: "",
+    title: note ? note?.title : "",
     subtitle: "",
-    color: color.circle[0],
-    
+    color:  color.circle[0],
+
   })
   const [focused, setFocused] = useState("");
   const { handleCreateNote, err } = useNote()
@@ -80,7 +88,10 @@ export const CreateNote = () => {
 
   }, [recording]);
 
-
+  useEffect(() => {
+    setNote(notes.find(item => item._id == param.id));
+    // setInputs({...inputs,color: note?.color,title: note?.title,subtitle:note?.subtitle})
+  }, [notes])
   return (
     <div className={`md:pl-10   md:py-10 ${color.bg[color.circle.findIndex(item => item == inputs.color)]}`}>
 
