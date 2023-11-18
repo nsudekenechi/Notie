@@ -4,8 +4,9 @@ import { useNote, useSpeech } from "../hooks/notes";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { notesContext } from "../hooks/context";
+import { HiArrowLeft } from "react-icons/hi";
 export const CreateNote = () => {
   const location = useLocation()
   const param = useParams()
@@ -17,17 +18,17 @@ export const CreateNote = () => {
   const color = {
     circle: ["blue", "green", "orange"],
     bg: ["bg-blue-600/10", "bg-green-600/10", "bg-orange-600/10"],
-    audio: ["bg-blue-600", "bg-green-600", "bg-orange-600"]
+    audio: ["bg-blue-600", "bg-green-600", "bg-orange-600"],
+    text: ["text-blue-600", "text-green-600", "text-orange-600"]
   };
 
   const title = useRef(null);
   const subtitle = useRef(null);
   const [recording, setRecording] = useState(false);
-  console.log(note)
   const [inputs, setInputs] = useState({
     title: note ? note?.title : "",
     subtitle: "",
-    color:  color.circle[0],
+    color: color.circle[0],
 
   })
   const [focused, setFocused] = useState("");
@@ -94,6 +95,11 @@ export const CreateNote = () => {
   }, [notes])
   return (
     <div className={`md:pl-10   md:py-10 ${color.bg[color.circle.findIndex(item => item == inputs.color)]}`}>
+      <div className="my-3">
+        <Link to={"/dashboard/addNew"} className={`w-8 h-8 rounded-full   flex justify-center items-center  `}>
+          <HiArrowLeft className={`${color.text[color.circle.findIndex(item => item == note?.color)]}`} />
+        </Link>
+      </div>
 
       <ToastContainer />
       <form onSubmit={(e) => {
