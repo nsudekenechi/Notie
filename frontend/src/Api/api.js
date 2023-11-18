@@ -1,5 +1,5 @@
 import axios from "axios";
-const globalPath = "http://localhost:5000/api/";
+const globalPath = "https://notie-api.vercel.app/api/";
 
 export const getFromDB = (url, header) => axios.get(globalPath + url, header).then((res) => res.data);
 export const createInDB = (url, data,header) => axios.post(globalPath + url, data,header).then((res) => res.data);
