@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createInDB } from "../api/api";
+import { createInDB } from "../Api/api";
 import { useNavigate } from "react-router-dom";
 import { notesContext } from "./context";
 import { useContext } from "react";

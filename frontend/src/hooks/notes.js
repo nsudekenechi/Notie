@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { notesContext } from "./context";
 import { Colors } from "./data"
-import { createInDB, getFromDB, updateDB, deleteFromDB } from "../api/api";
+import { createInDB, getFromDB, updateDB, deleteFromDB } from "../Api/api";
 import { useNavigate } from "react-router-dom";
 export const useSpeech = (isListening) => {
     const { transcript, resetTranscript } = useSpeechRecognition()
