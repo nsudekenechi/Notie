@@ -11,7 +11,7 @@ import { useNote } from "../hooks/notes";
 
 import { notesContext } from "../hooks/context";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 import { AnimatePresence } from "framer-motion";
 export const AddNew = () => {

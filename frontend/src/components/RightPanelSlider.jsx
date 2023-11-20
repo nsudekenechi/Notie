@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
-import { Autoplay, Pagination } from "swiper";
+import { Autoplay, Pagination } from "swiper/modules";
 import { useAnimateSlide } from "../hooks/customStyle";
 import PropTypes from "prop-types";
 export const RightPanelSlider = ({ sliders }) => {

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useStyle } from "../hooks/customStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation, EffectFade } from "swiper";
+import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
 import { HomeFeedback } from "../components/HomeFeedback";
 import { BiSun, BiMoon } from "react-icons/bi";
 import { motion } from "framer-motion";
