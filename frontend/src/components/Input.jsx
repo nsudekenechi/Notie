@@ -8,14 +8,14 @@ export const Input = ({ type, name, icon, register, error,change }) => {
     <div className="flex flex-col gap-y-4 md:gap-y-2">
       <p className="text-sm capitalize">{name}</p>
       <motion.div
-        initial={{ border }}
-        animate={{ border: error ? errorBorder : border }}
-        className={`duration-1000 flex flex-col justify-center h-[50px] md:h-[60px] lg:h-[70px] px-5 py-3`}
+        initial={{ border,borderRadius:"0px" }}
+        animate={{ border: error ? errorBorder : border, borderRadius: !focus ? "20px" : "0px" }}
+        className={`relative duration-300   h-[50px]  px-5 py-1 md:py-4`}
       >
         <motion.div
           initial={{ translateY }}
           animate={{ translateY }}
-          className={`text-xs md:text-sm flex items-center gap-x-2 ${
+          className={`top-[10%] absolute text-xs flex items-center gap-x-2 ${
             focus ? "text-black" : "text-black/40 italic duration-200"
           }`}
         >
@@ -24,7 +24,7 @@ export const Input = ({ type, name, icon, register, error,change }) => {
         </motion.div>
         <input
           type={type}
-          className="outline-none bg-white focus:text-[#54428E]"
+          className="mt-2  relative z-10 outline-none bg-transparent w-[100%]  h-[100%]  focus:text-[#54428E]"
           name={name}
           // {...register(name.replace(/ /g, ""))}
           onFocus={onFocus}

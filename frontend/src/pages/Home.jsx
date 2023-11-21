@@ -97,8 +97,8 @@ export const Home = () => {
             <span className="opacity-40">Its Free</span>
           </Link>
 
-          <hr className={`w-14 border-dashed ${borderColor} opacity-40`} />
-          <Swiper
+          {/* <hr className={`w-14 border-dashed ${borderColor} opacity-40`} /> */}
+          {/* <Swiper
             spaceBetween={30}
             centeredSlides={true}
             autoplay={{
@@ -129,7 +129,7 @@ export const Home = () => {
                 job={"Painter"}
               />
             </SwiperSlide>
-          </Swiper>
+          </Swiper> */}
         </div>
         <div className="col-span-1">
           <Swiper

@@ -31,10 +31,10 @@ export const Signup = () => {
     password: "",
   })
 
-  const { handleSubmit, onSubmit, register, errors } =
+  const { onSubmit, register, errors } =
     useFormValidation(schema, inputs);
 
-  const onChange = (e) => {
+  const onInputChange = (e) => {
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
   }
@@ -50,9 +50,6 @@ export const Signup = () => {
         </div>
         <div className="  md:px-5 lg:px-20 py-5">
           <div className="flex flex-col gap-y-2 mb-5">
-            <div className="w-7 h-7 rounded-lg border flex justify-center  items-center">
-              <HiOutlineUser className="text-sm" />
-            </div>
             <div>
               <h1 className="text-xl md:text-2xl">Sign Up To Your Account</h1>
               <p className=" text-xs md:text-sm text-black/40 italic">
@@ -62,14 +59,14 @@ export const Signup = () => {
           </div>
 
           <form onSubmit={onSubmit}>
-            <div className="flex flex-col gap-y-5 md:gap-y-5 lg:gap-y-2">
+            <div className="flex flex-col gap-y-2">
               <Input
                 name={"fullname"}
                 type={"text"}
                 icon={<HiUser />}
                 register={register}
                 error={errors.fullname?.message}
-                onChange={onChange}
+                change={{ onInputChange, inputs }}
               />
               <Input
                 name={"email"}
@@ -77,7 +74,7 @@ export const Signup = () => {
                 icon={<HiMail />}
                 register={register}
                 error={errors.email?.message}
-                onChange={onChange}
+                change={{ onInputChange, inputs }}
 
               />
 
@@ -87,12 +84,12 @@ export const Signup = () => {
                 icon={<HiLockClosed />}
                 register={register}
                 error={errors.password?.message}
-                onChange={onChange}
+                change={{ onInputChange, inputs }}
 
               />
-          
 
-              <button className="bg-[#54428E] p-3 text-white rounded-md">
+
+              <button className="bg-[#54428E] p-3 text-white rounded-md mt-10">
                 Sign Up
               </button>
             </div>

@@ -30,7 +30,7 @@ export const useInput = () => {
         focus,
         onFocus,
         onBlur,
-        translateY: focus ? "60%" : 0,
+        translateY: focus ? "60%" : "20%",
         border: focus ? "0.1px solid rgba(0,0,0,.2)" : "0.1px solid #54428E",
         errorBorder: "0.1px solid red"
 

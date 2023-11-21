@@ -46,9 +46,7 @@ export const Login = () => {
         </div>
         <div className="md:px-5 lg:px-20 py-5">
           <div className="flex flex-col gap-y-2 mb-5">
-            <div className="w-7 h-7 rounded-lg border flex justify-center  items-center">
-              <HiOutlineUser className="text-sm" />
-            </div>
+          
             <div>
               <h1 className="text-xl md:text-2xl">Sign Up To Your Account</h1>
               <p className=" text-xs md:text-sm text-black/40 italic">
@@ -58,19 +56,7 @@ export const Login = () => {
           </div>
 
           <form onSubmit={onSubmit}>
-            {/* <div className="grid  grid-cols-1 md:grid-cols-2  gap-y-5 md:gap-y-0  md:gap-x-5 lg:px-10">
-              <button className="col-span-1 flex items-center justify-center gap-x-2 lg:p-2 p-3 border rounded-full">
-                <FcGoogle /> Google
-              </button>
-
-              <button className="col-span-1 flex items-center justify-center gap-x-2 lg:p-2 p-3 border rounded-full">
-                <BsFacebook className="text-blue-500" /> Facebook
-              </button>
-            </div>
-
-            <div className="border-t border-b flex justify-center text-sm text-black/80 items-center py-2 my-5">
-              <p className="">or continue with email</p>
-            </div> */}
+            
             <div className="flex flex-col gap-y-2">
               <Input
                 name={"fullname"}
@@ -88,12 +74,12 @@ export const Login = () => {
                 error={errors.Password?.message}
                 change={{ onInputChange, inputs }}
               />
-              <div className="text-xs md:text-sm  grid grid-cols-1 lg:grid-cols-2 gap-y-2">
-                <label className="flex items-center col-span-1  gap-x-2">
+              <div className="text-xs md:text-sm  grid  grid-cols-2 gap-y-2 mb-10">
+                <label className="flex items-center gap-x-2">
                   <input type="checkbox" className="accent-[#54428E]" />
                   <p>Remember Me</p>
                 </label>
-                <p className="col-span-1">
+                <p className="">
                   Dont have an account?
                   <Link
                     to={"/signup"}
