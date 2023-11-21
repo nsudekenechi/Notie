@@ -8,6 +8,15 @@ const signToken = (id) => {
 const signUp = async (req, res) => {
     try {
         const { fullname, password, email } = req.body;
+        if (!fullname) {
+            throw  new Error("Please Enter Fullname")
+        }
+        if (!email) {
+            throw  new Error("Please Enter Email")
+        }
+        if (!password) {
+            throw new Error("Please Enter Password")
+        }
         const hashed = await bycrypt.hash(password, 10);
         const user = await model.create({
             fullname,

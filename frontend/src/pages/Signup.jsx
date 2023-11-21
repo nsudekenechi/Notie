@@ -32,7 +32,7 @@ export const Signup = () => {
   })
 
   const { onSubmit, register, errors } =
-    useFormValidation(schema, inputs);
+    useFormValidation(schema, inputs,"user/");
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
