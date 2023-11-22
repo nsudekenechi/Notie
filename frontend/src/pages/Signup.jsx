@@ -31,8 +31,8 @@ export const Signup = () => {
     password: "",
   })
 
-  const { onSubmit, register, errors } =
-    useFormValidation(schema, inputs,"user/");
+  const { isLoading, onSubmit, register, errors } =
+    useFormValidation(schema, inputs, "user/");
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -89,8 +89,8 @@ export const Signup = () => {
               />
 
 
-              <button className="bg-[#54428E] p-3 text-white rounded-md mt-10">
-                Sign Up
+              <button className="bg-[#54428E] p-3 text-white rounded-md mt-10 flex justify-center">
+                {!isLoading ? 'Sign Up ' : <span className="loading loading-spinner"></span>}
               </button>
             </div>
           </form>

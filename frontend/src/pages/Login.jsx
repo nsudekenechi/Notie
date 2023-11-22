@@ -1,38 +1,29 @@
 import { Link } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
-import { HiOutlineUser, HiMail, HiLockClosed } from "react-icons/hi";
-// import { FcGoogle } from "react-icons/fc";
-// import { BsFacebook } from "react-icons/bs";
+import { HiMail, HiLockClosed } from "react-icons/hi";
 import { useFormValidation } from "../hooks/FormValidation";
 import * as yup from "yup";
 import { RightPanelSlider } from "../components/RightPanelSlider";
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const Login = () => {
-
-  const [inputs, setInputs] = useState({
-    fullname: "",
-    password: ""
-  })
   const schema = yup.object().shape({
-    Email: yup
+    fullname: yup
       .string()
       .required("Field is required"),
-    Password: yup
+    password: yup
       .string()
-      .min(6, "Password must be atleast 6 characters")
+      .min(3, "Password must be atleast 6 characters")
       .required("Field is required"),
   });
-  const { onSubmit, register, errors } =
-    useFormValidation(schema, inputs, "user/login");
+  const { handleSubmit, onSubmit, register, errors, isLoading} = useFormValidation(schema, "user/login");
 
-  const onInputChange = (e) => {
-    const { value, name } = e.target;
-    setInputs({ ...inputs, [name]: value });
-  }
-
+  
+  
 
 
   return (
@@ -46,7 +37,7 @@ export const Login = () => {
         </div>
         <div className="md:px-5 lg:px-20 py-5">
           <div className="flex flex-col gap-y-2 mb-5">
-          
+
             <div>
               <h1 className="text-xl md:text-2xl">Sign Up To Your Account</h1>
               <p className=" text-xs md:text-sm text-black/40 italic">
@@ -55,24 +46,23 @@ export const Login = () => {
             </div>
           </div>
 
-          <form onSubmit={onSubmit}>
-            
+          <form onSubmit={handleSubmit(onSubmit)}>
+
             <div className="flex flex-col gap-y-2">
               <Input
                 name={"fullname"}
                 type={"text"}
                 icon={<HiMail />}
                 register={register}
-                error={errors.Email?.message}
-                change={{ onInputChange, inputs }}
+                error={errors.fullname?.message}
+
               />
               <Input
                 name={"password"}
                 type={"password"}
                 icon={<HiLockClosed />}
                 register={register}
-                error={errors.Password?.message}
-                change={{ onInputChange, inputs }}
+                error={errors.password?.message}
               />
               <div className="text-xs md:text-sm  grid  grid-cols-2 gap-y-2 mb-10">
                 <label className="flex items-center gap-x-2">
@@ -89,8 +79,8 @@ export const Login = () => {
                   </Link>
                 </p>
               </div>
-              <button className="bg-[#54428E] p-3 text-white rounded-md">
-                Sign in
+              <button className="bg-[#54428E] p-3 text-white rounded-md mt-10 flex justify-center">
+                {!isLoading ? 'Login' : <span className="loading loading-spinner"></span>}
               </button>
             </div>
           </form>
@@ -111,6 +101,8 @@ export const Login = () => {
           },
         ]}
       />
+      <ToastContainer />
+
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInput } from "../hooks/customStyle";
 import PropTypes from "prop-types";
-export const Input = ({ type, name, icon, register, error,change }) => {
+export const Input = ({ type, name, icon, register, error }) => {
   const { focus, onFocus, onBlur, translateY, border, errorBorder } =
     useInput();
   return (
@@ -26,11 +26,10 @@ export const Input = ({ type, name, icon, register, error,change }) => {
           type={type}
           className="mt-2  relative z-10 outline-none bg-transparent w-[100%]  h-[100%]  focus:text-[#54428E]"
           name={name}
-          // {...register(name.replace(/ /g, ""))}
+          {...register(name)}
           onFocus={onFocus}
           onBlur={onBlur}
-          onChange={change.onInputChange}
-          value={change.inputs[name]}
+   
         />
       </motion.div>
       <span className="text-xs text-red-600">{error}</span>
