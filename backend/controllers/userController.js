@@ -17,7 +17,7 @@ const signUp = async (req, res) => {
         if (!password) {
             throw new Error("Please Enter Password")
         }
-        const alreadyCreatedUser = await model.find({ email })
+        const alreadyCreatedUser = await model.findOne({ email })
         if (alreadyCreatedUser) throw new Error("Email Already Exists");
         const hashed = await bycrypt.hash(password, 10);
         const user = await model.create({
@@ -42,7 +42,7 @@ const login = async (req, res) => {
         if (!password) {
             throw new Error("Please Enter Password")
         }
-        const user = await model.findOne({ fullname, email });
+        const user = await model.findOne({ fullname});
 
         if (!user) throw new Error("User Not Found");
         // Validation User Password
