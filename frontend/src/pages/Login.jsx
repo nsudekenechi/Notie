@@ -17,7 +17,7 @@ export const Login = () => {
       .required("Field is required"),
     password: yup
       .string()
-      .min(3, "Password must be atleast 6 characters")
+      .min(6, "Password must be atleast 6 characters")
       .required("Field is required"),
   });
   const { handleSubmit, onSubmit, register, errors, isLoading} = useFormValidation(schema, "user/login");

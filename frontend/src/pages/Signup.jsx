@@ -1,43 +1,30 @@
 // import { Link } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Logo } from "../components/Logo";
-import { HiOutlineUser, HiMail, HiLockClosed, HiUser } from "react-icons/hi";
+import { HiMail, HiLockClosed, HiUser } from "react-icons/hi";
 import * as yup from "yup";
 import { RightPanelSlider } from "../components/RightPanelSlider";
-
 import { useFormValidation } from "../hooks/FormValidation";
-import { useState } from "react";
+import { ToastContainer } from 'react-toastify';
+
 export const Signup = () => {
   const schema = yup.object().shape({
     email: yup
       .string()
       .required("Field is required")
       .email("Please enter a valid email address"),
-
     fullname: yup.string().required("Field is required"),
     password: yup
       .string()
       .required("Field is required")
       .min(6, "password must be atleast 6 characters"),
-    Confirmpassword: yup
-      .string()
-      .required("Field is required")
-      .oneOf([yup.ref("password"), null], "password don't match!"),
+
   });
 
-  const [inputs, setInputs] = useState({
-    fullname: "",
-    email: "",
-    password: "",
-  })
+  const { handleSubmit, isLoading, onSubmit, register, errors } =
+    useFormValidation(schema, "user/");
 
-  const { isLoading, onSubmit, register, errors } =
-    useFormValidation(schema, inputs, "user/");
 
-  const onInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputs({ ...inputs, [name]: value });
-  }
 
   return (
     <section
@@ -58,7 +45,7 @@ export const Signup = () => {
             </div>
           </div>
 
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-y-2">
               <Input
                 name={"fullname"}
@@ -66,7 +53,6 @@ export const Signup = () => {
                 icon={<HiUser />}
                 register={register}
                 error={errors.fullname?.message}
-                change={{ onInputChange, inputs }}
               />
               <Input
                 name={"email"}
@@ -74,7 +60,6 @@ export const Signup = () => {
                 icon={<HiMail />}
                 register={register}
                 error={errors.email?.message}
-                change={{ onInputChange, inputs }}
 
               />
 
@@ -84,8 +69,6 @@ export const Signup = () => {
                 icon={<HiLockClosed />}
                 register={register}
                 error={errors.password?.message}
-                change={{ onInputChange, inputs }}
-
               />
 
 
@@ -110,6 +93,7 @@ export const Signup = () => {
           },
         ]}
       />
+      <ToastContainer />
     </section>
   );
 };

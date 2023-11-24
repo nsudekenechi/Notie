@@ -18,4 +18,4 @@ app.use(express.urlencoded({ extended: false }));
 // Routes Paths
 app.use("/api/notes",auth,require("./routers/noteRouters"))
 app.use("/api/user", require("./routers/userRouters"))
-app.listen(port)
+app.listen(port,()=>console.log(`http://localhost:${port}`))

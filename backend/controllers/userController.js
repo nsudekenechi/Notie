@@ -9,14 +9,16 @@ const signUp = async (req, res) => {
     try {
         const { fullname, password, email } = req.body;
         if (!fullname) {
-            throw  new Error("Please Enter Fullname")
+            throw new Error("Please Enter Fullname")
         }
         if (!email) {
-            throw  new Error("Please Enter Email")
+            throw new Error("Please Enter Email")
         }
         if (!password) {
             throw new Error("Please Enter Password")
         }
+        const alreadyCreatedUser = await model.find({ email })
+        if (alreadyCreatedUser) throw new Error("Email Already Exists");
         const hashed = await bycrypt.hash(password, 10);
         const user = await model.create({
             fullname,
@@ -35,24 +37,24 @@ const login = async (req, res) => {
     try {
         const { fullname, password } = req.body;
         if (!fullname) {
-            throw  new Error("Please Enter Fullname")
+            throw new Error("Please Enter Fullname")
         }
         if (!password) {
             throw new Error("Please Enter Password")
         }
-        const user = await model.findOne({fullname});
-      
+        const user = await model.findOne({ fullname, email });
+
         if (!user) throw new Error("User Not Found");
         // Validation User Password
         if (await bycrypt.compare(password, user.password)) {
             // Creating web token
             let token = signToken(user._id);
-            res.status(200).json({ user:user._id,token });
+            res.status(200).json({ user: user._id, token });
         } else {
             throw new Error("Invalid Password");
         }
     } catch (err) {
-        res.status(404).json(err.message)
+        res.status(404).json(err)
     }
 }
 
