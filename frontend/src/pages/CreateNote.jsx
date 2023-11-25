@@ -112,7 +112,7 @@ export const CreateNote = () => {
         <form onSubmit={(e) => {
           e.preventDefault();
           // Using create function if url is not editing and edit function if url is for editing
-          !isEdit ? handleCreateNote(inputs) : handleUpdateNote(inputs, param.id);
+          !isEdit ? handleCreateNote(inputs) : handleUpdateNote(inputs);
 
         }}>
           <div className="flex gap-x-3">

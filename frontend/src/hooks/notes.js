@@ -156,7 +156,7 @@ export const useNote = () => {
     // Getting Notes
     const getData = () => {
         getFromDB("notes", config).then(notes => {
-            let newNotes = [...notes].map(item => ({
+            let newNotes = notes.map(item => ({
                 ...item, isClicked: false,
                 isOption: false
             }))
@@ -188,7 +188,7 @@ export const useNote = () => {
     }
 
     // Updating a note
-    const handleUpdateNote = (note, id) => {
+    const handleUpdateNote = (note) => {
         setLoading(true);
 
         // Updating in DB
@@ -202,17 +202,20 @@ export const useNote = () => {
         }).catch(err => {
             setLoading(false);
             toast.warn(err.response.data.message)
-            console.log(err)
         })
 
 
     }
     // Deleting a note
-    const handleDeleteNote = (id) => {
+    const handleDeleteNote = (_id) => {
         // Deleting From DB
-        deleteFromDB(`${url}${id}`);
-        // Deleting From State
-        setNotes(prev => [...prev].filter(item => item._id != id))
+        deleteFromDB(`notes?id=${_id}`, config).then((e) => {
+            let updatedNote = notes.filter(item => item._id != _id);
+            setNotes(updatedNote);
+        }).catch(err => {
+            toast.warn(err.response.data.message)
+        })
+
 
     }
 

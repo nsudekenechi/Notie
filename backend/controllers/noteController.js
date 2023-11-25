@@ -44,10 +44,10 @@ const updateNote = async (req, res) => {
 // @route Delete api/notes
 const deleteNote = async (req, res) => {
     try {
-        if (!req.body._id) {
+        if (!req.query.id) {
             throw new Error("Couldn't find note");
         }
-        await model.findByIdAndDelete(req.body._id);
+        await model.findByIdAndDelete({ _id: req.query.id });
         res.status(200).json({ message: "Deleted..." })
     } catch (err) {
         res.status(400).json(err.message)
