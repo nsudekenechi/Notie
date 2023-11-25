@@ -5,6 +5,7 @@ import { notesContext } from "./context";
 import { Colors } from "./data"
 import { createInDB, getFromDB, updateDB, deleteFromDB } from "../Api/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 export const useSpeech = (isListening) => {
     const { transcript, resetTranscript } = useSpeechRecognition()
 
@@ -98,7 +99,9 @@ export const useNote = () => {
 
     const { setNotes, notes, user } = useContext(notesContext);
     const [err, setError] = useState("");
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+
     const config = {
         headers: {
             "Authorization": `Bearer ${user.token}`,
@@ -153,7 +156,11 @@ export const useNote = () => {
     // Getting Notes
     const getData = () => {
         getFromDB("notes", config).then(notes => {
-            setNotes(notes)
+            let newNotes = [...notes].map(item => ({
+                ...item, isClicked: false,
+                isOption: false
+            }))
+            setNotes(newNotes)
 
         }).catch(err => {
             console.log(err.response.data.error)
@@ -161,23 +168,45 @@ export const useNote = () => {
     }
     // Creating a note
     const handleCreateNote = (note) => {
+        setLoading(true);
         // // Creating note inside of DB
         createInDB("notes", note, config).then(note => {
-            // setNotes(prev => [...prev, note])
-            navigate("/dashboard/addnew");
-            console.log(note)
+            // // Creating note inside of state
+            setNotes(prev => [...prev, {
+                ...note,
+                isClicked: false,
+                isOption: false,
+            }])
+            setLoading(false);
+            navigate("/dashboard/note");
         }).catch(err => {
-            console.log(err.response.data.message)
-            setError(err.response.data.message)
+            setLoading(false);
+            // setError(err.response.data.message)
+            toast.warn(err.response.data.message)
         })
-        // // Creating note inside of state
-        // setNotes(prev => [...prev, {
-        //     ...note,
-        //     isClicked: false,
-        //     isOption: false,
-        // }])
+
     }
 
+    // Updating a note
+    const handleUpdateNote = (note, id) => {
+        setLoading(true);
+
+        // Updating in DB
+        updateDB("notes", note, config).then(e => {
+            setLoading(false);
+            let updatedNote = notes.map(item => item._id == e._id ? e : item);
+            setNotes(updatedNote);
+            navigate("/dashboard/note");
+
+
+        }).catch(err => {
+            setLoading(false);
+            toast.warn(err.response.data.message)
+            console.log(err)
+        })
+
+
+    }
     // Deleting a note
     const handleDeleteNote = (id) => {
         // Deleting From DB
@@ -187,24 +216,8 @@ export const useNote = () => {
 
     }
 
-    // Updating a note
-    const handleUpdateNote = (note, id) => {
-        // Updating in DB
-        updateDB(`${url}${id}`, note);
-        // Updating in State
-        setNotes(prev => {
-            return [...prev].map(item => {
-                if (item._id == id) {
-                    item.title = note.title;
-                    item.subtitle = note.subtitle;
-                    item.color = note.color;
-                }
-                return item;
-            })
-        })
 
-    }
-    return { getData, handleUpdateNote, handleCreateNote, handleFlip, handleDeleteNote, handleUnclick, err }
+    return { getData, handleUpdateNote, handleCreateNote, handleFlip, handleDeleteNote, handleUnclick, err, loading }
 
 
 }

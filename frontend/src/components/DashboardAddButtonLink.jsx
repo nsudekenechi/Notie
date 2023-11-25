@@ -11,7 +11,7 @@ export const AddButtonLink = ({ show, text, scroll }) => {
         className=" flex"
       >
         <Link
-          to={`/dashboard/${text.replace(/ /g, "").toLowerCase()}`}
+          to={`${text.replace(/ /g, "").toLowerCase()}`}
           className="py-3 px-5 hover:scale-[0.85] duration-700 hover:bg-purple-600 bg-purple-600/20 text-sm rounded-xl text-white scale-95"
         >
           <p>{text}</p>

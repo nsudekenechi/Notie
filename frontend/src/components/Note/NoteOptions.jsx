@@ -41,7 +41,7 @@ export const NoteOptions = ({ data }) => {
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: data.isOption ? 1 : 0 }}
-      className="text-black z-10 text-xs absolute w-[55%] top-12 right-5 bg-white shadow-xl px-2  py-3 rounded-xl flex flex-col gap-y-2"
+      className="text-black z-10 text-xs absolute w-[70%] top-12 right-5 bg-white shadow-xl px-2  py-3 rounded-xl flex flex-col gap-y-2"
     >
       {options.map((item, index) =>
         option(item.text, item.icon, index, item.prop)

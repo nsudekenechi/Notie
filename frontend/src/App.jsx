@@ -18,8 +18,8 @@ import { ViewNote } from "./components/ViewNote";
 // import { EditNote } from "./components/EditNote";
 function App() {
   const [notes, setNotes] = useState([]);
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user") )|| null);
-  
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")) || JSON.parse(localStorage.getItem("user")) || null);
+
   return (
     <>
       <notesContext.Provider value={{ notes, setNotes, user, setUser }}>
@@ -29,10 +29,14 @@ function App() {
             <Route path="login" element={user ? <Navigate to={"/dashboard/addnew"} /> : <Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="dashboard" element={!user ? <Navigate to={"/login"} /> : <Dashboard />} >
-              <Route path="createnote" element={<CreateNote />} />
-              <Route path="addnew" element={<AddNew />} />
-              <Route path="viewnote/:id" element={<ViewNote />} />
-              <Route path="editnote/:id" element={<CreateNote />} />
+              <Route path="note"  >
+                <Route path='' element={<AddNew />} />
+                <Route path="createnote" element={<CreateNote />} />
+                <Route path="viewnote/:id" element={<ViewNote />} />
+                <Route path="editnote/:id" element={<CreateNote />} />
+              </Route>
+
+              <Route path='archived' element={<h1>Yooo</h1>} />
             </Route>
           </Routes>
         </Router>

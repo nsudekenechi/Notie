@@ -26,7 +26,7 @@ const signUp = async (req, res) => {
             email
         })
         const token = signToken(user._id);
-        res.status(201).json({ user: user._id, token });
+        res.status(201).json({ userId: user._id, user: { fullname, email }, token });
     } catch (err) {
         res.status(404).json(err.message)
     }
@@ -42,14 +42,15 @@ const login = async (req, res) => {
         if (!password) {
             throw new Error("Please Enter Password")
         }
-        const user = await model.findOne({ fullname});
+        const user = await model.findOne({ fullname });
 
         if (!user) throw new Error("User Not Found");
         // Validation User Password
         if (await bycrypt.compare(password, user.password)) {
             // Creating web token
             let token = signToken(user._id);
-            res.status(200).json({ user: user._id, token });
+            const { fullname, email } = user
+            res.status(200).json({ userId: user._id, user: { fullname, email }, token });
         } else {
             throw new Error("Invalid Password");
         }
@@ -57,5 +58,7 @@ const login = async (req, res) => {
         res.status(404).json(err)
     }
 }
+
+
 
 module.exports = { signUp, login }

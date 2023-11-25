@@ -17,7 +17,6 @@ import { AnimatePresence } from "framer-motion";
 export const AddNew = () => {
   const { getData } = useNote();
   const { notes } = useContext(notesContext);
-
   // useEffect(() => {
   //   getData()
   // }, [])

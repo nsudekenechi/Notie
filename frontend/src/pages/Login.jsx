@@ -66,7 +66,7 @@ export const Login = () => {
               />
               <div className="text-xs md:text-sm  grid  grid-cols-2 gap-y-2 mb-10">
                 <label className="flex items-center gap-x-2">
-                  <input type="checkbox" className="accent-[#54428E]" />
+                  <input type="checkbox" className="accent-[#54428E]" {...register("check")}/>
                   <p>Remember Me</p>
                 </label>
                 <p className="">

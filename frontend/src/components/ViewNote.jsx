@@ -21,7 +21,7 @@ export const ViewNote = () => {
 
   return (
     <motion.div className={`md:px-10 py-10 min-h-screen flex flex-col gap-y-5 ${color.bg[color.circle.findIndex(item => item == note.color)]}`}>
-      <Link to={"/dashboard/addNew"} className={`w-8 h-8 rounded-full   flex justify-center items-center  `}>
+      <Link to={"/dashboard/note"} className={`w-8 h-8 rounded-full   flex justify-center items-center  `}>
         <HiArrowLeft  className={`${color.text[color.circle.findIndex(item => item == note.color)]}`}/>
       </Link>
       <div className="flex items-center gap-x-2">
@@ -31,7 +31,7 @@ export const ViewNote = () => {
       <h1 className="text-3xl font-extrabold">{note.title}</h1>
       <p className="">{note.subtitle}</p>
 
-      <Link to={`/dashboard/editnote/${note._id}`}>
+      <Link to={`/dashboard/note/editnote/${note._id}`}>
         <motion.div
           className={`w-[40px] h-[40px] fixed  duration-1000 shadow-xl  z-10 rounded-full  flex justify-center items-center text-white text-lg cursor-pointer top-[85%] right-5 ${color.audio[color.circle.findIndex(item => item == note.color)]}`}
           initial={{ scale: 1 }}

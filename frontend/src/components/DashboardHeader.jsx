@@ -3,9 +3,23 @@ import { motion } from "framer-motion";
 import { TiThMenuOutline } from "react-icons/ti";
 import { Logo } from "../components/Logo";
 import { CiSearch } from "react-icons/ci";
+import { notesContext } from "../hooks/context";
+import { useContext } from "react";
 export const DashboardHeader = () => {
   const { onBlur, onFocus } = useInput();
+  const { user } = useContext(notesContext)
+  let fullname = user.user.fullname;
+  let name;
+  let abbr;
+  if (fullname.includes(" ")) {
+    let splitted = fullname.split(" ")
+    name = `${splitted[0]} ${splitted[1][0]}.`
+    abbr = `${splitted[0][0]}${splitted[1][0]}`
+  } else {
+    name = fullname;
+    abbr = fullname[0];
 
+  }
   return (
     <header className="h-[10vh] sticky shadow-sm z-10 top-0 grid grid-cols-6 content-center py-5 bg-white px-10 ">
       <div className="col-span-1 flex">
@@ -34,10 +48,10 @@ export const DashboardHeader = () => {
           <div className="text-purple-400 w-8 h-8 bg-purple-100/80 flex items-center justify-center rounded-full">
             <TiThMenuOutline />
           </div>
-          <div className="text-purple-400 w-8 h-8 text-sm bg-purple-100/80 flex items-center justify-center rounded-full">
-            KN
+          <div className="text-purple-400 w-8 h-8 text-sm bg-purple-100/80 flex items-center justify-center rounded-full capitalize">
+            {abbr}
           </div>
-          <p className="text-black/20">Kenechi N.</p>
+          <p className="text-black/20 capitalize">{name}</p>
         </div>
       </div>
     </header>

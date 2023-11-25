@@ -17,12 +17,20 @@ export const useFormValidation = (schema, url) => {
     const onSubmit = (data) => {
 
         setIsLoading(true);
-        // Making request
+        // // Making request
         createInDB(url, { ...data }, {}).then(e => {
-            // Storing to session
-            sessionStorage.setItem("user", JSON.stringify(e));
+            // Storing to local storage if user clicks remeber me and session storage if user doesn't click remeber me
+            if (data.check) {
+                localStorage.setItem("user", JSON.stringify(e));
+                // Removing session for user if it already exists
+                if (sessionStorage.getItem("user")) sessionStorage.removeItem("user");
+
+            } else {
+                sessionStorage.setItem("user", JSON.stringify(e));
+            }
+          
             setUser(e);
-            navigate("/dashboard/addnew");
+            navigate("/dashboard/note");
         }).catch(err => {
             setIsLoading(false);
             toast.error(err.response.data)

@@ -5,12 +5,12 @@ import { VscArchive, VscHeartFilled } from "react-icons/vsc";
 import { DashboardNavLink } from "../components/DashboardNavLink";
 export const DashboardSidebar = () => {
   return (
-    <div className=" col-span-1">
-      <nav className="fixed w-[18%] h-[100%] bg-white text-sm hidden md:flex flex-col gap-y-2">
+    <div className=" col-span-1  relative ">
+      <nav className="fixed w-[16.7%] h-[100%]  text-sm hidden md:flex flex-col gap-y-2">
         <DashboardNavLink
           icon={<FaStickyNote />}
           name={"add new"}
-          to={"/addnew"}
+          to={"/note"}
         />
 
         <p className="px-10 mt-5 capitalize text-sm italic text-black/30">
