@@ -7,7 +7,7 @@ export const NoteOptions = ({ data }) => {
   //List of options
   const options = [
     { text: "Favorite", icon: BiHeart, prop: "isFavorite" },
-    { text: "Archive", icon: BiLock, prop: "isArchive" },
+    { text:!data.isArchive? "Archive" : "Unarchive", icon: BiLock, prop: "isArchive" },
     { text: "Delete", icon: BiTrashAlt, prop: "isDelete" },
     { text: !data.isPinned ? "Pin" : "Unpin", icon: BiPin, prop: "isPinned" },
   ];
