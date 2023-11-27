@@ -28,11 +28,9 @@ export const NoteOptions = ({ data }) => {
       }}
       onClick={(e) => {
         e.stopPropagation();
-        text == "Delete" ? handleDeleteNote(data._id) : ""
+        // text == "Delete" ? handleDeleteNote(data._id) : handleFlip(data._id, prop, true, true)
+        text == "Delete" ? handleDeleteNote(data._id) : handleFlip(data._id, prop)
        
-        // text != "Delete"
-        //   ? handleFlip(data._id, prop, true, true)
-        //   : handleDeleteNote(data._id);
       }}
     >
       <p>{text}</p>

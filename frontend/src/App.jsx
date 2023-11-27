@@ -15,6 +15,7 @@ import { notesContext } from "./hooks/context";
 import { CreateNote } from "./pages/CreateNote";
 import { AddNew } from "./pages/AddNew";
 import { ViewNote } from "./components/ViewNote";
+import Archived from './pages/Archived';
 // import { EditNote } from "./components/EditNote";
 function App() {
   const [notes, setNotes] = useState([]);
@@ -36,7 +37,7 @@ function App() {
                 <Route path="editnote/:id" element={<CreateNote />} />
               </Route>
 
-              <Route path='archived' element={<h1>Yooo</h1>} />
+              <Route path='archived' element={<Archived/>} />
             </Route>
           </Routes>
         </Router>

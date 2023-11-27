@@ -110,49 +110,6 @@ export const useNote = () => {
     }
 
 
-    // Function that flips props from true to false, also takes params to closeoption if note option is open
-    const Flip = (id, prop, flip, closeOption) => {
-        const newItems = [...notes].map((item) => {
-            if (item._id === id) {
-                item[prop] = flip ? !item[prop] : true;
-                closeOption ? item.isOption = false : "";//Closing Option Box
-
-            } else {
-                if (prop != "isPinned") item[prop] = false;
-            }
-
-            return item;
-        });
-        return newItems;
-    }
-
-
-    const handleFlip = (id, prop, flip, closeOption) => {
-        const newNotes = Flip(id, prop, flip, closeOption)
-
-        // Updating DB only when item is not clicked / option is not clicked
-        if (prop != "isClicked" && prop != "isOption") {
-
-            let newItem = [...newNotes].filter(item => item._id == id).find(item => item._id == id);
-            //Removing isClicked and Option before updating/pushing item to DB
-            // delete newItem.isClicked;
-            // delete newItem.isOption;
-            // Update In DB
-            updateDB(`${url}${id}`, newItem);
-        }
-        setNotes(newNotes);
-    };
-
-    const handleUnclick = () => {
-        setNotes(prev => {
-            return prev.map(item => {
-                item.isClicked = false
-                item.isOption = false
-                return item;
-            })
-        })
-    }
-
     // Getting Notes
     const getData = () => {
         getFromDB("notes", config).then(notes => {
@@ -219,6 +176,34 @@ export const useNote = () => {
 
     }
 
+    const handleFlip = (id, prop) => {
+        if (prop == "isOption") {
+            const newNotes = notes.map(item => item._id == id ? { ...item, isOption: !item.isOption } : item)//Opening Or CLosing Option Overlay
+            setNotes(newNotes);
+        } else {
+            const newNotes = notes.map(item => item._id == id ? { ...item, [prop]: !item[prop], isOption: false } : item)
+            const { isOption, isClicked, ...note } = newNotes.find(item => item._id == id)
+            updateDB("notes", note, config).then(e => {
+                setNotes(newNotes)
+            }).catch(err => {
+                toast.warn(err.response.data.message)
+
+            })
+        }
+
+
+
+
+    }
+    const handleUnclick = () => {
+        setNotes(prev => {
+            return prev.map(item => {
+                item.isClicked = false
+                item.isOption = false
+                return item;
+            })
+        })
+    }
 
     return { getData, handleUpdateNote, handleCreateNote, handleFlip, handleDeleteNote, handleUnclick, err, loading }
 

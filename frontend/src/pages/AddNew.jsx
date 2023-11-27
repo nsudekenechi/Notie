@@ -1,30 +1,16 @@
-import { TiPin } from "react-icons/ti";
-import { HiChevronRight, HiChevronLeft } from "react-icons/hi";
-
-// import { useNote } from "../hooks/customStyle";
 import { Note } from "../components/Note";
-// import { notesData } from "../hooks/data";
-// import { ViewNote.jsx } from "../components/ViewNote.jsx";
 import { AddButton } from "../components/DashboardAddButton";
 import { useContext, useEffect } from "react";
 import { useNote } from "../hooks/notes";
-
 import { notesContext } from "../hooks/context";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 import { AnimatePresence } from "framer-motion";
+
+// Importing icons
+import { TbMoodEmpty } from "react-icons/tb";
+
 export const AddNew = () => {
-  const { getData } = useNote();
   const { notes } = useContext(notesContext);
-  // useEffect(() => {
-  //   getData()
-  // }, [])
-
-  // console.log(notes)
-  // const isPinned = [...notes].some((item) => item.isPinned);
-  // const { handleUnclick } = useNote();
-
   return (
     <>
       <div className="md:px-10 min-h-screen py-10 " >
@@ -32,11 +18,16 @@ export const AddNew = () => {
           <AnimatePresence>
             {notes.map(
               (item) =>
-                !item.isArchive &&
-                !item.isPinned && <Note data={item} key={item._id} />
+              !item?.isArchive && !item?.isFavorite &&  <Note data={item} key={item._id} />
             )}
           </AnimatePresence>
         </div>
+        {notes.length == 0 && <div className="h-[60vh] flex items-center justify-center flex-col">
+        <TbMoodEmpty size={50} className="text-red-500"/>
+          <p className="text-lg text-purple-600">You don&apos;t have any notes yet</p>
+          <p className="text-sm italic text-gray-300">Tap the add button to create one</p>
+        </div>
+        } 
         {/* 
         {isPinned && (
           <div className="pb-10 border-b">
@@ -85,7 +76,7 @@ export const AddNew = () => {
 
 
 
-        <AddButton />
+        
       </div>
     </>
   );
