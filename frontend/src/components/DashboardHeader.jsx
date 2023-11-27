@@ -8,10 +8,10 @@ import { useContext } from "react";
 export const DashboardHeader = () => {
   const { onBlur, onFocus } = useInput();
   const { user } = useContext(notesContext)
-  let fullname = user.user.fullname;
+  let fullname = user?.user?.fullname;
   let name;
   let abbr;
-  if (fullname.includes(" ")) {
+  if (fullname?.includes(" ")) {
     let splitted = fullname.split(" ")
     name = `${splitted[0]} ${splitted[1][0]}.`
     abbr = `${splitted[0][0]}${splitted[1][0]}`

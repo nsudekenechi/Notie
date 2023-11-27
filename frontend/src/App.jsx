@@ -16,6 +16,7 @@ import { CreateNote } from "./pages/CreateNote";
 import { AddNew } from "./pages/AddNew";
 import { ViewNote } from "./components/ViewNote";
 import Archived from './pages/Archived';
+import Logout from './pages/Logout';
 // import { EditNote } from "./components/EditNote";
 function App() {
   const [notes, setNotes] = useState([]);
@@ -27,7 +28,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="login" element={user ? <Navigate to={"/dashboard/addnew"} /> : <Login />} />
+            <Route path="login" element={user ? <Navigate to={"/dashboard/note"} /> : <Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="dashboard" element={!user ? <Navigate to={"/login"} /> : <Dashboard />} >
               <Route path="note"  >
@@ -37,7 +38,8 @@ function App() {
                 <Route path="editnote/:id" element={<CreateNote />} />
               </Route>
 
-              <Route path='archived' element={<Archived/>} />
+              <Route path='archived' element={<Archived />} />
+              <Route path='logout' element={<Logout />} />
             </Route>
           </Routes>
         </Router>
