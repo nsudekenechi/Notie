@@ -6,8 +6,8 @@ export const NoteOptions = ({ data }) => {
   const { handleDeleteNote, handleFlip } = useNote();
   //List of options
   const options = [
-    { text: "Favorite", icon: BiHeart, prop: "isFavorite" },
-    { text:!data.isArchive? "Archive" : "Unarchive", icon: BiLock, prop: "isArchive" },
+    { text: !data.isFavorite ? "Favorite" : "Unfavorite", icon: BiHeart, prop: "isFavorite" },
+    { text: !data.isArchive ? "Archive" : "Unarchive", icon: BiLock, prop: "isArchive" },
     { text: "Delete", icon: BiTrashAlt, prop: "isDelete" },
     { text: !data.isPinned ? "Pin" : "Unpin", icon: BiPin, prop: "isPinned" },
   ];
@@ -30,7 +30,7 @@ export const NoteOptions = ({ data }) => {
         e.stopPropagation();
         // text == "Delete" ? handleDeleteNote(data._id) : handleFlip(data._id, prop, true, true)
         text == "Delete" ? handleDeleteNote(data._id) : handleFlip(data._id, prop)
-       
+
       }}
     >
       <p>{text}</p>

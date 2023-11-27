@@ -15,7 +15,6 @@ export const Note = ({ data }) => {
       className={`cursor-pointer col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
       onClick={() => {
         navigate(`/dashboard/note/viewnote/${data._id}`);
-        // handleFlip(data._id, "isClicked", false);
       }}
       style={{ outline: data.isClicked ? `1px solid ${data.color}` : "" }}
       initial={{ opacity: 0 }}

@@ -12,7 +12,7 @@ const noteSchema = mongoose.Schema({
     },
     date: {
         type: String,
-        default: new Date().toLocaleString("en-us",{dateStyle:"long"})
+        default: new Date().toLocaleString("en-us", { dateStyle: "long" })
     },
     isArchive: {
         type: Boolean,

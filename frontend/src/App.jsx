@@ -17,6 +17,7 @@ import { AddNew } from "./pages/AddNew";
 import { ViewNote } from "./components/ViewNote";
 import Archived from './pages/Archived';
 import Logout from './pages/Logout';
+import Favorites from './pages/Favorites';
 // import { EditNote } from "./components/EditNote";
 function App() {
   const [notes, setNotes] = useState([]);
@@ -39,6 +40,8 @@ function App() {
               </Route>
 
               <Route path='archived' element={<Archived />} />
+              <Route path='favorites' element={<Favorites />} />
+
               <Route path='logout' element={<Logout />} />
             </Route>
           </Routes>
