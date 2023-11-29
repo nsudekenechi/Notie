@@ -97,7 +97,7 @@ export const handleArrowAnimation = (type) => ({
 });
 export const useNote = () => {
 
-    const { setNotes, notes, user } = useContext(notesContext);
+    const { setNotes, notes, user,setSearchedNotes } = useContext(notesContext);
     const [err, setError] = useState("");
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
@@ -117,8 +117,10 @@ export const useNote = () => {
                 ...item, isClicked: false,
                 isOption: false
             }))
+            // Storing notes
             setNotes(newNotes)
-
+            // Storing notes in a container incase they're been searched
+            setSearchedNotes(newNotes);
         }).catch(err => {
             console.log(err.response.data.error)
         })

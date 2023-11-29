@@ -21,11 +21,12 @@ import Favorites from './pages/Favorites';
 // import { EditNote } from "./components/EditNote";
 function App() {
   const [notes, setNotes] = useState([]);
+  const [searchedNotes,setSearchedNotes] = useState([]);
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")) || JSON.parse(localStorage.getItem("user")) || null);
 
   return (
     <>
-      <notesContext.Provider value={{ notes, setNotes, user, setUser }}>
+      <notesContext.Provider value={{ notes, setNotes, user, setUser,searchedNotes,setSearchedNotes }}>
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />

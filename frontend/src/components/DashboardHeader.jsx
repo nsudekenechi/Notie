@@ -4,10 +4,13 @@ import { TiThMenuOutline } from "react-icons/ti";
 import { Logo } from "../components/Logo";
 import { CiSearch } from "react-icons/ci";
 import { notesContext } from "../hooks/context";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 export const DashboardHeader = () => {
   const { onBlur, onFocus } = useInput();
-  const { user } = useContext(notesContext)
+  const { user, setNotes, searchedNotes } = useContext(notesContext);
+  const [searchInput, setSearchInput] = useState("");
+  const location = useLocation()
   let fullname = user?.user?.fullname;
   let name;
   let abbr;
@@ -18,8 +21,18 @@ export const DashboardHeader = () => {
   } else {
     name = fullname;
     abbr = fullname[0];
-
   }
+
+  const onChange = (ev) => {
+    setSearchInput(ev.target.value)
+    const value = ev.target.value.toLowerCase();
+    const matchedNotes = searchedNotes.filter(item => item.title.toLowerCase().includes(value) || item.subtitle.toLowerCase().includes(value) || item.date.toLowerCase().includes(value));
+    setNotes(matchedNotes);
+  }
+  useEffect(() => { 
+    setSearchInput("")
+    setNotes(searchedNotes)
+  }, [location.pathname])
   return (
     <header className="h-[10vh] sticky shadow-sm z-10 top-0 grid grid-cols-6 content-center py-5 bg-white px-10 ">
       <div className="col-span-1 flex">
@@ -38,10 +51,12 @@ export const DashboardHeader = () => {
           <CiSearch className="text-lg" />
           <input
             type="text"
-            placeholder="Search..."
-            className="outline-0 w-[100%] placeholder:text-inherit"
+            placeholder="Search by title, subtitle or date"
+            className="outline-0 w-[100%] placeholder:text-gray-300 text-purple-500"
             onFocus={onFocus}
             onBlur={onBlur}
+            onChange={onChange}
+            value={searchInput}
           />
         </motion.div>
         <div className="col-span-2 flex justify-end items-center gap-x-6">
