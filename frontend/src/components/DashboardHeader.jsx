@@ -26,11 +26,13 @@ export const DashboardHeader = () => {
   const onChange = (ev) => {
     setSearchInput(ev.target.value)
     const value = ev.target.value.toLowerCase();
+    // Searching by title, subtitle or date
     const matchedNotes = searchedNotes.filter(item => item.title.toLowerCase().includes(value) || item.subtitle.toLowerCase().includes(value) || item.date.toLowerCase().includes(value));
     setNotes(matchedNotes);
   }
   useEffect(() => { 
-    setSearchInput("")
+    setSearchInput("");
+    // Setting notes back to original array when page location changes
     setNotes(searchedNotes)
   }, [location.pathname])
   return (
