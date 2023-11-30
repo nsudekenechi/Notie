@@ -1,4 +1,5 @@
 const model = require("../models/noteModels")
+const recycleModel = require("../models/recycleModel")
 
 //@desc Getting All Notes
 //@route GET api/notes 
@@ -47,11 +48,48 @@ const deleteNote = async (req, res) => {
         if (!req.query.id) {
             throw new Error("Couldn't find note");
         }
-        await model.findByIdAndDelete({ _id: req.query.id });
+        // Deleting note...
+        await model.findByIdAndDelete({ id: req.query.id });
+
         res.status(200).json({ message: "Deleted..." })
     } catch (err) {
         res.status(400).json(err.message)
 
     }
 }
-module.exports = { getNotes, createNote, updateNote, deleteNote }
+
+// getting recycled notes
+//@route GET api/notes/recycle
+const getRecycledNotes = async (req, res) => {
+    try {
+        const recycledNotes = await recycleModel.find();
+        res.status(200).json(recycledNotes)
+    } catch (err) {
+        res.status(404).json(err.message)
+    }
+}
+
+// deleting recycled note
+// @route DELETE api/notes/recycle/:id
+const deleteRecycledNote = async (req, res) => {
+    try {
+        if (!req.query._id) throw new Error("Could'nt find note")
+        await recycleModel.findByIdAndDelete({ id: req.query._id })
+        res.status(200).json({ message: "Deleted..." })
+    } catch (err) {
+        res.status(404).json(err.message)
+    }
+}
+// deleting all recycled notes
+// @route DELETE api/notes/recycle
+const deleteRecycledNotes = async (req, res) => {
+    try {
+        await recycleModel.deleteMany({})
+        res.status(200).json({ message: "Deleted" })
+    } catch (err) {
+        res.status(404).json(err.message)
+    }
+
+}
+
+module.exports = { getNotes, createNote, updateNote, deleteNote, getRecycledNotes }

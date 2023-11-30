@@ -13,7 +13,7 @@ export const ViewNote = () => {
   };
   const params = useParams();
   const note = useContext(notesContext).notes.find(
-    (item) => item._id == params.id
+    (item) => item._id == params._id
   );
   const time = note.date.split(",")[1].trim().split(":");
   const timeOfDay = +time[1] < 12 ? "AM" : "PM";

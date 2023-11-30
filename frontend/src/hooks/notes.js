@@ -170,14 +170,16 @@ export const useNote = () => {
 
     }
     // Deleting a note
-    const handleDeleteNote = (_id) => {
+    const handleDeleteNote = (id) => {
         // Deleting From DB
-        deleteFromDB(`notes?id=${_id}`, config).then((e) => {
-            let updatedNotes = notes.filter(item => item._id != _id);
-            setNotes(updatedNotes);
-            setSearchedNotes(updatedNotes);
+        deleteFromDB(`notes?id=${id}`, config).then((e) => {
+            // let updatedNotes = notes.filter(item => item._id != id);
+            // setNotes(updatedNotes);
+            // setSearchedNotes(updatedNotes);
+            console.log(e)
         }).catch(err => {
             toast.warn(err.response.data.message)
+            console.log(err)
         })
 
 

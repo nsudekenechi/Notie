@@ -91,8 +91,8 @@ export const CreateNote = () => {
 
   useEffect(() => {
     if (isEdit) {
-      let note = notes.find(item => item._id == param.id);
-      note && setInputs({ ...inputs, color: note.color, title: note.title, subtitle: note.subtitle, _id: note._id })
+      let note = notes.find(item => item._id == param._id);
+      note && setInputs({ ...inputs, color: note.color, title: note.title, subtitle: note.subtitle, id: note._id })
     
     }
   }, [notes])

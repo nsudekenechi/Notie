@@ -13,7 +13,7 @@ export const Dashboard = () => {
   }, []);
   // const params = useParams();
   // const note = useContext(notesContext).notes.find(
-  //   (item) => item._id == params.id
+  //   (item) => item._id == params._id
   // );
 
   return (
