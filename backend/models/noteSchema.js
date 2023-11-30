@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 function generateRand() {
-    let characters = "0123456789abcdefghijklmnopqrstuvwxyz"
+    let characters = "0123456789"
     let random = "";
     for (let i = 0; i < 6; i++) {
         random += characters[Math.floor(Math.random() * characters.length)]
@@ -8,6 +8,10 @@ function generateRand() {
     return random;
 }
 const noteSchema = mongoose.Schema({
+    noteId: {
+        type: String,
+        default: generateRand()
+    },
     title: {
         type: String,
         required: true,
@@ -46,7 +50,7 @@ const noteSchema = mongoose.Schema({
     user: {
         type: String,
         required: true,
-    },
-   
+    }
+
 })
 module.exports = noteSchema

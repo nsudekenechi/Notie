@@ -130,15 +130,15 @@ export const useNote = () => {
         setLoading(true);
         // // Creating note inside of DB
         createInDB("notes", note, config).then(note => {
-            let newNotes = [...notes, {
+            let updatedNotes = [...notes, {
                 ...note,
                 isClicked: false,
                 isOption: false,
             }]
             // // Creating note inside of state
-            setNotes(newNotes)
-            // Storing notes in a container incase they're been searched, so we can still have access to original array
-            setSearchedNotes(newNotes);
+            setNotes(updatedNotes)
+            setSearchedNotes(updatedNotes);
+
             setLoading(false);
             navigate("/dashboard/note");
         }).catch(err => {
@@ -156,9 +156,8 @@ export const useNote = () => {
         // Updating in DB
         updateDB("notes", note, config).then(e => {
             setLoading(false);
-            let updatedNotes = notes.map(item => item._id == e._id ? e : item);
-            setNotes(updatedNotes);
-            setSearchedNotes(updatedNotes);
+            let updatedNote = notes.map(item => item._id == e._id ? e : item);
+            setNotes(updatedNote);
             navigate("/dashboard/note");
 
 
@@ -173,9 +172,9 @@ export const useNote = () => {
     const handleDeleteNote = (id) => {
         // Deleting From DB
         deleteFromDB(`notes?id=${id}`, config).then((e) => {
-            // let updatedNotes = notes.filter(item => item._id != id);
-            // setNotes(updatedNotes);
-            // setSearchedNotes(updatedNotes);
+            let updatedNotes = notes.filter(item => item._id != id);
+            setNotes(updatedNotes);
+            setSearchedNotes(updatedNotes);
             console.log(e)
         }).catch(err => {
             toast.warn(err.response.data.message)
@@ -189,13 +188,11 @@ export const useNote = () => {
         if (prop == "isOption") {
             const newNotes = notes.map(item => item._id == id ? { ...item, isOption: !item.isOption } : item)//Opening Or CLosing Option Overlay
             setNotes(newNotes);
-            setSearchedNotes(newNotes);
         } else {
             const newNotes = notes.map(item => item._id == id ? { ...item, [prop]: !item[prop], isOption: false } : item)
             const { isOption, isClicked, ...note } = newNotes.find(item => item._id == id)
             updateDB("notes", note, config).then(e => {
                 setNotes(newNotes)
-                setSearchedNotes(newNotes);
             }).catch(err => {
                 toast.warn(err.response.data.message)
 
