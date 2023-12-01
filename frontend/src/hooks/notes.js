@@ -175,15 +175,13 @@ export const useNote = () => {
             let updatedNotes = notes.filter(item => item._id != id);
             setNotes(updatedNotes);
             setSearchedNotes(updatedNotes);
-            console.log(e)
         }).catch(err => {
             toast.warn(err.response.data.message)
-            console.log(err)
         })
 
 
     }
-
+    // Selecting an option for note
     const handleFlip = (id, prop) => {
         if (prop == "isOption") {
             const newNotes = notes.map(item => item._id == id ? { ...item, isOption: !item.isOption } : item)//Opening Or CLosing Option Overlay
@@ -217,3 +215,4 @@ export const useNote = () => {
 
 
 }
+

@@ -18,15 +18,17 @@ import { ViewNote } from "./components/ViewNote";
 import Archived from './pages/Archived';
 import Logout from './pages/Logout';
 import Favorites from './pages/Favorites';
+import Recycle from './pages/Recycle';
 // import { EditNote } from "./components/EditNote";
 function App() {
   const [notes, setNotes] = useState([]);
-  const [searchedNotes,setSearchedNotes] = useState([]);
+  const [searchedNotes, setSearchedNotes] = useState([]);
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")) || JSON.parse(localStorage.getItem("user")) || null);
+  const [recycleBin, setRecycleBin] = useState([]);
 
   return (
     <>
-      <notesContext.Provider value={{ notes, setNotes, user, setUser,searchedNotes,setSearchedNotes }}>
+      <notesContext.Provider value={{ notes, setNotes, user, setUser, searchedNotes, setSearchedNotes, recycleBin, setRecycleBin }}>
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -42,7 +44,7 @@ function App() {
 
               <Route path='archived' element={<Archived />} />
               <Route path='favorites' element={<Favorites />} />
-
+              <Route path='recycle' element={<Recycle />} />
               <Route path='logout' element={<Logout />} />
             </Route>
           </Routes>
