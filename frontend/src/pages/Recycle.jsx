@@ -9,7 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { motion } from "framer-motion"
 const Recycle = () => {
   const { recycleBin } = useContext(notesContext)
-  const { getRecycleBin, deleteRecycleNote, deleteAll, animateRemove } = useRecycleBin()
+  const { getRecycleBin, deleteRecycleNote, deleteAll, animateRemove, restoreRecycledNote } = useRecycleBin()
   const colors = {
     colorNames: ["blue", "green", "orange"],
     bgColor: ["bg-blue-600", "bg-green-600", "bg-orange-600"]
@@ -40,7 +40,7 @@ const Recycle = () => {
               </div>
               <div className='flex items-center justify-center gap-x-3'>
                 <GoDash color='red' size={20} className='cursor-pointer' onClick={() => deleteRecycleNote(data._id)} />
-                <RiRefreshLine color='green' size={20} className='cursor-pointer' />
+                <RiRefreshLine color='green' size={20} className='cursor-pointer' onClick={() => restoreRecycledNote(data._id)} />
               </div>
             </motion.li>
           ))}

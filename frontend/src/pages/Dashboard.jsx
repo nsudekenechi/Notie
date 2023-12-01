@@ -7,10 +7,7 @@ import { notesContext } from "../hooks/context";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 export const Dashboard = () => {
-  const { getData } = useNote();
-  useEffect(() => {
-    getData();
-  }, []);
+ 
   // const params = useParams();
   // const note = useContext(notesContext).notes.find(
   //   (item) => item._id == params._id

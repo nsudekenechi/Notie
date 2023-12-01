@@ -12,6 +12,10 @@ import DashboardPagesContainer from "../components/DashboardPagesContainer";
 
 export const AddNew = () => {
   const { notes } = useContext(notesContext);
+  const { getData } = useNote();
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       <DashboardPagesContainer>

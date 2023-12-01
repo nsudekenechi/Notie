@@ -71,6 +71,23 @@ const getRecycledNotes = async (req, res) => {
         res.status(404).json(err.message)
     }
 }
+// Restoring note
+// @route POST api/notes/recycle/:id
+
+const restoreRecycledNote = async (req, res) => {
+    try {
+        if (!req.params.id) throw new Error("Could'nt find note")
+        const note = await recycleModel.findOne({ _id: req.params.id });
+        note.$isNew = true;
+        //Adding note to note model    
+        await model.create(note);
+        // Deleting note from recycled model
+        await recycleModel.findByIdAndDelete({ _id: req.params.id })
+        res.status(201).json({ message: "Note Restored" })
+    } catch (err) {
+        res.status(404).json(err.message)
+    }
+}
 
 
 
@@ -97,4 +114,4 @@ const deleteRecycledNotes = async (req, res) => {
 
 }
 
-module.exports = { getNotes, createNote, updateNote, deleteNote, getRecycledNotes, deleteRecycledNote, deleteRecycledNotes }
+module.exports = { getNotes, createNote, updateNote, deleteNote, getRecycledNotes, deleteRecycledNote, deleteRecycledNotes, restoreRecycledNote }

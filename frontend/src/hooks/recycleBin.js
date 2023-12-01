@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { deleteFromDB, getFromDB } from "../Api/api"
+import { createInDB, deleteFromDB, getFromDB } from "../Api/api"
 import { notesContext } from "./context"
 import { toast } from 'react-toastify';
 
@@ -22,6 +22,15 @@ export const useRecycleBin = () => {
             }))
             setRecycleBin(notes);
 
+        })
+    }
+
+    // Restoring Item from recycle bin
+    const restoreRecycledNote = (id) => {
+        let recycledNotes = recycleBin.filter(item => item._id != id);
+        setRecycleBin(recycledNotes);
+        createInDB(`notes/recycle/${id}`, {}, config).then().catch(err => {
+            toast.warn(err.response.data.message)
         })
     }
     // Deleting  item from recycle bin
@@ -54,5 +63,5 @@ export const useRecycleBin = () => {
         })
     }
 
-    return { getRecycleBin, deleteRecycleNote, deleteAll, animateRemove }
+    return { getRecycleBin, deleteRecycleNote, deleteAll, animateRemove, restoreRecycledNote }
 }
