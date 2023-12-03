@@ -98,7 +98,6 @@ export const handleArrowAnimation = (type) => ({
 export const useNote = () => {
 
     const { setNotes, notes, user, setSearchedNotes } = useContext(notesContext);
-    const [err, setError] = useState("");
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
@@ -112,6 +111,7 @@ export const useNote = () => {
 
     // Getting Notes
     const getData = () => {
+        setLoading(true)
         getFromDB("notes", config).then(notes => {
             let newNotes = notes.map(item => ({
                 ...item, isClicked: false,
@@ -123,6 +123,8 @@ export const useNote = () => {
             setSearchedNotes(newNotes);
         }).catch(err => {
             console.log(err.response.data.error)
+        }).finally(() => {
+            setLoading(false)
         })
     }
     // Creating a note
@@ -139,12 +141,14 @@ export const useNote = () => {
             setNotes(updatedNotes)
             setSearchedNotes(updatedNotes);
 
-            setLoading(false);
             navigate("/dashboard/note");
         }).catch(err => {
             setLoading(false);
             // setError(err.response.data.message)
             toast.warn(err.response.data.message)
+        }).finally(() => {
+            setLoading(false);
+
         })
 
     }
@@ -155,7 +159,6 @@ export const useNote = () => {
 
         // Updating in DB
         updateDB("notes", note, config).then(e => {
-            setLoading(false);
             let updatedNote = notes.map(item => item._id == e._id ? e : item);
             setNotes(updatedNote);
             navigate("/dashboard/note");
@@ -164,43 +167,42 @@ export const useNote = () => {
         }).catch(err => {
             setLoading(false);
             toast.warn(err.response.data.message)
+        }).finally(() => {
+            setLoading(false);
+
         })
 
 
     }
-    // Deleting a note
-    const handleDeleteNote = (id) => {
-        // Deleting From DB
-        deleteFromDB(`notes?id=${id}`, config).then((e) => {
-            let updatedNotes = notes.filter(item => item._id != id);
-            setNotes(updatedNotes);
-            setSearchedNotes(updatedNotes);
-        }).catch(err => {
-            toast.warn(err.response.data.message)
-        })
 
-
-    }
     // Selecting an option for note
     const handleFlip = (id, prop) => {
-        if (prop == "isOption") {
-            const newNotes = notes.map(item => item._id == id ? { ...item, isOption: !item.isOption } : item)//Opening Or CLosing Option Overlay
-            setNotes(newNotes);
-        } else {
-            const newNotes = notes.map(item => item._id == id ? { ...item, [prop]: !item[prop], isOption: false } : item)
+        let newNotes = notes.map(item => item._id == id ? { ...item, isOption: !item.isOption } : item)
+        // CLosing option overlay
+        setNotes(newNotes)
+        if (prop == "isDelete") {
+            newNotes = newNotes.filter(item => item._id != id)
+            deleteFromDB(`notes?id=${id}`, config).then().catch(err => {
+                toast.warn(err.response.data.message)
+            })
+        } else if (prop != "isOption") {
+            newNotes = newNotes.map(item => item._id == id ? { ...item, [prop]: !item[prop] } : item)
             const { isOption, isClicked, ...note } = newNotes.find(item => item._id == id)
-            updateDB("notes", note, config).then(e => {
-                setNotes(newNotes)
-            }).catch(err => {
+            updateDB("notes", note, config).then().catch(err => {
                 toast.warn(err.response.data.message)
 
             })
         }
 
-
-
-
+        if (prop != "isOption") {
+            setTimeout(() => {
+                setNotes(newNotes)
+            }, 210)
+        } else {
+            setNotes(newNotes)
+        }
     }
+
     const handleUnclick = () => {
         setNotes(prev => {
             return prev.map(item => {
@@ -211,7 +213,7 @@ export const useNote = () => {
         })
     }
 
-    return { getData, handleUpdateNote, handleCreateNote, handleFlip, handleDeleteNote, handleUnclick, err, loading }
+    return { getData, handleUpdateNote, handleCreateNote, handleFlip, handleUnclick, loading }
 
 
 }

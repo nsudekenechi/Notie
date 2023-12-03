@@ -2,7 +2,7 @@ import { BiTrashAlt, BiHeart, BiLock, BiPin } from "react-icons/bi";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { useNote } from "../../hooks/notes";
-export const NoteOptions = ({ data }) => {
+export const NoteOptions = ({ data, handleSetAnimate }) => {
   const { handleDeleteNote, handleFlip } = useNote();
   //List of options
   const options = [
@@ -28,8 +28,11 @@ export const NoteOptions = ({ data }) => {
       }}
       onClick={(e) => {
         e.stopPropagation();
-        // text == "Delete" ? handleDeleteNote(data._id) : handleFlip(data._id, prop, true, true)
-        text == "Delete" ? handleDeleteNote(data._id) : handleFlip(data._id, prop)
+        if (text != "isPinned") {
+          // State to animate note before it exits
+          handleSetAnimate(data._id)
+        }
+        handleFlip(data._id, prop)
 
       }}
     >

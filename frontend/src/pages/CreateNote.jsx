@@ -93,60 +93,56 @@ export const CreateNote = () => {
     if (isEdit) {
       let note = notes.find(item => item._id == param._id);
       note && setInputs({ ...inputs, color: note.color, title: note.title, subtitle: note.subtitle, id: note._id })
-    
+
     }
   }, [notes])
 
   return (
-    <div className={`md:pl-10   md:py-10 ${color.bg[color.circle.findIndex(item => item == inputs.color)]}`}>
-      {loading ? <div className="h-screen flex justify-center items-center">
-        <span className="loading loading-spinner"></span>
-      </div> : <>
-        <div className="my-3">
-          <Link to={"/dashboard/note"} className={`w-8 h-8 rounded-full   flex justify-center items-center  `}>
-            <HiArrowLeft className={`${color.text[color.circle.findIndex(item => item == note?.color)]}`} />
-          </Link>
+    <div className={`p-10 col-span-6 ${color.bg[color.circle.findIndex(item => item == inputs.color)]}`}>
+      <div className="my-3">
+        <Link to={"/dashboard/note"} className={`w-8 h-8 rounded-full   flex justify-center items-center  `}>
+          <HiArrowLeft className={`${color.text[color.circle.findIndex(item => item == note?.color)]}`} />
+        </Link>
+      </div>
+
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        // Using create function if url is not editing and edit function if url is for editing
+        !isEdit ? handleCreateNote(inputs) : handleUpdateNote(inputs);
+
+      }}>
+        <div className="flex gap-x-3">
+          {color.circle.map((item, index) => (
+            <div key={index} onClick={() => handleSelectedColor(item)} className={`w-5 h-5 rounded-full ${item == inputs.color ? "outline outline-green-300 outline-offset-2" : ""}`} style={{ backgroundColor: item }}></div>
+          ))}
         </div>
 
-
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          // Using create function if url is not editing and edit function if url is for editing
-          !isEdit ? handleCreateNote(inputs) : handleUpdateNote(inputs);
-
-        }}>
-          <div className="flex gap-x-3">
-            {color.circle.map((item, index) => (
-              <div key={index} onClick={() => handleSelectedColor(item)} className={`w-5 h-5 rounded-full ${item == inputs.color ? "outline outline-green-300 outline-offset-2" : ""}`} style={{ backgroundColor: item }}></div>
-            ))}
+        <div className="grid grid-cols-1 pr-10 ">
+          <div className="col-span-1">
+            <p className="my-3">Title</p>
+            <input type="text" className="outline-none p-3 w-[100%] rounded-md" name="title" id="" onChange={handleOnChange} value={inputs.title} onFocus={handleOnFocus} ref={title} />
           </div>
 
-          <div className="grid grid-cols-1 pr-10 ">
-            <div className="col-span-1">
-              <p className="my-3">Title</p>
-              <input type="text" className="outline-none p-3 w-[100%] rounded-md" name="title" id="" onChange={handleOnChange} value={inputs.title} onFocus={handleOnFocus} ref={title} />
-            </div>
-
-            <div className="col-span-1">
-              <p className="my-3">Subtitle</p>
-              <textarea name="subtitle" id="" value={inputs.subtitle} onChange={handleOnChange} className="resize-none outline-none p-3 w-[100%] h-[300px] rounded-md" onFocus={handleOnFocus} ref={subtitle} ></textarea>
-            </div>
+          <div className="col-span-1">
+            <p className="my-3">Subtitle</p>
+            <textarea name="subtitle" id="" value={inputs.subtitle} onChange={handleOnChange} className="resize-none outline-none p-3 w-[100%] h-[300px] rounded-md" onFocus={handleOnFocus} ref={subtitle} ></textarea>
           </div>
-          <p className="text-red-500">{err}</p>
-          <div className="flex justify-end px-5  w-[80%] items-center gap-x-3 fixed bottom-3">
-            <div onClick={handleRecord} className={` w-[50px] h-[50px]   duration-1000 shadow-md   text-white text-lg ${color.audio[color.circle.findIndex(item => item == inputs.color)]} cursor-pointer flex justify-center items-center rounded-full `} >
-              {!recording ? <FaMicrophone /> : <FaMicrophoneSlash />}
-            </div>
-            <button>
-              <div className=" w-[70px] h-[70px]   duration-1000 shadow-md   text-white text-lg bg-purple-600 cursor-pointer  flex justify-center items-center rounded-full ">
-                <FaCheck />
-              </div>
-            </button>
-
+        </div>
+        <p className="text-red-500">{err}</p>
+        <div className="flex justify-end px-5  w-[80%] items-center gap-x-3 fixed bottom-3">
+          <div onClick={handleRecord} className={` w-[50px] h-[50px]   duration-1000 shadow-md   text-white text-lg ${color.audio[color.circle.findIndex(item => item == inputs.color)]} cursor-pointer flex justify-center items-center rounded-full `} >
+            {!recording ? <FaMicrophone /> : <FaMicrophoneSlash />}
           </div>
+          <button>
+            <div className=" w-[70px] h-[70px]   duration-1000 shadow-md   text-white text-lg bg-purple-600 cursor-pointer  flex justify-center items-center rounded-full ">
+              <FaCheck />
+            </div>
+          </button>
 
-        </form>
-      </>}
+        </div>
+
+      </form>
+
 
       <ToastContainer />
     </div>

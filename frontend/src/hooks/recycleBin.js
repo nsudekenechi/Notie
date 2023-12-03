@@ -27,11 +27,15 @@ export const useRecycleBin = () => {
 
     // Restoring Item from recycle bin
     const restoreRecycledNote = (id) => {
-        let recycledNotes = recycleBin.filter(item => item._id != id);
-        setRecycleBin(recycledNotes);
+
         createInDB(`notes/recycle/${id}`, {}, config).then().catch(err => {
             toast.warn(err.response.data.message)
         })
+        setAnimateRemove(id)
+        setTimeout(() => {
+            let recycledNotes = recycleBin.filter(item => item._id != id);
+            setRecycleBin(recycledNotes);
+        }, 100)
     }
     // Deleting  item from recycle bin
     const deleteRecycleNote = (id) => {

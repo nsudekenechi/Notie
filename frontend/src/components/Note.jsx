@@ -5,42 +5,43 @@ import { motion } from "framer-motion";
 import { NoteOptions } from "./Note/NoteOptions";
 import { useNote } from "../hooks/notes";
 import { TiPin } from "react-icons/ti";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { notesContext } from "../hooks/context";
 
 export const Note = ({ data }) => {
   const navigate = useNavigate();
   const { handleFlip } = useNote();
+  const [animateRemove, setAnimateRemove] = useState(null);
+  const handleSetAnimate = (id) => {
+    setAnimateRemove(id)
+  }
+  const { noteColor } = useContext(notesContext);
+ 
   return (
     <motion.div
-      className={`cursor-pointer col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px]`}
+      className={`cursor-pointer col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px] ${noteColor.bg[noteColor.color.findIndex(item=>item == data.color)]}`}
       onClick={() => {
         navigate(`/dashboard/note/viewnote/${data._id}`);
       }}
-      style={{ outline: data.isClicked ? `1px solid ${data.color}` : "" }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      style={{ outline: data.isClicked ? `1px solid ${data.color}` : ""}}
+      initial={{ opacity: 0, scale: 1 }}
+      animate={{ opacity: 1, scale: animateRemove == data._id ? 0 : 1, transition: { duration: 0.2 } }}
+
     >
       {/* Overlay of Background with reduced opacity*/}
-      <div
-        className="absolute w-[100%] h-[100%]  top-0 left-0   rounded-2xl rounded-br-[50px]"
-        style={{
-          backgroundColor: data.color,
-          opacity: 0.4,
-          zIndex: 0,
-        }}
-      ></div>
+
 
       <div className="relative z-10">
-        <NoteOptions data={data} />
+        <NoteOptions data={data} handleSetAnimate={handleSetAnimate} />
         <div className="flex justify-between items-center mb-3">
           <div className="text-3xl ">
-              {data.isPinned ? (
-                <TiPin />
-              ) : data.isFavorite ? (
-                <FaHeart style={{ color: data.color }} />
-              ) : null}
-            </div>
+            {data.isPinned ? (
+              <TiPin />
+            ) : data.isFavorite ? (
+              <FaHeart style={{ color: data.color }} />
+            ) : null}
+          </div>
           <motion.div
             onClick={(e) => {
               e.stopPropagation();

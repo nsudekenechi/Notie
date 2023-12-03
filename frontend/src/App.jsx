@@ -19,16 +19,21 @@ import Archived from './pages/Archived';
 import Logout from './pages/Logout';
 import Favorites from './pages/Favorites';
 import Recycle from './pages/Recycle';
-// import { EditNote } from "./components/EditNote";
 function App() {
   const [notes, setNotes] = useState([]);
   const [searchedNotes, setSearchedNotes] = useState([]);
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")) || JSON.parse(localStorage.getItem("user")) || null);
   const [recycleBin, setRecycleBin] = useState([]);
+  const noteColor = {
+    color: ["blue", "green", "orange"],
+    bg: ["bg-blue-600/20", "bg-green-600/20", "bg-orange-600/20"],
+    audio: ["bg-blue-600", "bg-green-600", "bg-orange-600"],
+    text: ["text-blue-600", "text-green-600", "text-orange-600"]
+  };
 
   return (
     <>
-      <notesContext.Provider value={{ notes, setNotes, user, setUser, searchedNotes, setSearchedNotes, recycleBin, setRecycleBin }}>
+      <notesContext.Provider value={{ notes, setNotes, user, setUser, searchedNotes, setSearchedNotes, recycleBin, setRecycleBin, noteColor }}>
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
