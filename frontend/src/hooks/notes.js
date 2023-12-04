@@ -192,6 +192,10 @@ export const useNote = () => {
                 toast.warn(err.response.data.message)
 
             })
+            if (note.isArchive) {
+                localStorage.setItem("options", JSON.stringify({ archive: true }))
+            }
+
         }
 
         if (prop != "isOption") {

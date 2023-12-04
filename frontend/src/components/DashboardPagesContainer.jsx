@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom"
 const DashboardPagesContainer = ({ children, loading }) => {
     const location = useLocation()
     let splitPath = location.pathname.split("/")
-    console.log(splitPath)
     return (
         <div className={`min-h-screen relative ${splitPath.length == 3 ? "p-10" : ""} `} >
             {!loading ? <>
