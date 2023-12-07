@@ -1,5 +1,5 @@
 import axios from "axios";
-let type = "local";
+let type = "online";
 const globalPath = type == "local" ? "http://localhost:5000/api/" : "https://notie-api.vercel.app/api/";
 
 export const getFromDB = (url, header) => axios.get(globalPath + url, header).then((res) => res.data);
