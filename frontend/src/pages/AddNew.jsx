@@ -1,5 +1,5 @@
 import { Note } from "../components/Note";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { notesContext } from "../hooks/context";
 import "swiper/swiper-bundle.css";
 

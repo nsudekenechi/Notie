@@ -19,7 +19,7 @@ export const Dashboard = () => {
       <DashboardHeader />
       <main className="grid grid-cols-6 ">
         <DashboardSidebar />
-        <section className="col-span-5  relative">
+        <section className="col-span-6 lg:col-span-5  relative">
           <DashboardPagesContainer loading={loading}>
             <Outlet />
           </DashboardPagesContainer>

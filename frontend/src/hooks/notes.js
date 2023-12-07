@@ -122,7 +122,7 @@ export const useNote = () => {
             // Storing notes in a container incase they're been searched
             setSearchedNotes(newNotes);
         }).catch(err => {
-            console.log(err.response.data.error)
+            toast.error(err.response.data.error)
         }).finally(() => {
             setLoading(false)
         })
@@ -156,17 +156,15 @@ export const useNote = () => {
     // Updating a note
     const handleUpdateNote = (note) => {
         setLoading(true);
+        navigate("/dashboard/note");
 
         // Updating in DB
         updateDB("notes", note, config).then(e => {
             let updatedNote = notes.map(item => item._id == e._id ? e : item);
             setNotes(updatedNote);
-            navigate("/dashboard/note");
-
-
         }).catch(err => {
-            setLoading(false);
-            toast.warn(err.response.data.message)
+            toast.error(err.response.data)
+
         }).finally(() => {
             setLoading(false);
 

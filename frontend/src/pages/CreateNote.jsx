@@ -2,8 +2,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { FaCheck, FaMicrophone, FaMicrophoneSlash } from "react-icons/fa"
 import { useNote, useSpeech } from "../hooks/notes";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { Link, useLocation, useParams } from "react-router-dom";
 import { notesContext } from "../hooks/context";
 import { HiArrowLeft } from "react-icons/hi";
@@ -91,9 +89,8 @@ export const CreateNote = () => {
 
   useEffect(() => {
     if (isEdit) {
-      let note = notes.find(item => item._id == param._id);
-      note && setInputs({ ...inputs, color: note.color, title: note.title, subtitle: note.subtitle, id: note._id })
-
+      let note = notes.find(item => item._id == param.id);
+      note && setInputs({ ...inputs, color: note.color, title: note.title, subtitle: note.subtitle, _id: note._id })
     }
   }, [notes])
 
@@ -144,7 +141,6 @@ export const CreateNote = () => {
       </form>
 
 
-      <ToastContainer />
     </div>
   );
 };
