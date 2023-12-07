@@ -110,7 +110,7 @@ export const useNote = () => {
 
 
     // Getting Notes
-    const getData = () => {
+    const getNotes = () => {
         setLoading(true)
         getFromDB("notes", config).then(notes => {
             let newNotes = notes.map(item => ({
@@ -215,7 +215,7 @@ export const useNote = () => {
         })
     }
 
-    return { getData, handleUpdateNote, handleCreateNote, handleFlip, handleUnclick, loading }
+    return { getNotes, handleUpdateNote, handleCreateNote, handleFlip, handleUnclick, loading }
 
 
 }

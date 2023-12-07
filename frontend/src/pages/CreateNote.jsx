@@ -1,24 +1,19 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaCheck, FaMicrophone, FaMicrophoneSlash } from "react-icons/fa"
 import { useNote, useSpeech } from "../hooks/notes";
-
+import { DashboardPagesContainer } from "../components/DashboardPagesContainer";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { notesContext } from "../hooks/context";
 import { HiArrowLeft } from "react-icons/hi";
+
 export const CreateNote = () => {
   const location = useLocation()
   const param = useParams()
   const isEdit = location.pathname.includes("editnote");
   // Finding Note if we're on editing mode
   const { notes } = useContext(notesContext)
-  const [note, setNote] = useState(null)
   // Creating Colors
-  const color = {
-    circle: ["blue", "green", "orange"],
-    bg: ["bg-blue-600/10", "bg-green-600/10", "bg-orange-600/10"],
-    audio: ["bg-blue-600", "bg-green-600", "bg-orange-600"],
-    text: ["text-blue-600", "text-green-600", "text-orange-600"]
-  };
+  const { noteColor } = useContext(notesContext)
 
   const title = useRef(null);
   const subtitle = useRef(null);
@@ -26,11 +21,11 @@ export const CreateNote = () => {
   const [inputs, setInputs] = useState({
     title: "",
     subtitle: "",
-    color: color.circle[0],
+    color: noteColor.color[0],
 
   })
   const [focused, setFocused] = useState("");
-  const { handleCreateNote, handleUpdateNote, err, loading } = useNote()
+  const { getNote, getNotes, handleCreateNote, handleUpdateNote, err, loading } = useNote()
   const { transcript, resetTranscript } = useSpeech(recording)
   const [initialText, setInitialText] = useState("");
   // Handles when color is selected
@@ -89,16 +84,19 @@ export const CreateNote = () => {
 
   useEffect(() => {
     if (isEdit) {
+
       let note = notes.find(item => item._id == param.id);
       note && setInputs({ ...inputs, color: note.color, title: note.title, subtitle: note.subtitle, _id: note._id })
+      console.log("HI")
+      getNotes()
     }
-  }, [notes])
 
+  }, [notes.length])
   return (
-    <div className={`p-10 col-span-6 ${color.bg[color.circle.findIndex(item => item == inputs.color)]}`}>
-      <div className="my-3">
-        <Link to={"/dashboard/note"} className={`w-8 h-8 rounded-full   flex justify-center items-center  `}>
-          <HiArrowLeft className={`${color.text[color.circle.findIndex(item => item == note?.color)]}`} />
+    <div className={`p-5 lg:p-10 col-span-6 ${noteColor.bg[noteColor.color.findIndex(item => item == inputs.color)]}`}>
+      <div className="mb-3">
+        <Link to={`/dashboard/note/viewnote/${param.id}`} className={`w-8 h-8 rounded-full   flex justify-center items-center  text-xl md:text-lg`}>
+          <HiArrowLeft className={`${noteColor.text[noteColor.color.findIndex(item => item == inputs.color)]}`} />
         </Link>
       </div>
 
@@ -109,12 +107,12 @@ export const CreateNote = () => {
 
       }}>
         <div className="flex gap-x-3">
-          {color.circle.map((item, index) => (
+          {noteColor.color.map((item, index) => (
             <div key={index} onClick={() => handleSelectedColor(item)} className={`w-5 h-5 rounded-full ${item == inputs.color ? "outline outline-green-300 outline-offset-2" : ""}`} style={{ backgroundColor: item }}></div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 pr-10 ">
+        <div className="grid grid-cols-1 lg:pr-10 ">
           <div className="col-span-1">
             <p className="my-3">Title</p>
             <input type="text" className="outline-none p-3 w-[100%] rounded-md" name="title" id="" onChange={handleOnChange} value={inputs.title} onFocus={handleOnFocus} ref={title} />
@@ -122,12 +120,12 @@ export const CreateNote = () => {
 
           <div className="col-span-1">
             <p className="my-3">Subtitle</p>
-            <textarea name="subtitle" id="" value={inputs.subtitle} onChange={handleOnChange} className="resize-none outline-none p-3 w-[100%] h-[300px] rounded-md" onFocus={handleOnFocus} ref={subtitle} ></textarea>
+            <textarea name="subtitle" id="" value={inputs.subtitle} onChange={handleOnChange} className="resize-none outline-none p-3 w-[100%] h-[50vh] rounded-md" onFocus={handleOnFocus} ref={subtitle} ></textarea>
           </div>
         </div>
         <p className="text-red-500">{err}</p>
-        <div className="flex justify-end px-5  w-[80%] items-center gap-x-3 fixed bottom-3">
-          <div onClick={handleRecord} className={` w-[50px] h-[50px]   duration-1000 shadow-md   text-white text-lg ${color.audio[color.circle.findIndex(item => item == inputs.color)]} cursor-pointer flex justify-center items-center rounded-full `} >
+        <div className="flex justify-end px-10 lg:px-5 w-[100%] lg:w-[80%] items-center gap-x-3 fixed bottom-3">
+          <div onClick={handleRecord} className={` w-[50px] h-[50px]   duration-1000 shadow-md   text-white text-lg ${noteColor.audio[noteColor.color.findIndex(item => item == inputs.color)]} cursor-pointer flex justify-center items-center rounded-full `} >
             {!recording ? <FaMicrophone /> : <FaMicrophoneSlash />}
           </div>
           <button>

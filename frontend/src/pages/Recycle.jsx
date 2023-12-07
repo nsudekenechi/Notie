@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-import DashboardPagesContainer from '../components/DashboardPagesContainer'
 import { useRecycleBin } from '../hooks/recycleBin'
 import { notesContext } from '../hooks/context'
 import { ImBin } from "react-icons/im";
@@ -18,9 +17,9 @@ const Recycle = () => {
     getRecycleBin()
   }, [])
   return (
-    <>
-      {recycleBin.length > 1 && <p className='flex items-center justify-end cursor-pointer gap-x-2  col-span-6' onClick={deleteAll}>Delete all <GoTrash /></p>}
-      <ul className='col-span-6 overflow-x-hidden py-2'>
+    <div className='col-span-6'>
+      {recycleBin.length > 1 && <p className='flex items-center justify-end cursor-pointer gap-x-2 mb-3 ' onClick={deleteAll}>Delete all <GoTrash /></p>}
+      <ul className=' overflow-x-hidden py-2'>
         {recycleBin.map((data, index) => (
 
           <motion.li key={index} className={`mb-5 border rounded-2xl  grid grid-cols-12 gap-x-5 p-3 items-center`} initial={{ translateY: 0, translateX: "0%" }} whileHover={{ translateY: 3, transition: { duration: 0.5 } }} animate={{
@@ -45,7 +44,7 @@ const Recycle = () => {
         ))}
       </ul>
       <ToastContainer />
-    </>
+    </div>
   )
 }
 

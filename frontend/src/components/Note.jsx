@@ -20,7 +20,7 @@ export const Note = ({ data }) => {
  
   return (
     <motion.div
-      className={`cursor-pointer col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px] ${noteColor.bg[noteColor.color.findIndex(item=>item == data.color)]}`}
+      className={`h-fit cursor-pointer col-span-1 text-white  p-5   relative  rounded-2xl rounded-br-[50px] ${noteColor.bg[noteColor.color.findIndex(item=>item == data.color)]}`}
       onClick={() => {
         navigate(`/dashboard/note/viewnote/${data._id}`);
       }}
