@@ -55,7 +55,7 @@ const login = async (req, res) => {
             throw new Error("Invalid Password");
         }
     } catch (err) {
-        res.status(404).json(err)
+        res.status(404).json(err.message)
     }
 }
 

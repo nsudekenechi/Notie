@@ -34,6 +34,7 @@ export const useFormValidation = (schema, url) => {
         }).catch(err => {
             setIsLoading(false);
             toast.error(err.response.data)
+            console.log(err)
         })
 
     }

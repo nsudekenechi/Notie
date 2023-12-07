@@ -5,8 +5,7 @@ import { HiMail, HiLockClosed } from "react-icons/hi";
 import { useFormValidation } from "../hooks/FormValidation";
 import * as yup from "yup";
 import { RightPanelSlider } from "../components/RightPanelSlider";
-import { useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
