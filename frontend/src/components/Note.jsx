@@ -32,7 +32,7 @@ export const Note = ({ data }) => {
       {/* Overlay of Background with reduced opacity*/}
 
 
-      <div className="relative z-10">
+      <div className="relative ">
         <NoteOptions data={data} handleSetAnimate={handleSetAnimate} />
         <div className="flex justify-between items-center mb-3">
           <div className="text-3xl ">

@@ -87,12 +87,11 @@ export const CreateNote = () => {
 
       let note = notes.find(item => item._id == param.id);
       note && setInputs({ ...inputs, color: note.color, title: note.title, subtitle: note.subtitle, _id: note._id })
-      console.log("HI")
-      getNotes()
+      if (notes.length == 0) getNotes()
     }
 
   }, [notes.length])
-  return (
+  return !loading ? (
     <div className={`p-5 lg:p-10 col-span-6 ${noteColor.bg[noteColor.color.findIndex(item => item == inputs.color)]}`}>
       <div className="mb-3">
         <Link to={`/dashboard/note/viewnote/${param.id}`} className={`w-8 h-8 rounded-full   flex justify-center items-center  text-xl md:text-lg`}>
@@ -140,5 +139,5 @@ export const CreateNote = () => {
 
 
     </div>
-  );
+  ) : <span className='loading loading-spinner loading-lg bg-purple-600 absolute left-[50%] top-[50%] translate-y-[-50%]'></span>
 };

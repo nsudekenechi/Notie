@@ -6,8 +6,8 @@ import { HiClock, HiPencil, HiArrowLeft } from "react-icons/hi";
 import { useAnimateElementOnScroll } from "../hooks/customStyle";
 import { useNote } from "../hooks/notes";
 export const ViewNote = () => {
-  const { noteColor } = useContext(notesContext)
-  const { getNotes } = useNote()
+  const { noteColor, notes } = useContext(notesContext)
+  const { getNotes, loading } = useNote()
   const color = {
     circle: ["blue", "green", "orange"],
     bg: ["bg-blue-600/10", "bg-green-600/10", "bg-orange-600/10"],
@@ -19,12 +19,12 @@ export const ViewNote = () => {
     (item) => item._id == params.id
   );
   const scroll = useAnimateElementOnScroll();
-  
+
   useEffect(() => {
-    getNotes()
-  }, [])
+    notes.length == 0 && getNotes()
+  }, [notes.length])
   return (
-    <div className={`col-span-6 p-5 md:px-10 md:py-10  flex flex-col gap-y-5 ${noteColor.bg[noteColor.color.findIndex(item => item == note?.color)]}`}>
+    !loading ? <div className={`col-span-6 p-5 md:px-10 md:py-10  flex flex-col gap-y-5 ${noteColor.bg[noteColor.color.findIndex(item => item == note?.color)]}`}>
       <Link to={"/dashboard/note"} className={`w-8 h-8 rounded-full   flex justify-center items-center  text-xl md:text-lg`}>
         <HiArrowLeft className={`${noteColor.text[noteColor.color.findIndex(item => item == note?.color)]}`} />
       </Link>
@@ -46,6 +46,6 @@ export const ViewNote = () => {
           <HiPencil className="text-2xl md:text-lg" />
         </motion.div>
       </Link>
-    </div>
+    </div> : <span className='loading loading-spinner loading-lg bg-purple-600 absolute left-[50%] top-[50%] translate-y-[-50%]'></span>
   );
 };

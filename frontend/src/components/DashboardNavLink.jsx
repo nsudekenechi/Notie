@@ -8,7 +8,7 @@ export const DashboardNavLink = ({ name, icon, to }) => {
   return (
     <NavLink
       to={"/dashboard" + to}
-      className=" pl-10 pr-2 py-3 flex capitalize w-[100%] justify-between  items-center hover:text-purple-600/50 gap-x-2 text-black/50 hover:border-r border-r-purple-600"
+      className="pl-5 md:pl-10 md:pr-2 py-3 flex capitalize w-[100%] justify-between  items-center hover:text-purple-600/50 gap-x-5 md:gap-x-2 text-black/50 hover:border-r border-r-purple-600"
     >
       <div className="flex gap-x-2 items-center"><span className="">{icon}</span>
         {name}</div>
