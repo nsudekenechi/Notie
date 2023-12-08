@@ -28,7 +28,7 @@ export const Signup = () => {
 
   return (
     <section
-      className="md:overflow-hidden md:h-[100vh]  px-5 md:px-0 md:pl-5 grid  grid-col-1 md:grid-cols-2 "
+      className="md:overflow-hidden min-h-screen px-5 md:px-0 md:pl-5 grid  grid-col-1 md:grid-cols-2 "
       id="login"
     >
       <div className="col-span-1  py-5">
