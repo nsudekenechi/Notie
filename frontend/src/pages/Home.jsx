@@ -61,7 +61,7 @@ export const Home = () => {
 
       <section className="px-5 md:px-[4vw] lg:px-[5vw]  py-10 grid gap-y-10 grid-cols-1 md:grid-cols-2  md:gap-x-10">
         <div className="col-span-1">
-          <div className="text-5xl md:text-6xl md:leading-[70px] font-bold  ">
+          <div className="text-6xl md:leading-[70px] font-bold  ">
             <HomeMotion duration={1} text={"All Your Notes"} />
             <HomeMotion duration={1} text={"Organized"} />
             <HomeMotion
