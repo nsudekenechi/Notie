@@ -13,9 +13,9 @@ export const DashboardNavLink = ({ name, icon, to }) => {
       <div className="flex gap-x-2 items-center"><span className="">{icon}</span>
         {name}</div>
 
-      {name == "archived"  &&  JSON.parse(localStorage.options).archive && notes.filter(item => item.isArchive).length > 0 && <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center text-xs text-white">{
+      {/* {name == "archived"  &&  JSON.parse(localStorage.options).archive && notes.filter(item => item.isArchive).length > 0 && <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center text-xs text-white">{
         notes.filter(item => item.isArchive).length
-      }</div>}
+      }</div>} */}
     </NavLink>
   );
 };

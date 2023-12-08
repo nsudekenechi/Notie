@@ -19,7 +19,6 @@ export const useFormValidation = (schema, url) => {
         setIsLoading(true);
         // // Making request
         createInDB(url, { ...data }, {}).then(e => {
-            // Storing to local storage if user clicks remeber me and session storage if user doesn't click remeber me
             if (data.check) {
                 localStorage.setItem("user", JSON.stringify(e));
                 // Removing session for user if it already exists
@@ -28,7 +27,7 @@ export const useFormValidation = (schema, url) => {
             } else {
                 sessionStorage.setItem("user", JSON.stringify(e));
             }
-          
+
             setUser(e);
             navigate("/dashboard/note");
         }).catch(err => {
