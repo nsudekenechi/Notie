@@ -95,7 +95,7 @@ export const Home = () => {
           </Link>
 
           <Link
-            className={`block md:hidden border text-xl lg:text-lg shadow-lg md:my-10  ${mode ? "border-white text-white" : "border-black text-black"
+            className={`block md:hidden border text-xl lg:text-lg  md:my-10  ${mode ? "border-white text-white" : "border-black text-black"
               }  p-5 rounded-full  lg:w-[50%]  flex items-center font-bold justify-center gap-x-1`}
               to={"/login"}
           >
