@@ -94,7 +94,7 @@ export const CreateNote = () => {
   return !loading ? (
     <div className={`p-5 lg:p-10 col-span-6 ${noteColor.bg[noteColor.color.findIndex(item => item == inputs.color)]}`}>
       <div className="mb-3">
-        <Link to={`/dashboard/note/viewnote/${param.id}`} className={`w-8 h-8 rounded-full   flex justify-center items-center  text-xl md:text-lg`}>
+        <Link to={`${isEdit ? `/dashboard/note/viewnote/${param.id}` : ""}`} className={`w-8 h-8 rounded-full   flex justify-center items-center  text-xl md:text-lg`}>
           <HiArrowLeft className={`${noteColor.text[noteColor.color.findIndex(item => item == inputs.color)]}`} />
         </Link>
       </div>
