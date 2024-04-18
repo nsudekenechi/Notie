@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useStyle } from "../hooks/customStyle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
-import { HomeFeedback } from "../components/HomeFeedback";
 import { BiSun, BiMoon } from "react-icons/bi";
 import { motion } from "framer-motion";
 import Typed from "react-typed";
@@ -85,7 +84,7 @@ export const Home = () => {
           <Link
             className={`text-xl lg:text-lg shadow-lg my-5 md:my-10  ${mode ? "bg-white text-black" : "bg-black text-white"
               }  p-5 rounded-full  lg:w-[50%]  flex items-center font-bold justify-center gap-x-1`}
-              to={"/signup"}
+            to={"/signup"}
           >
             Get Started
             <span
@@ -97,10 +96,10 @@ export const Home = () => {
           <Link
             className={`block md:hidden border text-xl lg:text-lg  md:my-10  ${mode ? "border-white text-white" : "border-black text-black"
               }  p-5 rounded-full  lg:w-[50%]  flex items-center font-bold justify-center gap-x-1`}
-              to={"/login"}
+            to={"/login"}
           >
             Login
-           
+
           </Link>
 
           {/* <hr className={`w-14 border-dashed ${borderColor} opacity-40`} /> */}
@@ -164,9 +163,16 @@ export const Home = () => {
                 className="w-[100%] h-[100%]  object-cover lg:object-contain"
                 alt=""
               />
+
             </SwiperSlide>
           </Swiper>
         </div>
+        <img
+          src="./Img/flatex.png"
+          className="w-[100%] h-[100%]  object-cover lg:object-contain"
+          alt=""
+          hidden
+        />
       </section>
     </div>
   );
